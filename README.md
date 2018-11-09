@@ -15,7 +15,7 @@ The main repository for the Mitblick app
 
 - Postman (for REST development)
 
-- npm (for frontend, eg Angular and co.)
+- Node.js (for frontend, eg Angular and co.)
 
 Google them and you will find them.
 
