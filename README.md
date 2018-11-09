@@ -28,7 +28,7 @@ Just choose 'New ->Project from version control->Git'
    
    -> Put in the link of this repo and click ok 
 
-#### How to install the current project on your mashine?
+#### How to install the current project on your machine?
 
 1.) Download and install all the software I listed above
 
