@@ -1,6 +1,5 @@
 package user.dao;
 
-import user.entities.Role;
 import user.entities.User;
 
 import javax.ejb.Stateless;
@@ -54,23 +53,6 @@ public class UserPersistenceManager {
     }
 
 
-    /**
-     * Returns a user entity with the matching username wrapped in an optional.
-     * If none exist, returns an empty Optional Object
-     *
-     * @param username : String containing the username.
-     * @return : Optional, containing a user entity.
-     */
-    public Optional<User> getUserByUsername(@NotNull String username) {
-        TypedQuery<User> q = em.createNamedQuery(User.GET_USER_BY_USERNAME, User.class)
-                .setParameter("username", username);
-        try {
-            return Optional.of(q.getSingleResult());
-        } catch (NoResultException ex) {
-            return Optional.empty();
-        }
-
-    }
 
     /**
      * Returns a user optional containing a user entity
@@ -89,24 +71,6 @@ public class UserPersistenceManager {
         }
     }
 
-
-    /**
-     * Persists a user in the database.
-     *
-     * @param role : role entity to be created, should not be null
-     */
-    public void createRole(@NotNull Role role) {
-        em.persist(role);
-    }
-
-    /**
-     * Removes a role from the database.
-     *
-     * @param role : role entity to be removed, should not be null
-     */
-    public void removeRole(Role role) {
-        em.remove(role);
-    }
 
 
     /**

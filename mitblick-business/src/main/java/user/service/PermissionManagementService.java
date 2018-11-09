@@ -10,7 +10,6 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -39,20 +38,19 @@ public class PermissionManagementService {
      * If the user  already has the role, this method will do nothing.
      *
      * @param roleType
-     * @param username
+     * @param email
      */
-    public void addRoleToUser(String roleType, String username, String requester) throws BusinessException {
+    public void addRoleToUser(String roleType, String email) throws BusinessException {
 
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
-        Optional<User> userRequesterOptional = userPersistenceManager.getUserByUsername(requester);
+        Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         Role role = addRoleIfNotExists(roleType);
-        List<User> receivers = new ArrayList<>();
         if (!userOptional.isPresent()) {
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
         } else {
             User user = userOptional.get();
+            //The adding gets done here
             normalizeUserRoles(user);
-
+            user.getRoles().add(role);
 
         }
 
@@ -81,14 +79,12 @@ public class PermissionManagementService {
      * If the specified roleType doesn't exist, nothing happens.
      *
      * @param roleType
-     * @param username
+     * @param email
      */
-    public void revokeRoleFromUser(String roleType, String username, String requester) throws BusinessException {
+    public void revokeRoleFromUser(String roleType, String email) throws BusinessException {
 
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
+        Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         Optional<Role> roleOptional = permissionPersistenceManager.getRoleByType(roleType);
-        Optional<User> userRequesterOptional = userPersistenceManager.getUserByUsername(requester);
-        List<User> receivers = new ArrayList<>();
         if (roleOptional.isPresent()) {
             if (!userOptional.isPresent()) {
                 throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);

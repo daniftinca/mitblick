@@ -22,7 +22,7 @@ public class Permission extends BaseEntity {
     public static final String GET_ALL_PERMISSIONS = "get_all_permissions";
     @Transient
     private static final int MAX_STRING_LENGTH = 200;
-    @Column(name = "type", nullable = false, length = MAX_STRING_LENGTH, unique = true)
+    @Column(name = "type", nullable = false, unique = true)
     private String type;
 
     @Column(name = "description")

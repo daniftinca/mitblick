@@ -3,7 +3,6 @@ package boundary;
 import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
-import exception.ExceptionCode;
 import user.dto.UserDTO;
 import user.service.UserManagementService;
 import utils.Secured;
@@ -70,9 +69,6 @@ public class UserManagementBoundary {
             userManagementService.deactivateUser(username);
             return Response.ok().build();
         } catch (BusinessException e) {
-            if (e.getExceptionCode() == ExceptionCode.USER_HAS_ASSIGNED_BUGS) {
-                return Response.status(Response.Status.FOUND).entity(e.getExceptionCode()).build();
-            }
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getExceptionCode()).build();
         }
     }
@@ -131,19 +127,19 @@ public class UserManagementBoundary {
     /**
      * Returns the roles of a user.
      *
-     * @param username
+     * @param email
      * @return
      */
     @GET
     @Path("/get-roles-of-user")
     @Produces("application/json")
     @Consumes("application/json")
-    public Response getRolesOfUser(@QueryParam("username") String username) {
+    public Response getRolesOfUser(@QueryParam("email") String email) {
         try {
             return Response
                     .ok(
                             new Gson().toJson(userManagementService
-                                    .getUserForUsername(username)
+                                    .getUserForEmail(email)
                                     .getRoles())
                     )
                     .build();

@@ -40,10 +40,8 @@ public class UserManagementService {
      * @throws BusinessException
      */
     public UserDTO createUser(UserDTO userDTO) throws BusinessException {
-        normalizeUserDTO(userDTO);
         validateUserForCreation(userDTO);
         User user = UserDTOHelper.toEntity(userDTO);
-        user.setUsername(user.getEmail());
         user.setActive(true);
         user.setPassword(Encryptor.encrypt(userDTO.getPassword()));
         userPersistenceManager.createUser(user);
@@ -66,22 +64,12 @@ public class UserManagementService {
     }
 
 
-    /**
-     * Trims stuff (first and last name)
-     *
-     * @param userDTO
-     */
-    private void normalizeUserDTO(UserDTO userDTO) {
-        userDTO.setFirstName(userDTO.getFirstName().trim());
-        userDTO.setLastName(userDTO.getLastName().trim());
-    }
 
 
     private boolean validateFields(UserDTO userDTO) {
         return
                 userDTO.getEmail() != null
-                        && isValidEmail(userDTO.getEmail())
-                        && isValidPhoneNumber(userDTO.getPhoneNumber());
+                        && isValidEmail(userDTO.getEmail());
     }
 
     private boolean isValidForCreation(UserDTO userDTO) throws BusinessException {
@@ -111,11 +99,11 @@ public class UserManagementService {
      * Deactivates a user, removing them the ability to login, but keeping their bugs, comments, etc.
      * Additionally creates the specific notification.
      *
-     * @param username
+     * @param email
      */
-    public void deactivateUser(String username) throws BusinessException {
+    public void deactivateUser(String email) throws BusinessException {
 
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
+        Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         User user = userOptional.orElseThrow(() -> new BusinessException(ExceptionCode.USERNAME_NOT_VALID));
         user.setActive(false);
         userPersistenceManager.updateUser(user);
@@ -126,10 +114,10 @@ public class UserManagementService {
     /**
      * Activates a user, granting them the ability to login.
      *
-     * @param username
+     * @param email
      */
-    public void activateUser(String username) throws BusinessException {
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
+    public void activateUser(String email) throws BusinessException {
+        Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         User user = userOptional.orElseThrow(() -> new BusinessException(ExceptionCode.USERNAME_NOT_VALID));
         user.setActive(true);
         userPersistenceManager.updateUser(user);
@@ -154,13 +142,13 @@ public class UserManagementService {
      * corresponding DTO. Otherwise it will throw an exception.
      * If there were more than 5 failed login attempts for the user, it will deactivate the user.
      *
-     * @param username
+     * @param email
      * @param password
      * @return a user DTO if it succeeds.
      * @throws BusinessException
      */
-    public UserDTO login(String username, String password) throws BusinessException {
-        Optional<User> userOptional = userPersistenceManager.getUserByUsername(username);
+    public UserDTO login(String email, String password) throws BusinessException {
+        Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         if (!userOptional.isPresent()) {
             throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
         }
@@ -169,7 +157,7 @@ public class UserManagementService {
             int failedAttempts = user.getFailedAttempts() == null ? 1 : user.getFailedAttempts() + 1;
             user.setFailedAttempts(failedAttempts);
             if (userOptional.get().getFailedAttempts() > MAX_FAILED_LOGN_ATTEMPTS) {
-                deactivateUser(username);
+                deactivateUser(email);
             }
             throw new BusinessException(ExceptionCode.PASSWORD_NOT_VALID);
         }
@@ -183,25 +171,18 @@ public class UserManagementService {
     }
 
 
-    private boolean isValidPhoneNumber(String phonenumber) {
-        final Pattern validPhoneAddressRegex =
-                Pattern.compile("(^\\+49)|(^\\+40)|(^0049)|(^0040)|(^0[1-9][1-9])", Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = validPhoneAddressRegex.matcher(phonenumber);
-        return matcher.find();
-    }
 
 
     /**
      * Returns the user entity with the given username.
      *
-     * @param username
+     * @param email
      * @return
      * @throws BusinessException
      */
-    public User getUserForUsername(String username) throws BusinessException {
+    public User getUserForEmail(String email) throws BusinessException {
         return userPersistenceManager
-                .getUserByUsername(username)
+                .getUserByEmail(email)
                 .orElseThrow(() -> new BusinessException(ExceptionCode.USERNAME_NOT_VALID));
     }
 
@@ -232,19 +213,14 @@ public class UserManagementService {
      */
     public UserDTO updateUser(UserDTO userDTO) throws BusinessException {
 
-        Optional<User> userBeforeOptional = userPersistenceManager.getUserByUsername(userDTO.getUsername());
+        Optional<User> userBeforeOptional = userPersistenceManager.getUserByEmail(userDTO.getEmail());
 
         if (userBeforeOptional.isPresent()) {
             User userBefore = userBeforeOptional.get();
-            UserDTO userBeforeDto = UserDTOHelper.fromEntity(userBefore);
-            normalizeUserDTO(userDTO);
             validateUserForUpdate(userDTO);
-
             User userAfter = UserDTOHelper.updateEntityWithDTO(userBefore, userDTO);
 
-
             userPersistenceManager.updateUser(userAfter);
-
 
             return userDTO;
         } else {

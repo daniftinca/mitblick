@@ -1,30 +1,12 @@
 package user.dto;
 
 public class UserDTO {
-    private String firstName;
-    private String lastName;
-    private String username;
     private String password;
     private String email;
-    private String phoneNumber;
     private Boolean isActive;
 
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public Boolean getActive() {
         return isActive;
@@ -32,14 +14,6 @@ public class UserDTO {
 
     public void setActive(Boolean active) {
         isActive = active;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -58,22 +32,10 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     @Override
     public String toString() {
         return "UserDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
