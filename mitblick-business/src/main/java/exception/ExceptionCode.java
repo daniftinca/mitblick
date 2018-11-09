@@ -7,6 +7,7 @@ public enum ExceptionCode {
     UNKNOWN_EXCEPTION(1000, "Unknown Exception"),
     USER_VALIDATION_EXCEPTION(1001, "Validation Exception"),
     EMAIL_EXISTS_ALREADY(1001, "Email already exists Exception"),
+    EMAIL_NOT_FOUND(1001, "User is not registered with this email, or is not registered at all."),
     PASSWORD_NOT_VALID(1002, "Password not valid."),
     USER_DEACTIVATED(1004, "User deactivated"),
     TOKEN_EXPIRED(1005, "Token expired"),

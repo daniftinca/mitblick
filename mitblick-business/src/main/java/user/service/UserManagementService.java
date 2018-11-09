@@ -104,7 +104,7 @@ public class UserManagementService {
     public void deactivateUser(String email) throws BusinessException {
 
         Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
-        User user = userOptional.orElseThrow(() -> new BusinessException(ExceptionCode.USERNAME_NOT_VALID));
+        User user = userOptional.orElseThrow(() -> new BusinessException(ExceptionCode.EMAIL_NOT_FOUND));
         user.setActive(false);
         userPersistenceManager.updateUser(user);
 
@@ -118,7 +118,7 @@ public class UserManagementService {
      */
     public void activateUser(String email) throws BusinessException {
         Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
-        User user = userOptional.orElseThrow(() -> new BusinessException(ExceptionCode.USERNAME_NOT_VALID));
+        User user = userOptional.orElseThrow(() -> new BusinessException(ExceptionCode.EMAIL_NOT_FOUND));
         user.setActive(true);
         userPersistenceManager.updateUser(user);
 
@@ -150,7 +150,7 @@ public class UserManagementService {
     public UserDTO login(String email, String password) throws BusinessException {
         Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         if (!userOptional.isPresent()) {
-            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
         if (!Encryptor.encrypt(password).equals(userOptional.get().getPassword())) {
             User user = userOptional.get();
@@ -183,7 +183,7 @@ public class UserManagementService {
     public User getUserForEmail(String email) throws BusinessException {
         return userPersistenceManager
                 .getUserByEmail(email)
-                .orElseThrow(() -> new BusinessException(ExceptionCode.USERNAME_NOT_VALID));
+                .orElseThrow(() -> new BusinessException(ExceptionCode.EMAIL_NOT_FOUND));
     }
 
     /**
@@ -198,7 +198,7 @@ public class UserManagementService {
         if (userOptional.isPresent()) {
             return userOptional.get();
         } else {
-            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
 
@@ -224,7 +224,7 @@ public class UserManagementService {
 
             return userDTO;
         } else {
-            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
 

@@ -45,7 +45,7 @@ public class PermissionManagementService {
         Optional<User> userOptional = userPersistenceManager.getUserByEmail(email);
         Role role = addRoleIfNotExists(roleType);
         if (!userOptional.isPresent()) {
-            throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         } else {
             User user = userOptional.get();
             //The adding gets done here
@@ -87,7 +87,7 @@ public class PermissionManagementService {
         Optional<Role> roleOptional = permissionPersistenceManager.getRoleByType(roleType);
         if (roleOptional.isPresent()) {
             if (!userOptional.isPresent()) {
-                throw new BusinessException(ExceptionCode.USERNAME_NOT_VALID);
+                throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
             } else {
                 User user = userOptional.get();
                 normalizeUserRoles(user);

@@ -31,7 +31,7 @@ public class AuthenticationBoundary {
     /**
      * Authenticates a user and creates a JWT token for him and returns it.
      *
-     * @param username
+     * @param email
      * @param password
      * @param securityContext
      * @return
@@ -39,12 +39,12 @@ public class AuthenticationBoundary {
     @POST
     @Produces("application/json")
     @Consumes("application/x-www-form-urlencoded")
-    public Response authenticateUser(@FormParam("username") String username,
+    public Response authenticateUser(@FormParam("email") String email,
                                      @FormParam("password") String password, @Context SecurityContext securityContext) {
         try {
 
-            userManagement.login(username, password);
-            User user = userManagement.getUserForUsername(username);
+            userManagement.login(email, password);
+            User user = userManagement.getUserForEmail(email);
             String token = issueToken(user);
             return Response.ok("{\"token\": \"" + token + "\"}").build();
         } catch (BusinessException e) {
@@ -67,13 +67,8 @@ public class AuthenticationBoundary {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             return JWT.create()
-                    .withIssuer(user.getUsername())
                     .withExpiresAt(out)
-                    .withClaim("firstName", user.getFirstName())
-                    .withClaim("lastName", user.getLastName())
-                    .withClaim("username", user.getUsername())
                     .withClaim("email", user.getEmail())
-                    .withClaim("phone", user.getPhoneNumber())
                     .withClaim("role", rolesJson)
                     .sign(algorithm);
 

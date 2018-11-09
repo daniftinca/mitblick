@@ -69,7 +69,7 @@ public class PermissionManagementBoundary {
     /**
      * Adds a role to a user.
      *
-     * @param username
+     * @param email
      * @param roleType
      * @param headers
      * @return
@@ -78,11 +78,11 @@ public class PermissionManagementBoundary {
     @Secured("PERMISSION_MANAGEMENT")
     @Consumes("application/x-www-form-urlencoded")
     @Path("/add-role-to-user")
-    public Response addRoleToUser(@FormParam("username") String username,
+    public Response addRoleToUser(@FormParam("email") String email,
                                   @FormParam("roleType") String roleType,
                                   @Context HttpHeaders headers) {
         try {
-            permissionManagementController.addRoleToUser(roleType, username, getRequester(headers));
+            permissionManagementController.addRoleToUser(roleType, email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
@@ -92,7 +92,7 @@ public class PermissionManagementBoundary {
     /**
      * Revokes a role from a user.
      *
-     * @param username
+     * @param email
      * @param roleType
      * @param headers
      * @return
@@ -101,11 +101,11 @@ public class PermissionManagementBoundary {
     @Secured("PERMISSION_MANAGEMENT")
     @Produces("application/json")
     @Path("/revoke-role-from-user")
-    public Response revokeRoleFromUser(@FormParam("username") String username,
+    public Response revokeRoleFromUser(@FormParam("username") String email,
                                        @FormParam("roleType") String roleType,
                                        @Context HttpHeaders headers) {
         try {
-            permissionManagementController.revokeRoleFromUser(roleType, username, getRequester(headers));
+            permissionManagementController.revokeRoleFromUser(roleType, email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
