@@ -37,7 +37,7 @@ Just choose 'New ->Project from version control->Git'
 **It needs a password** 
 
 3.) Open the DB server, create a new DB, name it whatever, I used **mitblick**
-#####This is how the glassfish config has to go, it's the hardest part:  
+##### This is how the glassfish config has to go, it's the hardest part:  
    - [Add it to IntelliJ](https://www.youtube.com/watch?v=7hNq06II-UM)
    - Once added, run it and go to it's admin console (by default [localhost:4848](http://localhost:4848/))  
    - follow [this tutorial](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-glassfish-config.html)
