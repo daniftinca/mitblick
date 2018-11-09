@@ -60,7 +60,7 @@ Choose `Lifecycle`
 
 Choose `install`
 
-####What is maven?
+#### What is maven?
 Maven is a dependency management tool and helps us keep all our dependencies organized. 
 
 It is already configured, so you don't need to worry to much about it unless you need to use other libraries.
