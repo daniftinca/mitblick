@@ -1,9 +1,9 @@
 # Mitblick
 The main repository for the Mitblick app
 
-##How to install the dev environment required to work on this app?
+## How to install the dev environment required to work on this app?
 
-####What software is required? 
+#### What software is required? 
 
 - IntelliJ (IDE, register for the student version)
 
