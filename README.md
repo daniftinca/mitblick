@@ -3,6 +3,7 @@ The main repository for the Mitblick app
 
 ## Learning materials: 
 [Beginner Angular Tutorial](https://www.freecodecamp.org/news/beaucarnes/angular-tutorial-course--OHbjepWjQ)
+
 [Git beginner Tutorial](https://medium.freecodecamp.org/how-not-to-be-afraid-of-git-anymore-fe1da7415286)
 
 ## How to install the dev environment required to work on this app?
