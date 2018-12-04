@@ -1,4 +1,4 @@
-package boundary;
+package user.boundary;
 
 import com.auth0.jwt.JWT;
 import com.google.gson.Gson;

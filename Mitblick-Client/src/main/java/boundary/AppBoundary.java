@@ -4,6 +4,9 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import filter.AuthenticationFilter;
 import filter.CorsFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import user.boundary.AuthenticationBoundary;
+import user.boundary.PermissionManagementBoundary;
+import user.boundary.UserManagementBoundary;
 
 import javax.servlet.Registration;
 import javax.ws.rs.ApplicationPath;

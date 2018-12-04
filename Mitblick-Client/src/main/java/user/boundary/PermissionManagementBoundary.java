@@ -1,10 +1,9 @@
-package boundary;
+package user.boundary;
 
 import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import user.service.PermissionManagementService;
-import user.service.UserManagementService;
 import utils.Secured;
 
 import javax.ejb.EJB;
@@ -15,8 +14,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/manage-permissions")
 public class PermissionManagementBoundary {
-    @EJB
-    private UserManagementService userManagementController;
+
 
     @EJB
     private PermissionManagementService permissionManagementController;

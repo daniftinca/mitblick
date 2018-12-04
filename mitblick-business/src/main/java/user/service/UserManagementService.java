@@ -3,7 +3,6 @@ package user.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
-import user.dao.PermissionPersistenceManager;
 import user.dao.UserPersistenceManager;
 import user.dto.UserDTO;
 import user.dto.UserDTOHelper;
@@ -29,8 +28,6 @@ public class UserManagementService {
     @EJB
     private UserPersistenceManager userPersistenceManager;
 
-    @EJB
-    private PermissionPersistenceManager permissionPersistenceManager;
 
     /**
      * Creates a user entity using a user DTO.
