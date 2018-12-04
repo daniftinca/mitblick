@@ -17,7 +17,8 @@ import java.util.Set;
 @ApplicationPath("rest/")
 public class AppBoundary extends Application {
 
-    /*Some test comment*/
+    /*Some test comment
+     * Another test comment*/
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> classes = new HashSet<>();
