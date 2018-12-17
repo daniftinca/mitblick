@@ -60,9 +60,6 @@ public class UserManagementService {
 
     }
 
-
-
-
     private boolean validateFields(UserDTO userDTO) {
         return
                 userDTO.getEmail() != null
