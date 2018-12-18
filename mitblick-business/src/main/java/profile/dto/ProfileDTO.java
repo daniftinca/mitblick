@@ -1,15 +1,14 @@
 package profile.dto;
 
-import com.sun.mail.iap.ByteArray;
-
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class ProfileDTO {
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
-    private ByteArray photo;
+    private byte[] photo;
 
     //must be changed
     private List<String> skills;
@@ -20,20 +19,20 @@ public class ProfileDTO {
     public ProfileDTO() {
     }
 
-    public ProfileDTO(String name, String email, ByteArray photo, List<String> skills, List<String> projekts) {
-        this.name = name;
-        this.email = email;
-        this.photo = photo;
-        this.skills = skills;
-        this.projekts = projekts;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getName() {
-        return name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -44,11 +43,11 @@ public class ProfileDTO {
         this.email = email;
     }
 
-    public ByteArray getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(ByteArray photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -69,28 +68,12 @@ public class ProfileDTO {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProfileDTO that = (ProfileDTO) o;
-        return getName().equals(that.getName()) &&
-                getEmail().equals(that.getEmail()) &&
-                Objects.equals(getPhoto(), that.getPhoto()) &&
-                Objects.equals(getSkills(), that.getSkills()) &&
-                Objects.equals(getProjekts(), that.getProjekts());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getEmail(), getPhoto(), getSkills(), getProjekts());
-    }
-
-    @Override
     public String toString() {
         return "ProfileDTO{" +
-                "name='" + name + '\'' +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", photo=" + photo.toString() +
+                ", photo=" + Arrays.toString(photo) +
                 ", skills=" + skills.toString() +
                 ", projekts=" + projekts.toString() +
                 '}';

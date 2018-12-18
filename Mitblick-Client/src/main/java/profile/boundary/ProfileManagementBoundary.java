@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import exception.BusinessException;
 import profile.dto.ProfileDTO;
 import profile.service.ProfileManagementService;
-import utils.Secured;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -18,8 +17,7 @@ public class ProfileManagementBoundary {
     private ProfileManagementService profileManagementService;
 
     @GET
-    @Secured("PROFILE_MANAGEMENT")
-    @Path("/get-all-profiles")
+    @Path("/get-all")
     public Response getAll(@Context SecurityContext securityContext) {
 
         try {
@@ -34,18 +32,22 @@ public class ProfileManagementBoundary {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    @Path("/update-user")
+    @Path("/update")
     public Response update(ProfileDTO profileDTO, @Context HttpHeaders headers) {
+        try {
 
-        profileManagementService.update(profileDTO);
-        return Response.ok().build();
+            profileManagementService.update(profileDTO);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
     }
 
     @POST
-    @Path("/register-user")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response register(final ProfileDTO profileDTO) {
+    public Response create(final ProfileDTO profileDTO) {
 
         try {
             profileManagementService.create(profileDTO);

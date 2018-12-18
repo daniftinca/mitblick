@@ -2,21 +2,24 @@ package profile.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
-import interfaces.DAO;
-import interfaces.Service;
-import profil.dao.ProfilePersistenceManager;
-import profil.entities.Profile;
+import profile.dao.ProfilePersistenceManager;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
+import profile.entities.Profile;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-public class ProfileManagementService implements Service<ProfileDTO> {
+@Stateless
+public class ProfileManagementService {
 
-    private DAO profilePersistenceManager = new ProfilePersistenceManager();
+    @EJB
+    private ProfilePersistenceManager profilePersistenceManager;
 
     //must be changed
     private String skillService;
@@ -25,37 +28,48 @@ public class ProfileManagementService implements Service<ProfileDTO> {
     private String projektService;
 
 
-    @Override
     public ProfileDTO create(ProfileDTO profileDTO) throws BusinessException {
-        validateProfileForCreation(profileDTO);
+        validateForCreation(profileDTO);
         Profile profile = ProfileDTOHelper.toEntity(profileDTO);
         profilePersistenceManager.create(profile);
         return ProfileDTOHelper.fromEntity(profile);
     }
 
-    @Override
-    public void update(ProfileDTO profile) {
-        profilePersistenceManager.update(profile);
+    public ProfileDTO update(ProfileDTO profileDTO) throws BusinessException {
+        Optional<Profile> profileBeforeOptional = profilePersistenceManager.getByEmail(profileDTO.getEmail());
+
+        if (profileBeforeOptional.isPresent()) {
+            Profile profileBefore = profileBeforeOptional.get();
+            validateForUpdate(profileDTO);
+            Profile profileAfter = ProfileDTOHelper.updateEntityWithDTO(profileBefore, profileDTO);
+
+            profilePersistenceManager.update(profileAfter);
+
+            return profileDTO;
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
     }
 
-    @Override
-    public void delete(ProfileDTO profile) {
-        profilePersistenceManager.delete(profile);
-    }
-
-    @Override
     public List<ProfileDTO> getAll() {
-        return profilePersistenceManager.getAll();
+        return profilePersistenceManager.getAll()
+                .stream()
+                .map(ProfileDTOHelper::fromEntity)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public Optional<ProfileDTO> getById(Long id) {
-        return profilePersistenceManager.getById(id);
+    public Profile getById(Long id) throws BusinessException {
+        Optional<Profile> profileOptional = profilePersistenceManager.getById(id);
+        if (profileOptional.isPresent()) {
+            return profileOptional.get();
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
     }
 
-    private void validateProfileForCreation(ProfileDTO profileDTO) throws BusinessException {
+    private void validateForCreation(ProfileDTO profileDTO) throws BusinessException {
         if (!isValidForCreation(profileDTO)) {
-            throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+            throw new BusinessException(ExceptionCode.PROFILE_VALIDATION_EXCEPTION);
         }
     }
 
@@ -66,12 +80,10 @@ public class ProfileManagementService implements Service<ProfileDTO> {
     }
 
     private boolean isValidForCreation(ProfileDTO profileDTO) throws BusinessException {
-        ProfilePersistenceManager p = (ProfilePersistenceManager) profilePersistenceManager;
-        if (p.getByEmail(profileDTO.getEmail()).isPresent()) {
+        if (profilePersistenceManager.getByEmail(profileDTO.getEmail()).isPresent()) {
             throw new BusinessException(ExceptionCode.EMAIL_EXISTS_ALREADY);
         }
-        return validateFields(profileDTO)
-                && profileDTO.getName() != null;
+        return validateFields(profileDTO);
     }
 
     private boolean isValidEmail(String email) {
@@ -79,6 +91,12 @@ public class ProfileManagementService implements Service<ProfileDTO> {
                 Pattern.compile("^[a-zA-Z][A-Za-z0-9._]*@[a-zA-z]+.[a-z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = validEmailAddressRegex.matcher(email);
         return matcher.find();
+    }
+
+    private void validateForUpdate(ProfileDTO profileDTO) throws BusinessException {
+        if (!validateFields(profileDTO)) {
+            throw new BusinessException(ExceptionCode.PROFILE_VALIDATION_EXCEPTION);
+        }
     }
 
 }
