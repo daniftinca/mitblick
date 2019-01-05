@@ -1,14 +1,29 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './navbar/navbar.component';
+import {MatButtonModule, MatMenuModule, MatToolbarModule} from "@angular/material";
+import {UserModule} from "../user/user.module";
+import {RouterModule, Routes} from "@angular/router";
+import {LoginComponent} from "../user/login/login.component";
 
+const loginRoutes: Routes = [
+  {path: 'login', component: LoginComponent},
+];
 @NgModule({
   declarations: [NavbarComponent],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    UserModule,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule,
+    RouterModule.forChild(loginRoutes)
   ]
 })
 export class NavigationModule {
