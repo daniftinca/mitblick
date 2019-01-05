@@ -19,9 +19,6 @@ public class Skill extends BaseEntity {
     @Column(name = "name", unique = true)
     private String name;
 
-    public Skill(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {
