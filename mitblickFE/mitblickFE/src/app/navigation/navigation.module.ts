@@ -5,9 +5,11 @@ import {MatButtonModule, MatMenuModule, MatToolbarModule} from "@angular/materia
 import {UserModule} from "../user/user.module";
 import {RouterModule, Routes} from "@angular/router";
 import {LoginComponent} from "../user/login/login.component";
+import {ProfileComponent} from "../user/profile/profile.component";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent},
 ];
 @NgModule({
   declarations: [NavbarComponent],
