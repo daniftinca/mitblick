@@ -12,7 +12,8 @@ public enum ExceptionCode {
     USER_DEACTIVATED(1004, "User deactivated"),
     TOKEN_EXPIRED(1005, "Token expired"),
     USER_PERMISSION_VALIDATION(2001, "User does not have this permission"),
-    ROLE_DOESNT_EXIST(2002, "User does not have this permission");
+    ROLE_DOESNT_EXIST(2002, "User does not have this permission"),
+    SKILL_VALIDATION_EXCEPTION(3000, "Skill Validation Exception");
     int id;
     String message;
 
