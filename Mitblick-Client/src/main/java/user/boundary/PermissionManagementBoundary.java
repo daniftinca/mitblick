@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import user.service.PermissionManagementService;
-import utils.Secured;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -28,7 +27,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @POST
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Produces("application/json")
     @Path("/add-permission-to-role")
     public Response addPermissionToRole(@FormParam("permissionType") String permissionType,
@@ -45,7 +44,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @POST
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Produces("application/json")
     @Path("/revoke-permission-from-role")
     public Response revokePermissionFromRole(@FormParam("permissionType") String permissionType,
@@ -73,7 +72,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @POST
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Consumes("application/x-www-form-urlencoded")
     @Path("/add-role-to-user")
     public Response addRoleToUser(@FormParam("email") String email,
@@ -96,7 +95,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @POST
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Produces("application/json")
     @Path("/revoke-role-from-user")
     public Response revokeRoleFromUser(@FormParam("username") String email,
@@ -117,7 +116,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @GET
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Path("/get-all-permissions")
     @Produces("application/json")
     public Response getAllPermissions() {
@@ -133,7 +132,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @GET
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Path("/get-all-roles")
     @Produces("application/json")
     public Response getAllRoles() {
@@ -149,7 +148,7 @@ public class PermissionManagementBoundary {
      * @return
      */
     @GET
-    @Secured("PERMISSION_MANAGEMENT")
+    //@Secured("PERMISSION_MANAGEMENT")
     @Path("/get-permissions-for-role")
     @Produces("application/json")
     @Consumes("application/json")

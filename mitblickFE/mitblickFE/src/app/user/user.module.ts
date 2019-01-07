@@ -2,7 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginComponent} from './login/login.component';
 import {RouterModule} from "@angular/router";
-import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSnackBarModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatSnackBarModule
+} from "@angular/material";
 import {ProfileComponent} from './profile/profile.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./token-interceptor.service";
@@ -21,7 +28,8 @@ import {FormsModule} from "@angular/forms";
     HttpModule,
     HttpClientModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
 
   ],
   exports: [LoginComponent, RouterModule],

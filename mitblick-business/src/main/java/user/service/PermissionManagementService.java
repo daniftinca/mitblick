@@ -133,7 +133,7 @@ public class PermissionManagementService {
         Role role;
         if (!roleOptional.isPresent()) {
             role = new Role();
-            role.setType("roleType");
+            role.setType(roleType);
             permissionPersistenceManager.createRole(role);
         } else {
             role = roleOptional.get();
