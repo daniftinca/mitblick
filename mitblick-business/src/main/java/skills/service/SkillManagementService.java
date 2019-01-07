@@ -2,17 +2,21 @@ package skills.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
+import skills.dao.SkillAreaPersistenceManager;
 import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillDTO;
 import skills.dto.SkillDTOHelper;
 import skills.entities.Skill;
+import skills.entities.SkillArea;
 
 import javax.ejb.EJB;
+import java.util.Optional;
 
 public class SkillManagementService {
 
     @EJB
     private SkillPersistenceManager skillPersistenceManager;
+    private SkillAreaPersistenceManager skillAreaPersistenceManager;
 
     /**
      * Creats a skill entity using a skill DTO.
@@ -21,23 +25,62 @@ public class SkillManagementService {
      * @return the skill DTO of the created entity
      * @throws BusinessException
      */
-    public SkillDTO createSkill(SkillDTO skillDTO) throws BusinessException {
-        validateSkillForCreation(skillDTO);
+    public SkillDTO createSkill(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
+        validateSkillForCreation(skillDTO, skillAreaName);
         Skill skill = SkillDTOHelper.toEntity(skillDTO);
         skillPersistenceManager.create(skill);
+        Optional<SkillArea> skillArea = skillAreaPersistenceManager.getByName(skillAreaName);
+        skillArea.get().getSkills().add(skill);
         return SkillDTOHelper.fromEntity(skill);
     }
 
-    private void validateSkillForCreation(SkillDTO skillDTO) throws BusinessException {
-        if (!isValidForCreation(skillDTO)) {
+    private void validateSkillForCreation(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
+        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isEmpty()) || skillAreaPersistenceManager.getByName(skillAreaName).isEmpty()) {
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
         }
     }
 
-    private boolean isValidForCreation(SkillDTO skillDTO) throws BusinessException {
-        //validate Skill
+    public void validateSkillForUpdate(SkillDTO skillDTO) throws BusinessException {
+        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isEmpty()))
+            throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
+    }
 
-        return true;
+    public void validateSkillForDElete(SkillDTO skillDTO) throws BusinessException {
+        if (skillPersistenceManager.getByName(skillDTO.getName()).isEmpty())
+            throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
+    }
+
+    public SkillDTO updateSkill(SkillDTO skillDTO) throws BusinessException {
+
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillDTO.getName());
+
+        if (skillBeforeOptional.isPresent()) {
+            Skill skillBefore = skillBeforeOptional.get();
+            validateSkillForUpdate(skillDTO);
+            Skill skillAfter = SkillDTOHelper.updateEntityWithDTO(skillBefore, skillDTO);
+
+            skillPersistenceManager.update(skillAfter);
+
+            return skillDTO;
+        } else {
+            throw new BusinessException(ExceptionCode.SKILL_NOT_FOUND);
+        }
+    }
+
+    public void deleteSkill(SkillDTO skillDTO) throws BusinessException {
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillDTO.getName());
+
+        if (skillBeforeOptional.isPresent()) {
+            Skill skillBefore = skillBeforeOptional.get();
+            validateSkillForDElete(skillDTO);
+
+            Skill skill = SkillDTOHelper.toEntity(skillDTO);
+            skillAreaPersistenceManager.deleteSkill(skill);
+
+            skillPersistenceManager.update(skill);
+        } else {
+            throw new BusinessException(ExceptionCode.SKILL_NOT_FOUND);
+        }
     }
 
 

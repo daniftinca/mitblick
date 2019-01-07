@@ -20,7 +20,7 @@ public class SkillDTOHelper {
         return skill;
     }
 
-    public static Skill updateEntityWIthDTO(Skill skill, SkillDTO skillDTO) {
+    public static Skill updateEntityWithDTO(Skill skill, SkillDTO skillDTO) {
         skill.setName(skillDTO.getName());
         return skill;
     }

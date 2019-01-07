@@ -7,14 +7,15 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "skills")
 @NamedQueries(
         {
                 @NamedQuery(name = SkillArea.GET_SKILLAREA_BY_NAME, query = "SELECT s FROM SkillArea s WHERE s.name = :name")
+                @NamedQuery(name = SkillArea.GET_ALL_SKILLAREAS, query = "SELECT s FROM SkillArea s")
         }
 )
 public class SkillArea extends BaseEntity {
     public static final String GET_SKILLAREA_BY_NAME = "get_skillArea_by_name";
+    public static final String GET_ALL_SKILLAREAS = "get_skillAreas";
     @Column(name = "name", unique = true)
     private String name;
     @Column(name = "description")
@@ -46,9 +47,6 @@ public class SkillArea extends BaseEntity {
         this.skills = skills;
     }
 
-    public void addSkillToSkillArea(Skill skill) {
-        this.skills.add(skill);
-    }
 
     @Override
     public String toString() {
