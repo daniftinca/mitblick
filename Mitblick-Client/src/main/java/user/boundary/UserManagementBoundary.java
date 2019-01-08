@@ -40,15 +40,15 @@ public class UserManagementBoundary {
     /**
      * Activates a user.
      *
-     * @param username
+     * @param email
      * @return
      */
     @POST
     @Produces("application/json")
     @Path("/activate-user")
-    public Response activateUser(@FormParam("username") String username) {
+    public Response activateUser(@FormParam("email") String email) {
         try {
-            userManagementService.activateUser(username);
+            userManagementService.activateUser(email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getExceptionCode()).build();
@@ -58,15 +58,15 @@ public class UserManagementBoundary {
     /**
      * Deactivates a User
      *
-     * @param username
+     * @param email
      * @return
      */
     @POST
     @Produces("application/json")
     @Path("/deactivate-user")
-    public Response deactivateUser(@FormParam("username") String username) {
+    public Response deactivateUser(@FormParam("email") String email) {
         try {
-            userManagementService.deactivateUser(username);
+            userManagementService.deactivateUser(email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getExceptionCode()).build();
@@ -97,7 +97,7 @@ public class UserManagementBoundary {
     private String getRequester(@Context HttpHeaders headers) {
         String authorizationHeader = headers.getRequestHeader("authorization").get(0);
         String token = authorizationHeader.substring("Bearer".length()).trim();
-        return JWT.decode(token).getClaim("username").asString();
+        return JWT.decode(token).getClaim("email").asString();
 
     }
 
