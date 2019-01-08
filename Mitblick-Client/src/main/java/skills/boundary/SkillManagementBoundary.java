@@ -6,10 +6,7 @@ import skills.dto.SkillDTO;
 import skills.service.SkillManagementService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -49,15 +46,14 @@ public class SkillManagementBoundary {
      * @return
      */
     @POST
-    @Path("/add-skill")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createSkill(final SkillDTO skillDTO, String skillAreaName) {
+    @Path("/add-skill/{skillareaname}")
+    public Response createSkill(final SkillDTO skillDTO, @PathParam("skillareaname") String skillAreaName) {
 
         try {
 
             skillManagementService.createSkill(skillDTO, skillAreaName);
-
             return Response.status(Response.Status.CREATED).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

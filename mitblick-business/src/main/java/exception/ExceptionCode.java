@@ -14,7 +14,8 @@ public enum ExceptionCode {
     USER_PERMISSION_VALIDATION(2001, "User does not have this permission"),
     ROLE_DOESNT_EXIST(2002, "User does not have this permission"),
     SKILL_VALIDATION_EXCEPTION(3000, "Skill Validation Exception"),
-    SKILL_NOT_FOUND(3001, "Skill does not exist");
+    SKILL_NOT_FOUND(3001, "Skill does not exist"),
+    SKILLAREA_VALIDATION_EXCEPTION(4000, "Skill area is not valid");
     int id;
     String message;
 
