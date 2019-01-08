@@ -44,7 +44,7 @@ public class SkillAreaPersistenceManager {
 
         try {
             Optional<List<SkillArea>> skillAreas = Optional.of(q.getResultList());
-            if (!skillAreas.isEmpty())
+            if (!(skillAreas.get().isEmpty()))
                 skillAreas.get().forEach(skillArea -> skillArea.getSkills().remove(skill));
         } catch (NoResultException ex) {
 

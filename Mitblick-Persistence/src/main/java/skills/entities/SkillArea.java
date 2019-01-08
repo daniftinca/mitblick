@@ -9,7 +9,7 @@ import java.util.Objects;
 @Entity
 @NamedQueries(
         {
-                @NamedQuery(name = SkillArea.GET_SKILLAREA_BY_NAME, query = "SELECT s FROM SkillArea s WHERE s.name = :name")
+                @NamedQuery(name = SkillArea.GET_SKILLAREA_BY_NAME, query = "SELECT s FROM SkillArea s WHERE s.name = :name"),
                 @NamedQuery(name = SkillArea.GET_ALL_SKILLAREAS, query = "SELECT s FROM SkillArea s")
         }
 )

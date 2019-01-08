@@ -35,18 +35,18 @@ public class SkillManagementService {
     }
 
     private void validateSkillForCreation(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
-        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isEmpty()) || skillAreaPersistenceManager.getByName(skillAreaName).isEmpty()) {
+        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()) || skillAreaPersistenceManager.getByName(skillAreaName).isPresent()) {
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
         }
     }
 
     public void validateSkillForUpdate(SkillDTO skillDTO) throws BusinessException {
-        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isEmpty()))
+        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()))
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
     }
 
     public void validateSkillForDElete(SkillDTO skillDTO) throws BusinessException {
-        if (skillPersistenceManager.getByName(skillDTO.getName()).isEmpty())
+        if (skillPersistenceManager.getByName(skillDTO.getName()).isPresent())
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
     }
 
