@@ -4,6 +4,8 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import filter.AuthenticationFilter;
 import filter.CorsFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import skills.boundary.SkillAreaManagementBoundary;
+import skills.boundary.SkillManagementBoundary;
 import profile.boundary.ProfileManagementBoundary;
 import user.boundary.AuthenticationBoundary;
 import user.boundary.PermissionManagementBoundary;
@@ -32,6 +34,8 @@ public class AppBoundary extends Application {
         classes.add(ProfileManagementBoundary.class);
         classes.add(CorsFilter.class);
         classes.add(MultiPartFeature.class);
+        classes.add(SkillManagementBoundary.class);
+        classes.add(SkillAreaManagementBoundary.class);
         return classes;
     }
 }

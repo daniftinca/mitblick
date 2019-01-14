@@ -2,12 +2,14 @@ package skills.entities;
 
 import user.entities.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.util.Objects;
 
 
 @Entity
-@Table(name = "skills")
 @NamedQueries(
         {
                 @NamedQuery(name = Skill.GET_SKILL_BY_NAME, query = "SELECT s FROM Skill s WHERE s.name = :name")

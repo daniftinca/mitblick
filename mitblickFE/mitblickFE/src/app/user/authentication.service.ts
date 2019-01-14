@@ -67,7 +67,7 @@ export class AuthenticationService {
 
   public isLoggedIn() {
 
-    console.log("hello");
+
     if (!localStorage['expires_at']) {
       return false;
     }
