@@ -21,12 +21,6 @@ public class ProfileManagementService {
     @EJB
     private ProfilePersistenceManager profilePersistenceManager;
 
-    //must be changed
-    private String skillService;
-
-    //must be changed
-    private String projektService;
-
 
     public ProfileDTO create(ProfileDTO profileDTO) throws BusinessException {
         validateForCreation(profileDTO);
@@ -46,6 +40,16 @@ public class ProfileManagementService {
             profilePersistenceManager.update(profileAfter);
 
             return profileDTO;
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
+    }
+
+    public void delete(ProfileDTO profileDTO) throws BusinessException {
+        Optional<Profile> profile = profilePersistenceManager.getByEmail(profileDTO.getEmail());
+
+        if (profile.isPresent()) {
+            profilePersistenceManager.delete(profile.get());
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }

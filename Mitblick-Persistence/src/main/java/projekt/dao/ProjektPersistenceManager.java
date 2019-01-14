@@ -1,6 +1,6 @@
-package profile.dao;
+package projekt.dao;
 
-import profile.entities.Profile;
+import projekt.entities.Projekt;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,35 +12,32 @@ import java.util.List;
 import java.util.Optional;
 
 @Stateless
-public class ProfilePersistenceManager {
+public class ProjektPersistenceManager {
 
     @PersistenceContext(unitName = "mitblick-persistence")
     private EntityManager em;
 
-
-    public Profile create(@NotNull Profile profile) {
-        em.persist(profile);
+    public Projekt create(@NotNull Projekt projekt) {
+        em.persist(projekt);
         em.flush();
-        return profile;
+        return projekt;
     }
 
-
-    public void update(Profile profile) {
-        em.merge(profile);
+    public void update(Projekt projekt) {
+        em.merge(projekt);
     }
 
-    public void delete(Profile profile) {
-        em.remove(profile);
+    public void delete(Projekt projekt) {
+        em.remove(projekt);
     }
 
-    public List<Profile> getAll() {
-        return em.createNamedQuery(Profile.GET_ALL_PROFILES, Profile.class)
+    public List<Projekt> getAll() {
+        return em.createNamedQuery(Projekt.GET_ALL_PROJEKTS, Projekt.class)
                 .getResultList();
     }
 
-
-    public Optional<Profile> getById(@NotNull Long id) {
-        TypedQuery<Profile> q = em.createNamedQuery(Profile.GET_PROFILE_BY_ID, Profile.class)
+    public Optional<Projekt> getById(@NotNull Long id) {
+        TypedQuery<Projekt> q = em.createNamedQuery(Projekt.GET_PROJEKT_BY_ID, Projekt.class)
                 .setParameter("id", id);
         try {
             return Optional.of(q.getSingleResult());
@@ -49,13 +46,14 @@ public class ProfilePersistenceManager {
         }
     }
 
-    public Optional<Profile> getByEmail(@NotNull String email) {
-        TypedQuery<Profile> q = em.createNamedQuery(Profile.GET_PROFILE_BY_EMAIL, Profile.class)
-                .setParameter("email", email);
+    public Optional<Projekt> getByName(@NotNull String name) {
+        TypedQuery<Projekt> q = em.createNamedQuery(Projekt.GET_PROJEKT_BY_NAME, Projekt.class)
+                .setParameter("name", name);
         try {
             return Optional.of(q.getSingleResult());
         } catch (NoResultException ex) {
             return Optional.empty();
         }
     }
+
 }
