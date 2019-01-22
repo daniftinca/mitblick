@@ -81,4 +81,43 @@ public class SkillAreaManagementService {
         }
     }
 
+    public void addSkillToSkillArea(String skillName, String skillAreaName)throws BusinessException{
+        Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaName);
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillName);
+
+        if(skillAreaBeforeOptional.isPresent() && skillBeforeOptional.isPresent()){
+            SkillArea skillArea = skillAreaBeforeOptional.get();
+            Skill skill = skillBeforeOptional.get();
+            if(!skillArea.getSkills().contains(skill))
+                skillArea.getSkills().add(skill);
+            else
+                throw new BusinessException(ExceptionCode.SKILL_IN_SKILLAREA_VALIDATION_EXCEPTION);
+        }
+        else
+            throw new BusinessException(ExceptionCode.SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION);
+    }
+
+    public void removeSkillFromSkillArea(String skillName, String skillAreaName)throws BusinessException{
+        Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaName);
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillName);
+
+        if(skillAreaBeforeOptional.isPresent() && skillBeforeOptional.isPresent()){
+            SkillArea skillArea = skillAreaBeforeOptional.get();
+            Skill skill = skillBeforeOptional.get();
+            if(skillArea.getSkills().contains(skill)) {
+                List<SkillArea> skillAreas = skillAreaPersistenceManager.getBySkill(skill);
+                if(!skillAreas.isEmpty() && skillAreas.size() == 1){
+                    skillArea.getSkills().remove(skill);
+                    skillPersistenceManager.delete(skill);
+                }
+                else
+                    skillArea.getSkills().remove(skill);
+            }
+            else
+                throw new BusinessException(ExceptionCode.SKILL_NOT_IN_SKILLAREA_VALIDATION_EXCEPTION);
+        }
+        else
+            throw new BusinessException(ExceptionCode.SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION);
+    }
+
 }

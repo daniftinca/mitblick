@@ -85,4 +85,32 @@ public class SkillAreaManagementBoundary {
         }
     }
 
+    @POST
+    @Path("/add-skill")
+    @Consumes({"application/x-www-form-urlencoded"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addSkillToSkillArea(@FormParam("skillName") String skillName,@FormParam("skillAreaName") String skillAreaName) {
+
+        try {
+            skillAreaManagementService.addSkillToSkillArea(skillName,skillAreaName);
+            return Response.status(Response.Status.OK).build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+    @POST
+    @Path("/remove-skill")
+    @Consumes({"application/x-www-form-urlencoded"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeSkillFromSkillArea(@FormParam("skillName") String skillName,@FormParam("skillAreaName") String skillAreaName) {
+
+        try {
+            skillAreaManagementService.removeSkillFromSkillArea(skillName,skillAreaName);
+            return Response.status(Response.Status.OK).build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
 }

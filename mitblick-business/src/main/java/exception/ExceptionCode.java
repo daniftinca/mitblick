@@ -20,6 +20,9 @@ public enum ExceptionCode {
     SKILL_NOT_FOUND(3001, "Skill does not exist"),
     SKILLAREA_VALIDATION_EXCEPTION(4000, "Skill area is not valid"),
     SKILL_SKILLAREA_VALIDATION_EXCEPTION(40001, "Skill area is not defined and can't be used for this skill"),
+    SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION(4002, "Skill or Skillarea does not exist."),
+    SKILL_IN_SKILLAREA_VALIDATION_EXCEPTION(4003, "Skill already exists in Skillarea."),
+    SKILL_NOT_IN_SKILLAREA_VALIDATION_EXCEPTION(4004, "Skill does not exist in Skillarea, can't be removed."),
     PROJEKT_VALIDATION_EXCEPTION(123, "Projekt validation exception");
     int id;
     String message;
