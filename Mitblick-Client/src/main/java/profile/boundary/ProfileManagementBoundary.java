@@ -104,4 +104,19 @@ public class ProfileManagementBoundary {
         }
     }
 
+    @POST
+    @Path("/add-skill")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addSkill(@FormParam("skillName") String skillName,
+                             @FormParam("email") String email,
+                             @Context HttpHeaders headers) {
+        try {
+            profileManagementService.addSkill(skillName, email);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
 }

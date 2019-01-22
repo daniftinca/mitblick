@@ -48,6 +48,10 @@ public class Profile extends BaseEntity {
     public Profile() {
     }
 
+    public Profile(String email) {
+        this.email = email;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -128,4 +132,5 @@ public class Profile extends BaseEntity {
                 ", projekts=" + projekts.toString() +
                 '}';
     }
+
 }

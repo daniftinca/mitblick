@@ -6,7 +6,9 @@ import profile.dao.ProfilePersistenceManager;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
 import profile.entities.Profile;
+import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillDTO;
+import skills.entities.Skill;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -21,6 +23,9 @@ public class ProfileManagementService {
 
     @EJB
     private ProfilePersistenceManager profilePersistenceManager;
+
+    @EJB
+    private SkillPersistenceManager skillPersistenceManager;
 
 
     public ProfileDTO create(ProfileDTO profileDTO) throws BusinessException {
@@ -114,6 +119,24 @@ public class ProfileManagementService {
     private void validateForUpdate(ProfileDTO profileDTO) throws BusinessException {
         if (!validateFields(profileDTO)) {
             throw new BusinessException(ExceptionCode.PROFILE_VALIDATION_EXCEPTION);
+        }
+    }
+
+    public ProfileDTO addSkill(String skillName, String email) throws BusinessException {
+        Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
+        Optional<Skill> skillOptional = skillPersistenceManager.getByName(skillName);
+
+        if (profileOptional.isPresent() && skillOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            Skill skill = skillOptional.get();
+
+            profile.getSkills().add(skill);
+
+            profilePersistenceManager.update(profile);
+
+            return ProfileDTOHelper.fromEntity(profile);
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
 

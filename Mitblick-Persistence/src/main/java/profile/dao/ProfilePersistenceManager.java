@@ -38,7 +38,6 @@ public class ProfilePersistenceManager {
                 .getResultList();
     }
 
-
     public Optional<Profile> getById(@NotNull Long id) {
         TypedQuery<Profile> q = em.createNamedQuery(Profile.GET_PROFILE_BY_ID, Profile.class)
                 .setParameter("id", id);
@@ -58,4 +57,5 @@ public class ProfilePersistenceManager {
             return Optional.empty();
         }
     }
+
 }
