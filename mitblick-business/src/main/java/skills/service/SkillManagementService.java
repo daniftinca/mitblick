@@ -66,6 +66,7 @@ public class SkillManagementService {
             SkillDTO skillDTO = new SkillDTO();
             skillDTO.setName(newName);
             Skill skillAfter = SkillDTOHelper.updateEntityWithDTO(skillBefore, skillDTO);
+
             skillPersistenceManager.update(skillAfter);
 
             return skillDTO;

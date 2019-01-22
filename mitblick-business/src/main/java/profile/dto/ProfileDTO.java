@@ -1,7 +1,7 @@
 package profile.dto;
 
-import projekt.entities.Projekt;
-import skills.entities.Skill;
+import projekt.dto.ProjektDTO;
+import skills.dto.SkillDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +13,9 @@ public class ProfileDTO {
     private String email;
     private byte[] photo;
 
-    private List<Skill> skills;
+    private List<SkillDTO> skills;
 
-    private List<Projekt> projekts;
+    private List<ProjektDTO> projekts;
 
     public ProfileDTO() {
     }
@@ -52,19 +52,19 @@ public class ProfileDTO {
         this.photo = photo;
     }
 
-    public List<Skill> getSkills() {
+    public List<SkillDTO> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(List<SkillDTO> skills) {
         this.skills = skills;
     }
 
-    public List<Projekt> getProjekts() {
+    public List<ProjektDTO> getProjekts() {
         return projekts;
     }
 
-    public void setProjekts(List<Projekt> projekts) {
+    public void setProjekts(List<ProjektDTO> projekts) {
         this.projekts = projekts;
     }
 

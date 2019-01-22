@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import exception.BusinessException;
 import user.dto.UserDTO;
 import user.service.UserManagementService;
-import utils.Secured;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -25,7 +24,7 @@ public class UserManagementBoundary {
      * @return
      */
     @GET
-    @Secured("USER_MANAGEMENT")
+    //@Secured("USER_MANAGEMENT")
     @Path("/get-all-users")
     public Response getAllUsers(@Context SecurityContext securityContext) {
         try {

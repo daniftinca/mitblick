@@ -29,6 +29,39 @@ public class ProfileManagementBoundary {
         }
     }
 
+
+    @POST
+    @Path("/get-by-id")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getById(long id, @Context SecurityContext securityContext) {
+
+        try {
+            ProfileDTO profile = profileManagementService.getById(id);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @POST
+    @Path("/get-by-email")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByEmail(String email, @Context SecurityContext securityContext) {
+
+        try {
+            ProfileDTO profile = profileManagementService.getByEmail(email);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+
+
     @POST
     @Consumes("application/json")
     @Produces("application/json")

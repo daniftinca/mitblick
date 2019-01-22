@@ -6,6 +6,7 @@ import profile.dao.ProfilePersistenceManager;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
 import profile.entities.Profile;
+import skills.dto.SkillDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -62,10 +63,19 @@ public class ProfileManagementService {
                 .collect(Collectors.toList());
     }
 
-    public Profile getById(Long id) throws BusinessException {
+    public ProfileDTO getById(Long id) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getById(id);
         if (profileOptional.isPresent()) {
-            return profileOptional.get();
+            return ProfileDTOHelper.fromEntity(profileOptional.get());
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
+    }
+
+    public ProfileDTO getByEmail(String email) throws BusinessException {
+        Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
+        if (profileOptional.isPresent()) {
+            return ProfileDTOHelper.fromEntity(profileOptional.get());
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
@@ -95,6 +105,10 @@ public class ProfileManagementService {
                 Pattern.compile("^[a-zA-Z][A-Za-z0-9._]*@[a-zA-z]+.[a-z]+$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = validEmailAddressRegex.matcher(email);
         return matcher.find();
+    }
+
+    private boolean isValidSkills(List<SkillDTO> skills) {
+        return false;
     }
 
     private void validateForUpdate(ProfileDTO profileDTO) throws BusinessException {
