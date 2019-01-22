@@ -1,3 +1,21 @@
+# Tasks to finish:
+- [] admin add/edit users fe + generate pwd
+- [] on the edit user screen, have the possibility to add/remove roles
+- [] user profile consisting of:
+    -personal info
+    -skills
+    -projects
+- [] edit profile button + screen where you can crud skills and projects and edit personal info
+**Elevated Users:**
+- [] see all profiles, try infinite scrolling
+- [] sorts/filters
+- [] click on a profile to see more details
+- [] export to pdf
+- [] mass export to pdf as zip
+- [] screen to manage skills and skill areas
+
+
+
 # Mitblick
 The main repository for the Mitblick app
 
