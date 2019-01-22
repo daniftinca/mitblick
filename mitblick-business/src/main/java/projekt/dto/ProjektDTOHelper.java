@@ -2,6 +2,9 @@ package projekt.dto;
 
 import projekt.entities.Projekt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProjektDTOHelper {
 
     private ProjektDTOHelper() {
@@ -32,6 +35,22 @@ public class ProjektDTOHelper {
         projekt.setDescription(projektDTO.getDescription());
 
         return projekt;
+    }
+
+    public static List<ProjektDTO> fromEntity(List<Projekt> projekts) {
+        List<ProjektDTO> projektDTOs = new ArrayList<ProjektDTO>();
+        for (Projekt projekt : projekts) {
+            projektDTOs.add(fromEntity(projekt));
+        }
+        return projektDTOs;
+    }
+
+    public static List<Projekt> toEntity(List<ProjektDTO> projektDTOs) {
+        List<Projekt> projekts = new ArrayList<Projekt>();
+        for (ProjektDTO projekt : projektDTOs) {
+            projekts.add(toEntity(projekt));
+        }
+        return projekts;
     }
 
     public static Projekt updateEntityWithDTO(Projekt projekt, ProjektDTO projektDTO) {

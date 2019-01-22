@@ -1,6 +1,8 @@
 package profile.dto;
 
 import profile.entities.Profile;
+import projekt.dto.ProjektDTOHelper;
+import skills.dto.SkillDTOHelper;
 
 public class ProfileDTOHelper {
 
@@ -16,8 +18,8 @@ public class ProfileDTOHelper {
         profileDTO.setLastName(profile.getLastName());
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setPhoto(profile.getPhoto());
-        profileDTO.setSkills(profile.getSkills());
-        profileDTO.setProjekts(profile.getProjekts());
+        profileDTO.setSkills(SkillDTOHelper.fromEntity(profile.getSkills()));
+        profileDTO.setProjekts(ProjektDTOHelper.fromEntity(profile.getProjekts()));
 
         return profileDTO;
     }
@@ -30,8 +32,8 @@ public class ProfileDTOHelper {
         profile.setLastName(profileDTO.getLastName());
         profile.setEmail(profileDTO.getEmail());
         profile.setPhoto(profileDTO.getPhoto());
-        profile.setSkills(profileDTO.getSkills());
-        profile.setProjekts(profileDTO.getProjekts());
+        profile.setSkills(SkillDTOHelper.toEntity(profileDTO.getSkills()));
+        profile.setProjekts(ProjektDTOHelper.toEntity(profileDTO.getProjekts()));
 
         return profile;
     }
@@ -49,10 +51,10 @@ public class ProfileDTOHelper {
             profile.setPhoto(profileDTO.getPhoto());
         }
         if (profileDTO.getSkills() != null) {
-            profile.setSkills(profileDTO.getSkills());
+            profile.setSkills(SkillDTOHelper.toEntity(profileDTO.getSkills()));
         }
         if (profileDTO.getProjekts() != null) {
-            profile.setProjekts(profileDTO.getProjekts());
+            profile.setProjekts(ProjektDTOHelper.toEntity(profileDTO.getProjekts()));
         }
         return profile;
     }
