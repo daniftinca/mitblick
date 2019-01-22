@@ -106,7 +106,7 @@ public class ProfileManagementBoundary {
 
     @POST
     @Path("/add-skill")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addSkill(@FormParam("skillName") String skillName,
                              @FormParam("email") String email,

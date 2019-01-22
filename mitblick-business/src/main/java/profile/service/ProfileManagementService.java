@@ -130,7 +130,12 @@ public class ProfileManagementService {
             Profile profile = profileOptional.get();
             Skill skill = skillOptional.get();
 
-            profile.getSkills().add(skill);
+            if (profile.getSkills().indexOf(skill) < 0) {
+                profile.getSkills().add(skill);
+            } else {
+                throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
+            }
+
 
             profilePersistenceManager.update(profile);
 
