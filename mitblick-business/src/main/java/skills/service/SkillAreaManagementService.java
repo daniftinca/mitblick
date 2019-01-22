@@ -6,10 +6,12 @@ import skills.dao.SkillAreaPersistenceManager;
 import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillAreaDTO;
 import skills.dto.SkillAreaDTOHelper;
+import skills.entities.Skill;
 import skills.entities.SkillArea;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 import java.util.Optional;
 
 @Stateless
@@ -28,7 +30,7 @@ public class SkillAreaManagementService {
     }
 
     public void validateSkillAreaForDelete(SkillAreaDTO skillAreaDTO)throws BusinessException{
-        if (skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent())
+        if (!(skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent()))
             throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
     }
 
@@ -44,20 +46,21 @@ public class SkillAreaManagementService {
         return SkillAreaDTOHelper.fromEntity(skillArea);
     }
 
-    public SkillAreaDTO updateSkillArea(SkillAreaDTO skillAreaDTO) throws BusinessException {
+    public SkillAreaDTO updateSkillArea(String oldName, SkillAreaDTO skillAreaDTO) throws BusinessException {
 
-        Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaDTO.getName());
+        Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(oldName);
 
         if (skillAreaBeforeOptional.isPresent()) {
             SkillArea skillAreaBefore = skillAreaBeforeOptional.get();
-            validateSkillAreaForUpdate(skillAreaDTO);
+            if(!oldName.equals(skillAreaDTO.getName()))
+                validateSkillAreaForUpdate(skillAreaDTO);
             SkillArea skillAreaAfter = SkillAreaDTOHelper.updateEntityWIthDTO(skillAreaBefore, skillAreaDTO);
 
             skillAreaPersistenceManager.update(skillAreaAfter);
 
             return skillAreaDTO;
         } else {
-            throw new BusinessException(ExceptionCode.SKILL_NOT_FOUND);
+            throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
         }
     }
 
@@ -65,15 +68,16 @@ public class SkillAreaManagementService {
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaDTO.getName());
 
         if (skillAreaBeforeOptional.isPresent()) {
-            //SkillArea skillAreaBefore = skillAreaBeforeOptional.get();
-            validateSkillAreaForDelete(skillAreaDTO);
-            SkillArea skillArea = SkillAreaDTOHelper.toEntity(skillAreaDTO);
-            skillArea.getSkills().forEach(skill -> skillPersistenceManager.delete(skill));
-            skillAreaPersistenceManager.delete(skillArea);
-
-            skillAreaPersistenceManager.update(skillArea);
+            SkillArea skillAreaBefore = skillAreaBeforeOptional.get();
+            skillAreaBefore.getSkills().forEach(skill -> {
+                List<SkillArea> skillAreas = skillAreaPersistenceManager.getBySkill(skill);
+                if(!skillAreas.isEmpty() && skillAreas.size() == 1){
+                    skillPersistenceManager.delete(skill);
+                }
+            });
+            skillAreaPersistenceManager.delete(skillAreaBefore);
         } else {
-            throw new BusinessException(ExceptionCode.SKILL_NOT_FOUND);
+            throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
         }
     }
 

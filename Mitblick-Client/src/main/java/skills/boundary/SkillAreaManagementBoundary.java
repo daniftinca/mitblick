@@ -37,28 +37,26 @@ public class SkillAreaManagementBoundary {
         }
     }
 
-    @GET
-    @Path("/somthing")
-    public Response doSomthign(){
-        return Response.status(Response.Status.CREATED).build();
-    }
-
 
     /**
      * Updates a skill area.
      *
-     * @param skillAreaDTO
+     * @param oldName
+     * @param newName
+     * @param newDescription
      * @param headers
      * @return
      */
     @POST
-    @Consumes("application/json")
+    @Consumes({"application/x-www-form-urlencoded"})
     @Produces("application/json")
     @Path("/update-skill-area")
-    public Response updateSkillArea(SkillAreaDTO skillAreaDTO, @Context HttpHeaders headers) {
+    public Response updateSkillArea(@FormParam("oldName") String oldName,@FormParam("newName") String newName,@FormParam("newDescription") String newDescription, @Context HttpHeaders headers) {
         try {
-
-            skillAreaManagementService.updateSkillArea(skillAreaDTO);
+            SkillAreaDTO skillAreaDTO = new SkillAreaDTO();
+            skillAreaDTO.setName(newName);
+            skillAreaDTO.setDescription(newDescription);
+            skillAreaManagementService.updateSkillArea(oldName, skillAreaDTO);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
@@ -81,7 +79,7 @@ public class SkillAreaManagementBoundary {
         try {
 
             skillAreaManagementService.deleteSkillArea(skillAreaDTO);
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Stateless
@@ -40,6 +41,33 @@ public class SkillAreaPersistenceManager {
         }
     }
 
+    public Optional<List<SkillArea>> getAll(){
+        TypedQuery<SkillArea> q = em.createNamedQuery(SkillArea.GET_ALL_SKILLAREAS, SkillArea.class);
+        try {
+            Optional<List<SkillArea>> skillAreas = Optional.of(q.getResultList());
+            return  skillAreas;
+        } catch (NoResultException ex) {
+            return  Optional.empty();
+        }
+    }
+
+    public List<SkillArea> getBySkill(Skill skill){
+        Optional<List<SkillArea>> optionalSkillAreas = getAll();
+        List<SkillArea> skillAreaList = new ArrayList<SkillArea>();
+        if(optionalSkillAreas.isPresent()){
+            List<SkillArea> skillAreas = optionalSkillAreas.get();
+            if(!skillAreas.isEmpty()) {
+                skillAreas.forEach(skillArea -> {
+                    skillArea.getSkills().forEach(eachskill -> {
+                        if (eachskill.getName() == skill.getName())
+                            skillAreaList.add(skillArea);
+                    });
+                });
+            }
+        }
+        return skillAreaList;
+    }
+
     public void deleteSkill(Skill skill) {
         TypedQuery<SkillArea> q = em.createNamedQuery(SkillArea.GET_ALL_SKILLAREAS, SkillArea.class);
 
@@ -47,6 +75,7 @@ public class SkillAreaPersistenceManager {
             Optional<List<SkillArea>> skillAreas = Optional.of(q.getResultList());
             if (!(skillAreas.get().isEmpty()))
                 skillAreas.get().forEach(skillArea -> skillArea.getSkills().remove(skill));
+            //skillAreas.get();
         } catch (NoResultException ex) {
 
         }

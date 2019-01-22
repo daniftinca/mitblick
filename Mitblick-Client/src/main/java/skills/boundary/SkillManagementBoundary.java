@@ -21,18 +21,19 @@ public class SkillManagementBoundary {
     /**
      * Updates a skill.
      *
-     * @param skillDTO
+     * @param oldName
+     * @param newName
      * @param headers
      * @return
      */
     @POST
-    @Consumes("application/json")
+    @Consumes("application/x-www-form-urlencoded")
     @Produces("application/json")
     @Path("/update-skill")
-    public Response updateSkill(SkillDTO skillDTO, @Context HttpHeaders headers) {
+    public Response updateSkill(@FormParam("oldName") String oldName,@FormParam("newName") String newName, @Context HttpHeaders headers) {
         try {
 
-            skillManagementService.updateSkill(skillDTO);
+            skillManagementService.updateSkill(oldName,newName);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
@@ -52,7 +53,6 @@ public class SkillManagementBoundary {
     public Response createSkill(final SkillDTO skillDTO, @PathParam("skillareaname") String skillAreaName) {
 
         try {
-
             skillManagementService.createSkill(skillDTO, skillAreaName);
             return Response.status(Response.Status.CREATED).build();
         } catch (BusinessException e) {
@@ -76,7 +76,7 @@ public class SkillManagementBoundary {
 
             skillManagementService.deleteSkill(skillDTO);
 
-            return Response.status(Response.Status.CREATED).build();
+            return Response.status(Response.Status.OK).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }

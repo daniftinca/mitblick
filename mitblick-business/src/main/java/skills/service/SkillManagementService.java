@@ -18,6 +18,7 @@ public class SkillManagementService {
 
     @EJB
     private SkillPersistenceManager skillPersistenceManager;
+    @EJB
     private SkillAreaPersistenceManager skillAreaPersistenceManager;
 
     /**
@@ -28,39 +29,43 @@ public class SkillManagementService {
      * @throws BusinessException
      */
     public SkillDTO createSkill(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
-        validateSkillForCreation(skillDTO, skillAreaName);
+        Optional<SkillArea> skillArea = validateSkillForCreation(skillDTO, skillAreaName);
         Skill skill = SkillDTOHelper.toEntity(skillDTO);
         skillPersistenceManager.create(skill);
-        Optional<SkillArea> skillArea = skillAreaPersistenceManager.getByName(skillAreaName);
         skillArea.get().getSkills().add(skill);
         return SkillDTOHelper.fromEntity(skill);
     }
 
-    private void validateSkillForCreation(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
-        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()) || skillAreaPersistenceManager.getByName(skillAreaName).isPresent()) {
+    private Optional<SkillArea> validateSkillForCreation(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
+        Optional<Skill> skillOptional = skillPersistenceManager.getByName(skillDTO.getName());
+        Optional<SkillArea> skillAreaOptional = skillAreaPersistenceManager.getByName(skillAreaName);
+        if (skillOptional.isPresent()) {
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
         }
+        if(!(skillAreaOptional.isPresent()))
+            throw new BusinessException(ExceptionCode.SKILL_SKILLAREA_VALIDATION_EXCEPTION);
+        return skillAreaOptional;
     }
 
-    public void validateSkillForUpdate(SkillDTO skillDTO) throws BusinessException {
+//    public void validateSkillForUpdate(SkillDTO skillDTO) throws BusinessException {
+//        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()))
+//            throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
+//    }
+
+    public void validateSkillForDelete(SkillDTO skillDTO) throws BusinessException {
         if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()))
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
     }
 
-    public void validateSkillForDElete(SkillDTO skillDTO) throws BusinessException {
-        if (skillPersistenceManager.getByName(skillDTO.getName()).isPresent())
-            throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
-    }
+    public SkillDTO updateSkill(String oldName, String newName) throws BusinessException {
 
-    public SkillDTO updateSkill(SkillDTO skillDTO) throws BusinessException {
-
-        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillDTO.getName());
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(oldName);
 
         if (skillBeforeOptional.isPresent()) {
             Skill skillBefore = skillBeforeOptional.get();
-            validateSkillForUpdate(skillDTO);
+            SkillDTO skillDTO = new SkillDTO();
+            skillDTO.setName(newName);
             Skill skillAfter = SkillDTOHelper.updateEntityWithDTO(skillBefore, skillDTO);
-
             skillPersistenceManager.update(skillAfter);
 
             return skillDTO;
@@ -73,13 +78,12 @@ public class SkillManagementService {
         Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillDTO.getName());
 
         if (skillBeforeOptional.isPresent()) {
-            Skill skillBefore = skillBeforeOptional.get();
-            validateSkillForDElete(skillDTO);
+            Skill skill = skillBeforeOptional.get();
 
-            Skill skill = SkillDTOHelper.toEntity(skillDTO);
+            //Skill skill = SkillDTOHelper.toEntity(skillDTO);
             skillAreaPersistenceManager.deleteSkill(skill);
 
-            skillPersistenceManager.update(skill);
+            skillPersistenceManager.delete(skill);
         } else {
             throw new BusinessException(ExceptionCode.SKILL_NOT_FOUND);
         }
