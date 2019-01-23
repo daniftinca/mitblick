@@ -104,7 +104,6 @@ public class SkillAreaManagementBoundary {
     @Consumes({"application/x-www-form-urlencoded"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeSkillFromSkillArea(@FormParam("skillName") String skillName,@FormParam("skillAreaName") String skillAreaName) {
-
         try {
             skillAreaManagementService.removeSkillFromSkillArea(skillName,skillAreaName);
             return Response.status(Response.Status.OK).build();
