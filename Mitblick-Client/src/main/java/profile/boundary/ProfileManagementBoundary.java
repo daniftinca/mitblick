@@ -163,5 +163,6 @@ public class ProfileManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
+    
 
 }
