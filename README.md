@@ -1,5 +1,5 @@
 # Tasks to finish:
-- [] admin add/edit users fe + generate pwd
+- [] admin add/edit users fe + generate pwd 
 - [] on the edit user screen, have the possibility to add/remove roles
 - [] user profile consisting of:
     -personal info

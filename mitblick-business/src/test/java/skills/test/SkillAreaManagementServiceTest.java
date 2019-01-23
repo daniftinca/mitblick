@@ -1,4 +1,4 @@
-package skills;
+package skills.test;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
@@ -13,23 +13,44 @@ import skills.service.SkillAreaManagementService;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-class SkillAreaManagementServiceTest {
+public class SkillAreaManagementServiceTest {
 
     @InjectMocks
-    private SkillAreaManagementService skillAreaManagementController;
+    private SkillAreaManagementService skillAreaManagementService;
+
 
     @Mock
     private SkillAreaPersistenceManager skillAreaPersistenceManager;
 
 
     @Test
-    public void deleteSkillArea_Expected_SkillAreaValidationException() {
+    public void validateSkillAreaForUpdate() {
+    }
+
+    @Test
+    public void validateSkillAreaForDelete() {
+    }
+
+    @Test
+    public void validateSkillAreaForCreation() {
+    }
+
+    @Test
+    public void createSkillArea() {
+    }
+
+    @Test
+    public void updateSkillArea() {
+    }
+
+    @Test
+    public void deleteSkillArea() {
         SkillAreaDTO skillAreaDTO = new SkillAreaDTO();
         skillAreaDTO.setName("dev");
         skillAreaDTO.setDescription("development skills");
@@ -37,24 +58,19 @@ class SkillAreaManagementServiceTest {
         when(skillAreaPersistenceManager.getByName(any(String.class)))
                 .thenReturn(Optional.empty());
 
-        try{
-            skillAreaManagementController.deleteSkillArea(skillAreaDTO);
+        try {
+            skillAreaManagementService.deleteSkillArea(skillAreaDTO);
             fail("Should not reach this point");
-        }
-        catch (BusinessException e){
+        } catch (BusinessException e) {
             assertEquals(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION, e.getExceptionCode());
         }
-
-
-
     }
 
-    @org.junit.jupiter.api.Test
-    void addSkillToSkillArea() {
+    @Test
+    public void addSkillToSkillArea() {
     }
 
-    @org.junit.jupiter.api.Test
-    void removeSkillFromSkillArea() {
+    @Test
+    public void removeSkillFromSkillArea() {
     }
-
 }
