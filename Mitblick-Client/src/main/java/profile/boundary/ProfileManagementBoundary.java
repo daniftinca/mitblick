@@ -119,4 +119,49 @@ public class ProfileManagementBoundary {
         }
     }
 
+    @POST
+    @Path("/add-projekt")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addProjekt(@FormParam("projektName") String projektName,
+                               @FormParam("email") String email,
+                               @Context HttpHeaders headers) {
+        try {
+            profileManagementService.addProjekt(projektName, email);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+    @POST
+    @Path("/remove-skill")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeSkill(@FormParam("skillName") String skillName,
+                                @FormParam("email") String email,
+                                @Context HttpHeaders headers) {
+        try {
+            profileManagementService.removeSkill(skillName, email);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+    @POST
+    @Path("/remove-projekt")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeProjekt(@FormParam("projektName") String projektName,
+                                  @FormParam("email") String email,
+                                  @Context HttpHeaders headers) {
+        try {
+            profileManagementService.removeProjekt(projektName, email);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
 }

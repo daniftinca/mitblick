@@ -6,6 +6,8 @@ import profile.dao.ProfilePersistenceManager;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
 import profile.entities.Profile;
+import projekt.dao.ProjektPersistenceManager;
+import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillDTO;
 import skills.entities.Skill;
@@ -26,6 +28,9 @@ public class ProfileManagementService {
 
     @EJB
     private SkillPersistenceManager skillPersistenceManager;
+
+    @EJB
+    private ProjektPersistenceManager projektPersistenceManager;
 
 
     public ProfileDTO create(ProfileDTO profileDTO) throws BusinessException {
@@ -132,6 +137,75 @@ public class ProfileManagementService {
 
             if (profile.getSkills().indexOf(skill) < 0) {
                 profile.getSkills().add(skill);
+            } else {
+                throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
+            }
+
+
+            profilePersistenceManager.update(profile);
+
+            return ProfileDTOHelper.fromEntity(profile);
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
+    }
+
+    public ProfileDTO addProjekt(String projektName, String email) throws BusinessException {
+        Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
+        Optional<Projekt> projektOptional = projektPersistenceManager.getByName(projektName);
+
+        if (profileOptional.isPresent() && projektOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            Projekt projekt = projektOptional.get();
+
+            if (profile.getProjekts().indexOf(projekt) < 0) {
+                profile.getProjekts().add(projekt);
+            } else {
+                throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
+            }
+
+
+            profilePersistenceManager.update(profile);
+
+            return ProfileDTOHelper.fromEntity(profile);
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
+    }
+
+    public ProfileDTO removeSkill(String skillName, String email) throws BusinessException {
+        Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
+        Optional<Skill> skillOptional = skillPersistenceManager.getByName(skillName);
+
+        if (profileOptional.isPresent() && skillOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            Skill skill = skillOptional.get();
+
+            if (profile.getSkills().indexOf(skill) != -1) {
+                profile.getSkills().remove(skill);
+            } else {
+                throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
+            }
+
+
+            profilePersistenceManager.update(profile);
+
+            return ProfileDTOHelper.fromEntity(profile);
+        } else {
+            throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+        }
+    }
+
+    public ProfileDTO removeProjekt(String projektName, String email) throws BusinessException {
+        Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
+        Optional<Projekt> projektOptional = projektPersistenceManager.getByName(projektName);
+
+        if (profileOptional.isPresent() && projektOptional.isPresent()) {
+            Profile profile = profileOptional.get();
+            Projekt projekt = projektOptional.get();
+
+            if (profile.getProjekts().indexOf(projekt) != -1) {
+                profile.getProjekts().remove(projekt);
             } else {
                 throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
             }
