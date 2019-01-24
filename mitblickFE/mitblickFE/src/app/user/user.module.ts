@@ -5,11 +5,13 @@ import {RouterModule} from "@angular/router";
 import {
   MatButtonModule,
   MatCardModule,
+  MatChipsModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatSnackBarModule
 } from "@angular/material";
+import {MatListModule} from '@angular/material/list';
 import {ProfileComponent} from './profile/profile.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./token-interceptor.service";
@@ -29,8 +31,9 @@ import {FormsModule} from "@angular/forms";
     HttpClientModule,
     MatIconModule,
     FormsModule,
-    MatCardModule
-
+    MatCardModule,
+    MatListModule,
+    MatChipsModule
   ],
   exports: [LoginComponent, RouterModule],
   providers: [{
