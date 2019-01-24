@@ -20,15 +20,52 @@
       <h2 mat-subheader>Skills</h2>
       <mat-list-item *ngFor="let skill of profile.skills">
         <mat-icon mat-list-icon>done</mat-icon>
-        <h3 mat-line>{{skill.name}}</h3>
+        <h3 mat-line>{{skill.name}} </h3>
         <h4 mat-line>
           <mat-chip-list>
             <mat-chip class="chip-override" color="primary" selected>Skill area 1</mat-chip>
             <mat-chip class="chip-override" color="accent" selected>Skill area 2</mat-chip>
           </mat-chip-list>
         </h4>
+        <h4>
+          <mat-chip (click)="removeSkill" class="chip-override" color="#44AA00" selected>
+            <mat-icon mat-list-icon>delete</mat-icon>
+          </mat-chip>
+        </h4>
 
 
+      </mat-list-item>
+      <mat-list-item>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Add project
+              </mat-panel-title>
+              <mat-panel-description>
+                Type your project information
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+              <input matInput placeholder="Name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Client">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Branch">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Description">
+            </mat-form-field>
+            <mat-form-field>
+              <input [matDatepicker]="picker" matInput placeholder="Choose a date">
+              <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </mat-expansion-panel>
+        </mat-accordion>
       </mat-list-item>
       <mat-divider></mat-divider>
       <h2 mat-subheader>Projects</h2>
@@ -40,8 +77,8 @@
       <mat-divider></mat-divider>
     </mat-list>
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="alertUser()">LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
+  <!--<mat-card-actions>-->
+  <!--<button mat-button (click)="alertUser()">LIKE</button>-->
+  <!--<button mat-button>SHARE</button>-->
+  <!--</mat-card-actions>-->
 </mat-card>

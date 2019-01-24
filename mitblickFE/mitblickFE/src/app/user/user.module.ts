@@ -6,9 +6,12 @@ import {
   MatButtonModule,
   MatCardModule,
   MatChipsModule,
+  MatDatepickerModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatNativeDateModule,
   MatSnackBarModule
 } from "@angular/material";
 import {MatListModule} from '@angular/material/list';
@@ -33,7 +36,10 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     MatCardModule,
     MatListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [LoginComponent, RouterModule],
   providers: [{
