@@ -1,4 +1,4 @@
-# Tasks to finish:
+# Tasks to finish Frontend:
 (Dan) -> [] admin add/edit users fe + generate pwd 
 (Dan) -> [] on the edit user screen, have the possibility to add/remove roles
 (Tudi) -> [] user profile consisting of:
