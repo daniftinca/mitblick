@@ -36,36 +36,39 @@
 
       </mat-list-item>
       <mat-list-item>
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Add project
-              </mat-panel-title>
-              <mat-panel-description>
-                Type your project information
-              </mat-panel-description>
-            </mat-expansion-panel-header>
+        <button (click)="addProjectDialog()" color="primary" mat-raised-button>
+          <i class="material-icons">edit</i> Add profile
+        </button>
+        <!--<mat-accordion>-->
+        <!--<mat-expansion-panel>-->
+        <!--<mat-expansion-panel-header>-->
+        <!--<mat-panel-title>-->
+        <!--Add project-->
+        <!--</mat-panel-title>-->
+        <!--<mat-panel-description>-->
+        <!--Type your project information-->
+        <!--</mat-panel-description>-->
+        <!--</mat-expansion-panel-header>-->
 
-            <mat-form-field>
-              <input matInput placeholder="Name">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Client">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Branch">
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Description">
-            </mat-form-field>
-            <mat-form-field>
-              <input [matDatepicker]="picker" matInput placeholder="Choose a date">
-              <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </mat-expansion-panel>
-        </mat-accordion>
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Name">-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Client">-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Branch">-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input matInput placeholder="Description">-->
+        <!--</mat-form-field>-->
+        <!--<mat-form-field>-->
+        <!--<input [matDatepicker]="picker" matInput placeholder="Choose a date">-->
+        <!--<mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>-->
+        <!--<mat-datepicker #picker></mat-datepicker>-->
+        <!--</mat-form-field>-->
+        <!--</mat-expansion-panel>-->
+        <!--</mat-accordion>-->
       </mat-list-item>
       <mat-divider></mat-divider>
       <h2 mat-subheader>Projects</h2>

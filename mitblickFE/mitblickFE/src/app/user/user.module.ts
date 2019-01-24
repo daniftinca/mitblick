@@ -7,6 +7,7 @@ import {
   MatCardModule,
   MatChipsModule,
   MatDatepickerModule,
+  MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
@@ -20,10 +21,11 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./token-interceptor.service";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
+import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, ProfileComponent],
+  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -39,14 +41,17 @@ import {FormsModule} from "@angular/forms";
     MatChipsModule,
     MatExpansionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   exports: [LoginComponent, RouterModule],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true,
-  }]
+  }],
+  entryComponents: [AddProjectDialogComponent]
 })
 export class UserModule {
 }
