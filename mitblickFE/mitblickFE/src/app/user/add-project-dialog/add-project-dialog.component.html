@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Project data</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.name" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.client" placeholder="Client">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.branch" placeholder="Branch">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.description" placeholder="Description">
+  </mat-form-field>
+  <mat-form-field>
+    <input [matDatepicker]="picker" matInput [(ngModel)]="data.date" placeholder="Choose a date">
+    <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+</div>
