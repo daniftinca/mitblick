@@ -48,7 +48,7 @@ public class Profile extends BaseEntity {
     public Profile() {
     }
 
-    /** added a comment for shits and  */
+    /** added a comment for shits and giggles */
 
     public String getFirstName() {
         return firstName;
