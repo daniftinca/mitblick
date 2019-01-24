@@ -1,11 +1,16 @@
 # Tasks to finish Frontend:
 (Dan) -> [] admin add/edit users fe + generate pwd 
+
 (Dan) -> [] on the edit user screen, have the possibility to add/remove roles
+
 (Tudi) -> [] user profile consisting of:
+
     -personal info
     -skills
     -projects
+   
 - [] edit profile button + screen where you can crud skills and projects and edit personal info
+
 **Elevated Users:**
 - [] see all profiles, try infinite scrolling
 - [] sorts/filters
