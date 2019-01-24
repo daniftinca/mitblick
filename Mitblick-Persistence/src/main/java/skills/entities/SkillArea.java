@@ -3,6 +3,7 @@ package skills.entities;
 import user.entities.BaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,12 +17,19 @@ import java.util.Objects;
 public class SkillArea extends BaseEntity {
     public static final String GET_SKILLAREA_BY_NAME = "get_skillArea_by_name";
     public static final String GET_ALL_SKILLAREAS = "get_skillAreas";
+
     @Column(name = "name", unique = true)
     private String name;
+
     @Column(name = "description")
     private String description;
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Skill> skills;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "skillArea")
+    private List<Skill> skills = new ArrayList<>();;
 
     public String getDescription() {
         return description;

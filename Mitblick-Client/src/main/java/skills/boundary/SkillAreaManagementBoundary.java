@@ -1,8 +1,11 @@
 package skills.boundary;
 
 
+import com.google.gson.Gson;
 import exception.BusinessException;
 import skills.dto.SkillAreaDTO;
+import skills.entities.Skill;
+import skills.entities.SkillArea;
 import skills.service.SkillAreaManagementService;
 
 import javax.ejb.EJB;
@@ -11,6 +14,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
+import java.util.Optional;
 
 @Path("/manage-skill-areas")
 public class SkillAreaManagementBoundary {
@@ -51,7 +56,7 @@ public class SkillAreaManagementBoundary {
     @Consumes({"application/x-www-form-urlencoded"})
     @Produces("application/json")
     @Path("/update-skill-area")
-    public Response updateSkillArea(@FormParam("oldName") String oldName,@FormParam("newName") String newName,@FormParam("newDescription") String newDescription, @Context HttpHeaders headers) {
+    public Response updateSkillArea(@FormParam("oldName") String oldName, @FormParam("newName") String newName, @FormParam("newDescription") String newDescription, @Context HttpHeaders headers) {
         try {
             SkillAreaDTO skillAreaDTO = new SkillAreaDTO();
             skillAreaDTO.setName(newName);
@@ -89,10 +94,10 @@ public class SkillAreaManagementBoundary {
     @Path("/add-skill")
     @Consumes({"application/x-www-form-urlencoded"})
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addSkillToSkillArea(@FormParam("skillName") String skillName,@FormParam("skillAreaName") String skillAreaName) {
+    public Response addSkillToSkillArea(@FormParam("skillId") Long skillId, @FormParam("skillAreaName") String skillAreaName) {
 
         try {
-            skillAreaManagementService.addSkillToSkillArea(skillName,skillAreaName);
+            skillAreaManagementService.addSkillToSkillArea(skillId, skillAreaName);
             return Response.status(Response.Status.OK).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
@@ -103,13 +108,41 @@ public class SkillAreaManagementBoundary {
     @Path("/remove-skill")
     @Consumes({"application/x-www-form-urlencoded"})
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeSkillFromSkillArea(@FormParam("skillName") String skillName,@FormParam("skillAreaName") String skillAreaName) {
+    public Response removeSkillFromSkillArea(@FormParam("skillId") Long skillId, @FormParam("skillAreaName") String skillAreaName) {
         try {
-            skillAreaManagementService.removeSkillFromSkillArea(skillName,skillAreaName);
+            skillAreaManagementService.removeSkillFromSkillArea(skillId, skillAreaName);
             return Response.status(Response.Status.OK).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
+
+    @POST
+    @Path("/get-all-skillareas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllSkillAreas() {
+        try {
+            Optional<List<SkillArea>> skillAreas = skillAreaManagementService.getAllSkillareas();
+            String allSkillAreasJson = new Gson().toJson(skillAreas.get());
+            return Response.ok(allSkillAreasJson).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+    }
+    @POST
+    @Path("/get-all-skills-from-skillareas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllSkillsFromSkillAreas(SkillAreaDTO skillAreaDTO) {
+        try {
+            List<Skill> skills = skillAreaManagementService.getSkillsFromSkillArea(skillAreaDTO.getName());
+            String allSkillsJson = new Gson().toJson(skills);
+            return Response.ok(allSkillsJson).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+    }
+
 
 }

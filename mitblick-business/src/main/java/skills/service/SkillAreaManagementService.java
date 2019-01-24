@@ -11,6 +11,7 @@ import skills.entities.SkillArea;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,21 +70,15 @@ public class SkillAreaManagementService {
 
         if (skillAreaBeforeOptional.isPresent()) {
             SkillArea skillAreaBefore = skillAreaBeforeOptional.get();
-            skillAreaBefore.getSkills().forEach(skill -> {
-                List<SkillArea> skillAreas = skillAreaPersistenceManager.getBySkill(skill);
-                if(!skillAreas.isEmpty() && skillAreas.size() == 1){
-                    skillPersistenceManager.delete(skill);
-                }
-            });
             skillAreaPersistenceManager.delete(skillAreaBefore);
         } else {
             throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
         }
     }
 
-    public void addSkillToSkillArea(String skillName, String skillAreaName)throws BusinessException{
+    public void addSkillToSkillArea(Long skillId, String skillAreaName)throws BusinessException{
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaName);
-        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillName);
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillId);
 
         if(skillAreaBeforeOptional.isPresent() && skillBeforeOptional.isPresent()){
             SkillArea skillArea = skillAreaBeforeOptional.get();
@@ -97,20 +92,14 @@ public class SkillAreaManagementService {
             throw new BusinessException(ExceptionCode.SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION);
     }
 
-    public void removeSkillFromSkillArea(String skillName, String skillAreaName)throws BusinessException{
+    public void removeSkillFromSkillArea(Long skillId, String skillAreaName)throws BusinessException{
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaName);
-        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(skillName);
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillId);
 
         if(skillAreaBeforeOptional.isPresent() && skillBeforeOptional.isPresent()){
             SkillArea skillArea = skillAreaBeforeOptional.get();
             Skill skill = skillBeforeOptional.get();
             if(skillArea.getSkills().contains(skill)) {
-                List<SkillArea> skillAreas = skillAreaPersistenceManager.getBySkill(skill);
-                if(!skillAreas.isEmpty() && skillAreas.size() == 1){
-                    skillArea.getSkills().remove(skill);
-                    skillPersistenceManager.delete(skill);
-                }
-                else
                     skillArea.getSkills().remove(skill);
             }
             else
@@ -118,6 +107,18 @@ public class SkillAreaManagementService {
         }
         else
             throw new BusinessException(ExceptionCode.SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION);
+    }
+
+    public Optional<List<SkillArea>> getAllSkillareas(){
+        return skillAreaPersistenceManager.getAll();
+    }
+
+    public  List<Skill> getSkillsFromSkillArea(String skillAreaName)throws BusinessException{
+        List<Skill> skills = skillAreaPersistenceManager.getSkillsFromSkillArea(skillAreaName);
+        if (skills != null)
+            return skills;
+        else
+            throw new BusinessException(ExceptionCode.SKILL_NOT_IN_SKILLAREA_VALIDATION_EXCEPTION);
     }
 
 }
