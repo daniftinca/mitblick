@@ -88,9 +88,10 @@ public class ProjektManagementService {
     }
 
     private boolean isValidForCreation(ProjektDTO projektDTO) throws BusinessException {
-        if (projektPersistenceManager.getByName(projektDTO.getName()).isPresent()) {
+        /*if (projektPersistenceManager.getByName(projektDTO.getName()).isPresent()) {
             throw new BusinessException(ExceptionCode.NAME_EXISTS_ALREADY);
-        }
+        }*/
+        // putem avea proiecte cu acelasi nume
         return validateFields(projektDTO);
     }
 

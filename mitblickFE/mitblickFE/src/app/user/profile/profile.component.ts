@@ -20,8 +20,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     var email = localStorage.getItem("email");
-    //this.profileService.getProfileByEmail(email).subscribe(res => this.profile = res);
-    // console.log("Profile first name: " + this.profile.firstName);
+    this.profileService.getProfileByEmail(email).subscribe(res => this.profile = res);
+    console.log("Profile first name: " + this.profile.firstName);
   }
 
   alertUser() {

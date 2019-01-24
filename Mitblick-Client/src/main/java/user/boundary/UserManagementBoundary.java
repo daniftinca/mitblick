@@ -3,6 +3,7 @@ package user.boundary;
 import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
+import profile.service.ProfileManagementService;
 import user.dto.UserDTO;
 import user.service.UserManagementService;
 
@@ -16,6 +17,9 @@ public class UserManagementBoundary {
 
     @EJB
     private UserManagementService userManagementService;
+
+    @EJB
+    private ProfileManagementService profileManagementService;
 
     /**
      * Returns all users.
@@ -116,7 +120,6 @@ public class UserManagementBoundary {
         try {
 
             userManagementService.createUser(userDTO);
-
             return Response.status(Response.Status.CREATED).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

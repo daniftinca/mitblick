@@ -4,6 +4,8 @@ import profile.entities.Profile;
 import projekt.dto.ProjektDTOHelper;
 import skills.dto.SkillDTOHelper;
 
+import java.util.ArrayList;
+
 public class ProfileDTOHelper {
 
     private ProfileDTOHelper() {
@@ -57,6 +59,18 @@ public class ProfileDTOHelper {
             profile.setProjekts(ProjektDTOHelper.toEntity(profileDTO.getProjekts()));
         }
         return profile;
+    }
+
+    public static ProfileDTO generateGenericProfileDTO(String email) {
+        ProfileDTO profileDTO = new ProfileDTO();
+
+        profileDTO.setFirstName("First Name");
+        profileDTO.setLastName("Last Name");
+        profileDTO.setEmail(email);
+        profileDTO.setSkills(new ArrayList<>());
+        profileDTO.setProjekts(new ArrayList<>());
+
+        return profileDTO;
     }
 
 }

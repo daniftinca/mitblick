@@ -1,7 +1,5 @@
 package user.entities;
 
-import profile.entities.Profile;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -41,8 +39,8 @@ public class User extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Profile profile;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Profile profile;
 
 
 
@@ -52,14 +50,14 @@ public class User extends BaseEntity {
         //Empty constructor needed for Entity
     }
 
-
-    public Profile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
+//
+//    public Profile getProfile() {
+//        return profile;
+//    }
+//
+//    public void setProfile(Profile profile) {
+//        this.profile = profile;
+//    }
 
     public Boolean getActive() {
         return isActive;

@@ -27,10 +27,10 @@ public class Profile extends BaseEntity {
     public static final String GET_PROFILE_BY_EMAIL = "get_profile_by_email";
     public static final String GET_PROFILE_BY_ID = "get_profile_by_id";
 
-    @Column(name = "firstName", unique = true)
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name = "lastName", unique = true)
+    @Column(name = "lastName")
     private String lastName;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -48,9 +48,6 @@ public class Profile extends BaseEntity {
     public Profile() {
     }
 
-    public Profile(String email) {
-        this.email = email;
-    }
 
     public String getFirstName() {
         return firstName;
