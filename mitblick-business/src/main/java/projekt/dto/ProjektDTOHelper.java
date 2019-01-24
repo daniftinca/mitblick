@@ -18,7 +18,7 @@ public class ProjektDTOHelper {
         projektDTO.setName(projekt.getName());
         projektDTO.setClient(projekt.getClient());
         projektDTO.setBranch(projekt.getBranch());
-        projektDTO.setDate(projekt.getDate().toString());
+        projektDTO.setDate(projekt.getDate());
         projektDTO.setDescription(projekt.getDescription());
 
         return projektDTO;
@@ -29,7 +29,7 @@ public class ProjektDTOHelper {
         Projekt projekt = new Projekt();
 
         projekt.setName(projektDTO.getName());
-        projekt.setClient(projektDTO.getName());
+        projekt.setClient(projektDTO.getClient());
         projekt.setBranch(projektDTO.getBranch());
         projekt.setDate(projektDTO.getDate());
         projekt.setDescription(projektDTO.getDescription());

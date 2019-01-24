@@ -69,7 +69,7 @@ public class ProjektManagementBoundary {
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(final ProjektDTO projektDTO) {
+    public Response delete(final ProjektDTO projektDTO, @Context HttpHeaders headers) {
 
         try {
             projektManagementService.delete(projektDTO);

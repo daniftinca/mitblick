@@ -35,10 +35,7 @@
 
 
       </mat-list-item>
-      <mat-list-item>
-        <button (click)="addProjectDialog()" color="primary" mat-raised-button>
-          <i class="material-icons">edit</i> Add profile
-        </button>
+
         <!--<mat-accordion>-->
         <!--<mat-expansion-panel>-->
         <!--<mat-expansion-panel-header>-->
@@ -69,15 +66,29 @@
         <!--</mat-form-field>-->
         <!--</mat-expansion-panel>-->
         <!--</mat-accordion>-->
-      </mat-list-item>
+      <!--</mat-list-item>-->
       <mat-divider></mat-divider>
       <h2 mat-subheader>Projects</h2>
-      <mat-list-item *ngFor="let project of profile.projects">
+      <mat-list-item *ngFor="let project of profile.projekts">
         <mat-icon mat-list-icon>show_chart</mat-icon>
-        <h3 mat-line>{{project.name}}</h3>
+        <h3 mat-line><b>{{project.name}} </b></h3>
+        <h4 mat-line>{{project.client}} </h4>
+        <h4 mat-line>{{project.branch}} </h4>
+        <h4 mat-line>{{project.date}} </h4>
+
+        <h5 mat-line>{{project.description}}</h5>
+        <h4>
+          <button (click)="removeProject(project)" color="primary" mat-raised-button>
+            <i class="material-icons">delete</i>
+          </button>
+        </h4>
 
       </mat-list-item>
-      <mat-divider></mat-divider>
+      <mat-list-item>
+        <button (click)="addProjectDialog()" color="primary" mat-raised-button>
+          <i class="material-icons">add</i> Add project
+        </button>
+      </mat-list-item>
     </mat-list>
   </mat-card-content>
   <!--<mat-card-actions>-->

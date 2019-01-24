@@ -36,12 +36,20 @@ export class ProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.new_project = result;
-      this.profileService.addProjectToProfile(localStorage.getItem("email"), this.new_project);
+      if (this.new_project != undefined) {
+        this.profileService.addProject(this.new_project).subscribe(_ => location.reload());
+
+      }
     });
   }
 
   addProject(project): void {
 
+  }
+
+  removeProject(project): void {
+    project.date = new Date(project.date);
+    this.profileService.removeProject(project).subscribe(_ => location.reload());
   }
 
 }

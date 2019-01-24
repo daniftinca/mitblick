@@ -1,8 +1,5 @@
 package projekt.dto;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProjektDTO {
@@ -42,14 +39,16 @@ public class ProjektDTO {
     }
 
     // exception :-??
-    public void setDate(String date) {
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        try {
-            this.date = formatter.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public void setDate(Date date) {
+        this.date = date;
+//        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//        try {
+//            this.date = formatter.parse(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
+
 
     public String getDescription() {
         return description;

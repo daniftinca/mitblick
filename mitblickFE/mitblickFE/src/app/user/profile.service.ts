@@ -22,7 +22,7 @@ export class ProfileService {
   }
 
   addProjectToProfile(email, project) {
-    this.addProject(project);
+    var response = this.addProject(project).subscribe();
 
     let body = new URLSearchParams();
     body.set('email', email);
@@ -38,6 +38,16 @@ export class ProfileService {
 
   addProject(project) {
     return this.http.post(this.baseURL + '/manage-projekts/create',
+      project,
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/json'}
+        )
+      });
+  }
+
+  removeProject(project) {
+    return this.http.post(this.baseURL + '/manage-projekts/delete',
       project,
       {
         headers: new HttpHeaders(
