@@ -1,6 +1,0 @@
-user\dao\PermissionPersistenceManager.class
-user\dao\UserPersistenceManager.class
-user\entities\User.class
-user\entities\Permission.class
-user\entities\Role.class
-user\entities\BaseEntity.class
