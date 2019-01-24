@@ -45,15 +45,21 @@ public class User extends BaseEntity {
     private Profile profile;
 
 
+
     public User() {
-        this.profile = new Profile(email);
+
+        // THIS IS EMPTY FOR A REASON !!!
         //Empty constructor needed for Entity
     }
 
+
     public Profile getProfile() {
-        return this.profile;
+        return profile;
     }
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
     public Boolean getActive() {
         return isActive;
