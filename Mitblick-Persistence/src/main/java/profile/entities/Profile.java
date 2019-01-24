@@ -42,7 +42,7 @@ public class Profile extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Skill> skills;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Projekt> projekts;
 
     public Profile() {

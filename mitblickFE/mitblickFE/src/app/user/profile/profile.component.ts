@@ -10,10 +10,6 @@ export class ProfileComponent implements OnInit {
 
   private profile: any;
 
-  profile = {
-    'firstName': 'Profil',
-
-  };
 
   constructor(private profileService: ProfileService) {
   }

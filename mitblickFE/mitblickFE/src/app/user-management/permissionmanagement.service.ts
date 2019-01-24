@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 export class PermissionmanagementService {
 
   baseURL = 'http://localhost:8080/mitblick/rest/manage-permissions';
-
+  baseURLUser = 'http://localhost:8080/mitblick/rest/manage-users';
   constructor(private http: HttpClient) {
   }
 

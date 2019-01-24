@@ -120,7 +120,8 @@ export class UpdateUserComponent implements OnInit {
   selectedrole;
 
   getUserRoles() {
-    this.usermgmt.getRolesOfUser(this.data.username)
+    console.log(this.data);
+    this.usermgmt.getRolesOfUser(this.data.email)
       .subscribe(roles => {
         this.userRoles = roles;
       })
@@ -135,22 +136,23 @@ export class UpdateUserComponent implements OnInit {
   }
 
   addRoleToUser() {
-    this.usermgmt.addRoleToUser(this.data.username, this.selectedrole)
+    this.usermgmt.addRoleToUser(this.data.email, this.selectedrole)
       .subscribe(() => {
         this.getUserRoles();
       });
   }
 
   removeRoleFromUser() {
-    this.usermgmt.revokeRoleFromUser(this.data.username, this.selectedrole)
+
+    this.usermgmt.revokeRoleFromUser(this.data.email, this.selectedrole)
       .subscribe(() => {
         this.getUserRoles();
       });
   }
 
   ngOnInit() {
-    // this.getUserRoles();
-    // this.getAllRoles();
+     this.getUserRoles();
+     this.getAllRoles();
   }
 
 }

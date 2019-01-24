@@ -98,7 +98,7 @@ public class PermissionManagementBoundary {
     //@Secured("PERMISSION_MANAGEMENT")
     @Produces("application/json")
     @Path("/revoke-role-from-user")
-    public Response revokeRoleFromUser(@FormParam("username") String email,
+    public Response revokeRoleFromUser(@FormParam("email") String email,
                                        @FormParam("roleType") String roleType,
                                        @Context HttpHeaders headers) {
         try {
