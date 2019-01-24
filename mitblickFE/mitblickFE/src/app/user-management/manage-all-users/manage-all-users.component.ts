@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UsermanagementService} from "../usermanagement.service";
 import {MatDialog} from "@angular/material";
 import {DeactivationPopupComponent} from "../deactivation-popup/deactivation-popup.component";
+import {RegisterUserComponent} from "../register-user/register-user.component";
+import {UpdateUserComponent} from "../update-user/update-user.component";
 
 @Component({
   selector: 'app-manage-all-users',
@@ -19,37 +21,37 @@ export class ManageAllUsersComponent implements OnInit {
 
   }
 
-  // openRegisterDialog(): void {
-  //   const dialogRef = this.dialog.open(RegisterUserComponent,{
-  //     width: '60%',
-  //     data: {
-  //       email: this.userData.email,
-  //
-  //     }
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //
-  //     this.getUsers();
-  //   });
-  // }
-  //
-  // openUpdateDialog(user): void {
-  //   const dialogRef = this.dialog.open(UpdateUserComponent, {
-  //     width: '60%',
-  //     data: {
-  //       active: user.isActive,
-  //       email: user.email,
-  //       password: user.password,
-  //
-  //     }
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //
-  //     this.getUsers();
-  //   });
-  // }
+  openRegisterDialog(): void {
+    const dialogRef = this.dialog.open(RegisterUserComponent, {
+      width: '60%',
+      data: {
+        email: this.userData.email,
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.getUsers();
+    });
+  }
+
+  openUpdateDialog(user): void {
+    const dialogRef = this.dialog.open(UpdateUserComponent, {
+      width: '60%',
+      data: {
+        active: user.isActive,
+        email: user.email,
+        password: user.password,
+
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.getUsers();
+    });
+  }
 
   getUsers() {
     this.usrMgmtService.getAllUsers()

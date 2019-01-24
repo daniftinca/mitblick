@@ -1,7 +1,21 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
+import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ManageAllUsersComponent} from "../manage-all-users/manage-all-users.component";
 import {UsermanagementService} from "../usermanagement.service";
+import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {PermissionmanagementService} from "../permissionmanagement.service";
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+
+  constructor() {
+  }
+
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null) {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-update-user',
@@ -10,16 +24,16 @@ import {UsermanagementService} from "../usermanagement.service";
 })
 export class UpdateUserComponent implements OnInit {
 
+  matcher = new MyErrorStateMatcher();
+
   constructor(
 
     public dialogRef: MatDialogRef<ManageAllUsersComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     public usermgmt: UsermanagementService,
-    //public permissionmngmt: PermissionManagementService
+    public permissionmngmt: PermissionmanagementService
   ) {
   }
-
- /* matcher = {}; //new MyErrorStateMatcher();
   passwordFormControl = new FormControl('', [
     Validators.required,
     this.validatePassword
@@ -134,7 +148,6 @@ export class UpdateUserComponent implements OnInit {
       });
   }
 
-*/
   ngOnInit() {
     // this.getUserRoles();
     // this.getAllRoles();
