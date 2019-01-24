@@ -1,5 +1,6 @@
 package projekt.boundary;
 
+import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import projekt.dto.ProjektDTO;
@@ -47,14 +48,21 @@ public class ProjektManagementBoundary {
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(final ProjektDTO projektDTO) {
+    public Response create(final ProjektDTO projektDTO, @Context HttpHeaders headers) {
 
         try {
-            projektManagementService.create(projektDTO);
+            projektManagementService.create(projektDTO, getRequester(headers));
             return Response.status(Response.Status.CREATED).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
+    }
+
+    private String getRequester(@Context HttpHeaders headers) {
+        String authorizationHeader = headers.getRequestHeader("authorization").get(0);
+        String token = authorizationHeader.substring("Bearer".length()).trim();
+        return JWT.decode(token).getClaim("email").asString();
+
     }
 
     @POST

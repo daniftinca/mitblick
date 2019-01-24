@@ -5,6 +5,7 @@ import skills.entities.Skill;
 import user.entities.BaseEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -42,8 +43,9 @@ public class Profile extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Skill> skills;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Projekt> projekts;
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "profileID")
+    private List<Projekt> projekts = new ArrayList<>();
 
     public Profile() {
     }

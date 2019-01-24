@@ -2,6 +2,8 @@ package projekt.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
+import profile.dao.ProfilePersistenceManager;
+import profile.entities.Profile;
 import projekt.dao.ProjektPersistenceManager;
 import projekt.dto.ProjektDTO;
 import projekt.dto.ProjektDTOHelper;
@@ -19,11 +21,28 @@ public class ProjektManagementService {
     @EJB
     private ProjektPersistenceManager projektPersistenceManager;
 
-    public ProjektDTO create(ProjektDTO projektDTO) throws BusinessException {
+    @EJB
+    private ProfilePersistenceManager profilePersistenceManager;
+
+    /*
+    email -> profile
+    profile.getProjekts.add()
+     */
+    public ProjektDTO create(ProjektDTO projektDTO, String email) throws BusinessException {
+
         validateForCreation(projektDTO);
         Projekt projekt = ProjektDTOHelper.toEntity(projektDTO);
-        projektPersistenceManager.create(projekt);
+
+        Optional<Profile> profile = profilePersistenceManager.getByEmail(email);
+
+        if (profile.isPresent()) {
+            projektPersistenceManager.create(projekt);
+
+            profile.get().getProjekts().add(projekt);
+        }
+
         return ProjektDTOHelper.fromEntity(projekt);
+
     }
 
     public ProjektDTO update(ProjektDTO projektDTO) throws BusinessException {

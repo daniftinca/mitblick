@@ -59,7 +59,7 @@ public class PermissionManagementBoundary {
     private String getRequester(@Context HttpHeaders headers) {
         String authorizationHeader = headers.getRequestHeader("authorization").get(0);
         String token = authorizationHeader.substring("Bearer".length()).trim();
-        return JWT.decode(token).getClaim("username").asString();
+        return JWT.decode(token).getClaim("email").asString();
 
     }
 
