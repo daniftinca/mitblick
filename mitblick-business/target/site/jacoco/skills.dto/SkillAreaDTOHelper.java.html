@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkillAreaDTOHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">MitBlick Business</a> &gt; <a href="index.source.html" class="el_package">skills.dto</a> &gt; <span class="el_source">SkillAreaDTOHelper.java</span></div><h1>SkillAreaDTOHelper.java</h1><pre class="source lang-java linenums">package skills.dto;
+
+import skills.entities.SkillArea;
+
+public class SkillAreaDTOHelper {
+<span class="nc" id="L6">    public SkillAreaDTOHelper() {</span>
+
+<span class="nc" id="L8">    }</span>
+
+    public static SkillAreaDTO fromEntity(SkillArea skillArea) {
+<span class="nc" id="L11">        SkillAreaDTO skillAreaDTO = new SkillAreaDTO();</span>
+<span class="nc" id="L12">        skillAreaDTO.setName(skillArea.getName());</span>
+<span class="nc" id="L13">        skillAreaDTO.setSkills(skillArea.getSkills());</span>
+<span class="nc" id="L14">        skillAreaDTO.setDescription(skillArea.getDescription());</span>
+<span class="nc" id="L15">        return skillAreaDTO;</span>
+    }
+
+    public static SkillArea toEntity(SkillAreaDTO skillAreaDTO) {
+<span class="nc" id="L19">        SkillArea skillArea = new SkillArea();</span>
+<span class="nc" id="L20">        skillArea.setName(skillAreaDTO.getName());</span>
+<span class="nc" id="L21">        skillArea.setSkills(skillAreaDTO.getSkills());</span>
+<span class="nc" id="L22">        skillArea.setDescription(skillAreaDTO.getDescription());</span>
+<span class="nc" id="L23">        return skillArea;</span>
+    }
+
+    public static SkillArea updateEntityWIthDTO(SkillArea skillArea, SkillAreaDTO skillAreaDTO) {
+<span class="nc" id="L27">        skillArea.setName(skillAreaDTO.getName());</span>
+<span class="nc" id="L28">        skillArea.setSkills(skillAreaDTO.getSkills());</span>
+<span class="nc" id="L29">        skillArea.setDescription(skillAreaDTO.getDescription());</span>
+<span class="nc" id="L30">        return skillArea;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

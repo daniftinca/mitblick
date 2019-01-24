@@ -1,0 +1,7 @@
+filter\AuthenticationFilter$1.class
+boundary\AppBoundary.class
+filter\CorsFilter.class
+user\boundary\UserManagementBoundary.class
+user\boundary\AuthenticationBoundary.class
+user\boundary\PermissionManagementBoundary.class
+filter\AuthenticationFilter.class

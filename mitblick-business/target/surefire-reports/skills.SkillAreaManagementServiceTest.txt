@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: skills.SkillAreaManagementServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.008 sec <<< FAILURE! - in skills.SkillAreaManagementServiceTest
+initializationError(skills.SkillAreaManagementServiceTest)  Time elapsed: 0.006 sec  <<< ERROR!
+java.lang.Exception: The class skills.SkillAreaManagementServiceTest is not public.
+
+initializationError(skills.SkillAreaManagementServiceTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.Exception: Test class should have exactly one public constructor
+
+initializationError(skills.SkillAreaManagementServiceTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.Exception: Method addSkillToSkillArea() should be public
+
+initializationError(skills.SkillAreaManagementServiceTest)  Time elapsed: 0.001 sec  <<< ERROR!
+java.lang.Exception: Method removeSkillFromSkillArea() should be public
+

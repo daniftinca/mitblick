@@ -1,0 +1,20 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+MitBlick Business,exception,ExceptionCode,15,255,0,0,2,25,4,2,4,2
+MitBlick Business,exception,BusinessException,42,9,0,0,17,4,6,2,6,2
+MitBlick Business,projekt.dto,ProjektDTOHelper,125,0,6,0,33,0,9,0,6,0
+MitBlick Business,projekt.dto,ProjektDTO,90,0,0,0,22,0,12,0,12,0
+MitBlick Business,profile.service,ProfileManagementService,387,0,42,0,91,0,38,0,17,0
+MitBlick Business,utils,Encryptor,33,0,0,0,11,0,2,0,2,0
+MitBlick Business,user.dto,UserDTO,38,0,0,0,11,0,8,0,8,0
+MitBlick Business,user.dto,UserDTOHelper,56,0,4,0,17,0,6,0,4,0
+MitBlick Business,skills.dto,SkillAreaDTOHelper,53,0,0,0,16,0,4,0,4,0
+MitBlick Business,skills.dto,SkillDTOHelper,73,0,4,0,20,0,8,0,6,0
+MitBlick Business,skills.dto,SkillAreaDTO,36,14,0,0,5,6,4,4,4,4
+MitBlick Business,skills.dto,SkillDTO,24,0,0,0,5,0,4,0,4,0
+MitBlick Business,skills.service,SkillAreaManagementService,236,17,31,1,58,4,24,2,8,2
+MitBlick Business,skills.service,SkillManagementService,130,0,10,0,33,0,11,0,6,0
+MitBlick Business,user.service,UserManagementService,306,0,28,0,72,0,33,0,19,0
+MitBlick Business,user.service,PermissionManagementService,228,0,22,0,60,0,25,0,14,0
+MitBlick Business,projekt.service,ProjektManagementService,166,0,22,0,42,0,22,0,11,0
+MitBlick Business,profile.dto,ProfileDTO,91,0,0,0,24,0,14,0,14,0
+MitBlick Business,profile.dto,ProfileDTOHelper,110,0,10,0,30,0,9,0,4,0
