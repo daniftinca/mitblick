@@ -30,7 +30,7 @@ public class ProfileManagementBoundary {
     }
 
 
-    @POST
+    @GET
     @Path("/get-by-id")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
