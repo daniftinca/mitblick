@@ -24,7 +24,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     var email = localStorage.getItem("email");
-    this.profileService.getProfileByEmail(email).subscribe(res => this.profile = res);
+    this.profileService.getProfileByEmail(email).subscribe(res => {
+      this.profile = res;
+      if (this.profile.photo == "" || this.profile.photo == undefined) {
+        this.profile.photo = "https://material.angular.io/assets/img/examples/shiba1.jpg";
+      }
+    });
   }
 
   alertUser() {

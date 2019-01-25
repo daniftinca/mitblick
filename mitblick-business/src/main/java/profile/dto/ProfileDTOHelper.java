@@ -69,6 +69,7 @@ public class ProfileDTOHelper {
         profileDTO.setEmail(email);
         profileDTO.setSkills(new ArrayList<>());
         profileDTO.setProjekts(new ArrayList<>());
+        profileDTO.setPhoto("");
 
         return profileDTO;
     }
