@@ -21,3 +21,26 @@ INSERT INTO `skill`(`name`, `skillArea`) VALUES ("C",1);
 INSERT INTO `skill`(`name`, `skillArea`) VALUES ("C++",1);
 
 -- INSERT INTO `users_roles`(`User_ID`, `roles_ID`) VALUES (2,1);
+
+INSERT INTO `region`(`ID`, `name`)
+VALUES (1, 'Cluj-Napoca'),
+       (2, 'Sibiu'),
+       (3, 'Brasov'),
+       (4, 'Timisoara')
+
+       INSERT
+INTO `jobtitle`(`ID`, `name`)
+VALUES (1,
+        'Junior Consultant'),(
+        2,
+        'Consultant'),(
+        3,
+        'Senior Consultant'),(
+        4,
+        'Manager'),(
+        5,
+        'Senior Manager'),(
+        6,
+        'Associated Partner'),(
+        7,
+        'Partner')

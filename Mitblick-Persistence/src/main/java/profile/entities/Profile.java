@@ -39,6 +39,13 @@ public class Profile extends BaseEntity {
     @Column(name = "photo")
     private byte[] photo;
 
+    @ManyToOne()
+    @JoinColumn(name = "region")
+    private Region region;
+
+    @ManyToOne()
+    @JoinColumn(name = "jobTitle")
+    private JobTitle jobTitle;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="Profile_ID")
@@ -51,8 +58,6 @@ public class Profile extends BaseEntity {
 
     public Profile() {
     }
-
-
 
     public String getFirstName() {
         return firstName;
@@ -86,6 +91,22 @@ public class Profile extends BaseEntity {
         this.photo = photo;
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
     public List<ProfileSkillEntry> getSkills() {
         return skills;
     }
@@ -108,17 +129,19 @@ public class Profile extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Profile profile = (Profile) o;
-        return getFirstName().equals(profile.getFirstName()) &&
-                getLastName().equals(profile.getLastName()) &&
-                getEmail().equals(profile.getEmail()) &&
+        return Objects.equals(getFirstName(), profile.getFirstName()) &&
+                Objects.equals(getLastName(), profile.getLastName()) &&
+                Objects.equals(getEmail(), profile.getEmail()) &&
                 Arrays.equals(getPhoto(), profile.getPhoto()) &&
+                Objects.equals(getRegion(), profile.getRegion()) &&
+                Objects.equals(getJobTitle(), profile.getJobTitle()) &&
                 Objects.equals(getSkills(), profile.getSkills()) &&
                 Objects.equals(getProjekts(), profile.getProjekts());
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), getFirstName(), getLastName(), getEmail(), getSkills(), getProjekts());
+        int result = Objects.hash(super.hashCode(), getFirstName(), getLastName(), getEmail(), getRegion(), getJobTitle(), getSkills(), getProjekts());
         result = 31 * result + Arrays.hashCode(getPhoto());
         return result;
     }
@@ -130,9 +153,10 @@ public class Profile extends BaseEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", photo=" + Arrays.toString(photo) +
-                ", skills=" + skills.toString() +
-                ", projekts=" + projekts.toString() +
+                ", region=" + region +
+                ", jobTitle=" + jobTitle +
+                ", skills=" + skills +
+                ", projekts=" + projekts +
                 '}';
     }
-
 }

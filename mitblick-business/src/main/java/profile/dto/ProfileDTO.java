@@ -1,8 +1,9 @@
 package profile.dto;
 
+import profile.entities.JobTitle;
 import profile.entities.ProfileSkillEntry;
+import profile.entities.Region;
 import projekt.dto.ProjektDTO;
-import skills.dto.SkillDTO;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class ProfileDTO {
     private String lastName;
     private String email;
     private String photo;
+
+    private Region region;
+    private JobTitle jobTitle;
 
     private List<ProfileSkillEntry> skills;
 
@@ -52,6 +56,22 @@ public class ProfileDTO {
         this.photo = photo;
     }
 
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public JobTitle getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(JobTitle jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
     public List<ProfileSkillEntry> getSkills() {
         return skills;
     }
@@ -74,9 +94,11 @@ public class ProfileDTO {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", photo=" + photo +
-                ", skills=" + skills.toString() +
-                ", projekts=" + projekts.toString() +
+                ", photo='" + photo + '\'' +
+                ", region=" + region +
+                ", jobTitle=" + jobTitle +
+                ", skills=" + skills +
+                ", projekts=" + projekts +
                 '}';
     }
 }

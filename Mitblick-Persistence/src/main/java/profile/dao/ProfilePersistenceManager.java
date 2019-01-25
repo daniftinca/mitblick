@@ -24,7 +24,6 @@ public class ProfilePersistenceManager {
         return profile;
     }
 
-
     public void update(Profile profile) {
         em.merge(profile);
     }
