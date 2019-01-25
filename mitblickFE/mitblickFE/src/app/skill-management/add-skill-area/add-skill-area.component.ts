@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {SkillService} from "../skill.service";
+import {MatDialogRef} from "@angular/material";
+import {SkillManagementViewComponent} from "../skill-management-view/skill-management-view.component";
 
 @Component({
   selector: 'app-add-skill-area',
@@ -7,7 +10,26 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AddSkillAreaComponent implements OnInit {
 
-  constructor() {
+  data = {
+    "name": "",
+    "description": ""
+  };
+
+  constructor(private skillManagement: SkillService,
+              public dialogRef: MatDialogRef<SkillManagementViewComponent>) {
+  }
+
+  submitAddSkillArea() {
+    this.skillManagement.addSkillArea(this.data)
+      .subscribe(
+        data => {
+          this.dialogRef.close();
+        },
+        error => {
+
+        }
+      );
+
   }
 
   ngOnInit() {

@@ -1,3 +1,37 @@
-<p>
-  add-skill-area works!
-</p>
+<div class="popup-content">
+  <form
+    (ngSubmit)="submitAddSkillArea()"
+    #registerForm="ngForm"
+    #formElement
+  >
+    <h3>Add Skill Area</h3> <br>
+    <mat-form-field>
+      <input
+        type="text"
+        autocomplete="off"
+        #skillAreaNameElement
+        name="skillAreaName"
+        matInput
+        [(ngModel)]="data.name"
+        required
+        placeholder="Skill Area Name">
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field>
+      <textarea
+
+        #descriptionElement
+        name="description"
+        matInput
+        [(ngModel)]="data.description"
+        required
+        placeholder="Description"></textarea>
+
+    </mat-form-field>
+    <br>
+
+
+    <button type="submit" mat-button>Submit</button>
+  </form>
+</div>

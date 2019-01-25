@@ -21,11 +21,16 @@ export class SkillService {
         headers: new HttpHeaders(
           {'Content-Type': 'application/json'}
         )
-      })
+      });
   }
 
-  removeSkillArea() {
-
+  removeSkillArea(skillAreaData) {
+    return this.http.post(this.baseURL + '/manage-skill-areas/delete-skill-area', skillAreaData,
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/json'}
+        )
+      });
   }
 
   addSkill() {

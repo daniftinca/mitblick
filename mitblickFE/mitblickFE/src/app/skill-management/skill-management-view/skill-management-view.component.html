@@ -1,6 +1,13 @@
 <div class="page-contnet">
 
+  <button color="primary"
+          mat-raised-button
+          style="margin:30px 0"
+          (click)="openAddSkillAreaDialog()"
+  >
+    <i class="material-icons">add_box</i> Add Skill Area
 
+  </button>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let skillarea of skillAreas">
       <mat-expansion-panel-header>
@@ -12,11 +19,28 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-list role="list">
-        <!--{{skillarea.skills[0]['name']}}-->
-        <mat-list-item role="listitem" *ngFor="let skill of skillarea.skills">{{skill.name}}</mat-list-item>
-        <!--<div *ngFor="let skill of skillarea.skills" >{{skill.name}}</div>-->
-      </mat-list>
 
+        <mat-list-item role="listitem" *ngFor="let skill of skillarea.skills">
+          <div class="single-skill">
+            <div class="skill-name"> {{skill.name}}</div>
+            <button mat-mini-fab color="warn" class="delete-skill"><i class="material-icons">delete</i></button>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <button color="primary"
+              mat-raised-button
+              style="margin:30px 0"
+              (click)="openAddSkillDialog(skillarea.name)"
+      >
+        <i class="material-icons">add_box</i> Add Skill
+      </button>
+      <button color="warn"
+              mat-raised-button
+              style="margin:30px 0"
+              (click)="deleteSkillArea(skillarea.name, skillarea.description)"
+      >
+        <i class="material-icons">delete</i> Delete SkillArea
+      </button>
     </mat-expansion-panel>
 
   </mat-accordion>

@@ -1,5 +1,8 @@
-table{
-  margin: 40px auto;
-  min-width: 320px;
-  width: 50%;
+.page-contnet {
+  width: 80%;
+  max-width: 1200px;
+  margin: 30px auto;
+  table {
+    width: 100%;
+  }
 }

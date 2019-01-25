@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SkillService} from "../skill.service";
+import {MatDialog} from "@angular/material";
+import {AddSkillAreaComponent} from "../add-skill-area/add-skill-area.component";
+import {AddSkillComponent} from "../add-skill/add-skill.component";
 
 @Component({
   selector: 'app-skill-management-view',
@@ -10,7 +13,8 @@ export class SkillManagementViewComponent implements OnInit {
 
   private skillAreas: any;
 
-  constructor(private skillManagement: SkillService) {
+  constructor(private skillManagement: SkillService,
+              public dialog: MatDialog) {
 
 
   }
@@ -39,6 +43,44 @@ export class SkillManagementViewComponent implements OnInit {
           console.log("Not works");
         }
       );
+  }
+
+  openAddSkillAreaDialog(): void {
+    const dialogRef = this.dialog.open(AddSkillAreaComponent, {
+      width: '60%',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.getSkillAreas();
+    });
+  }
+
+  openAddSkillDialog(skillAreaName): void {
+    const dialogRef = this.dialog.open(AddSkillComponent, {
+      width: '60%',
+      data: {
+        skillAreaName: skillAreaName
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.getSkillAreas();
+    });
+  }
+
+  deleteSkillArea(name, description) {
+    let skillAreaData = {
+      "name": name,
+      "description": description,
+    };
+    this.skillManagement.removeSkillArea(skillAreaData).subscribe(
+      data => {
+        this.getSkillAreas();
+      }
+    );
   }
 
   ngOnInit() {

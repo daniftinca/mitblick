@@ -3,3 +3,10 @@
   max-width: 1200px;
   margin: 30px auto;
 }
+
+.single-skill {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: space-between;
+}
