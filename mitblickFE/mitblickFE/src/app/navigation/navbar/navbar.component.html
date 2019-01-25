@@ -3,5 +3,11 @@
   <button mat-button *ngIf="!isLoggedIn()" routerLinkActive="active" routerLink='/login'>Login</button>
   <button mat-button *ngIf="isLoggedIn()" routerLinkActive="active" routerLink='/profile'>Profile</button>
   <button mat-button *ngIf="isLoggedIn()&&hasPermission('USER_MANAGEMENT')" routerLinkActive="active" routerLink='/manage-all-users'>Manage All Users</button>
+  <button mat-button *ngIf="isLoggedIn()&&hasPermission('SKILL_MANAGEMENT')" routerLinkActive="active"
+          routerLink='/manage-skills'>Manage Skills
+  </button>
+  <button mat-button *ngIf="isLoggedIn()&&hasPermission('SKILL_MANAGEMENT')" routerLinkActive="active"
+          routerLink='/manage-skills'>Manage Skill Areas
+  </button>
   <button (click)="logout()" *ngIf="isLoggedIn()" class="logout" mat-button>Log out</button>
 </mat-toolbar>

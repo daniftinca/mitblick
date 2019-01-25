@@ -11,9 +11,7 @@ import {EditProfileComponent, ProfileDialogData} from "../edit-profile/edit-prof
 })
 export class ProfileComponent implements OnInit {
 
-  private profile = {
-    skills : []
-};
+  private profile;
 
   private new_project: ProjectDialogData;
   private new_profile: ProfileDialogData;

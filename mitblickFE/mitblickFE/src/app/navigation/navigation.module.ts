@@ -8,11 +8,14 @@ import {LoginComponent} from "../user/login/login.component";
 import {ProfileComponent} from "../user/profile/profile.component";
 import {UserManagementModule} from "../user-management/user-management.module";
 import {ManageAllUsersComponent} from "../user-management/manage-all-users/manage-all-users.component";
+import {SkillManagementViewComponent} from "../skill-management/skill-management-view/skill-management-view.component";
+import {SkillManagementModule} from "../skill-management/skill-management.module";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'manage-all-users', component: ManageAllUsersComponent},
+  {path: 'manage-skills', component: SkillManagementViewComponent},
 ];
 @NgModule({
   declarations: [NavbarComponent],
@@ -31,7 +34,8 @@ const loginRoutes: Routes = [
     MatMenuModule,
     RouterModule.forChild(loginRoutes),
     UserModule,
-    UserManagementModule
+    UserManagementModule,
+    SkillManagementModule
   ]
 })
 export class NavigationModule {
