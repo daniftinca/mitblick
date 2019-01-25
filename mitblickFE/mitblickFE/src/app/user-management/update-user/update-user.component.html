@@ -6,26 +6,7 @@
 
       <form (ngSubmit)="submitUpdate()" #updateForm="ngForm" #formElement>
 
-        <mat-form-field>
-          <input
-            matInput
-            #firstNameControl="ngModel"
-            #firstNameElement
-            name="firstName"
-            required
-            [(ngModel)]="data.firstName"
-            placeholder="First Name">
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-          <input matInput
-                 #lastNameControl="ngModel"
-                 #lastNameElement
-                 name="lastName"
-                 required
-                 [(ngModel)]="data.lastName"
-                 placeholder="Last Name">
-        </mat-form-field>
+
         <br>
         <mat-form-field>
           <input type="password"
