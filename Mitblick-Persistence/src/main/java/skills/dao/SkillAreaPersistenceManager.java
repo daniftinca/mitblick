@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Stateless
 public class SkillAreaPersistenceManager {
     @PersistenceContext(unitName = "mitblick-persistence")
@@ -41,36 +42,20 @@ public class SkillAreaPersistenceManager {
         }
     }
 
-    public Optional<List<SkillArea>> getAll(){
+    public Optional<List<SkillArea>> getAll() {
         TypedQuery<SkillArea> q = em.createNamedQuery(SkillArea.GET_ALL_SKILLAREAS, SkillArea.class);
         try {
             Optional<List<SkillArea>> skillAreas = Optional.of(q.getResultList());
-            return  skillAreas;
+            return skillAreas;
         } catch (NoResultException ex) {
-            return  Optional.empty();
+            return Optional.empty();
         }
     }
 
-    public List<SkillArea> getBySkill(Skill skill){
-        Optional<List<SkillArea>> optionalSkillAreas = getAll();
-        List<SkillArea> skillAreaList = new ArrayList<SkillArea>();
-        if(optionalSkillAreas.isPresent()){
-            List<SkillArea> skillAreas = optionalSkillAreas.get();
-            if(!skillAreas.isEmpty()) {
-                skillAreas.forEach(skillArea -> {
-                    skillArea.getSkills().forEach(eachskill -> {
-                        if (eachskill.getId() == skill.getId())
-                            skillAreaList.add(skillArea);
-                    });
-                });
-            }
-        }
-        return skillAreaList;
-    }
 
-    public List<Skill> getSkillsFromSkillArea(String skillAreaName){
+    public List<Skill> getSkillsFromSkillArea(String skillAreaName) {
         Optional<SkillArea> skillArea = getByName(skillAreaName);
-        if(!skillArea.isPresent())
+        if (!skillArea.isPresent())
             return skillArea.get().getSkills();
         else
             return null;

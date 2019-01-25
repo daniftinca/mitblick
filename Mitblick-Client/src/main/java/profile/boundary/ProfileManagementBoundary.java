@@ -108,11 +108,11 @@ public class ProfileManagementBoundary {
     @Path("/add-skill")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addSkill(@FormParam("skillName") String skillName,
+    public Response addSkill(@FormParam("skillId") Long skillId,
                              @FormParam("email") String email,
                              @Context HttpHeaders headers) {
         try {
-            profileManagementService.addSkill(skillName, email);
+            profileManagementService.addSkill(skillId, email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
@@ -138,11 +138,11 @@ public class ProfileManagementBoundary {
     @Path("/remove-skill")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeSkill(@FormParam("skillName") String skillName,
+    public Response removeSkill(@FormParam("skillId") Long skillId,
                                 @FormParam("email") String email,
                                 @Context HttpHeaders headers) {
         try {
-            profileManagementService.removeSkill(skillName, email);
+            profileManagementService.removeSkill(skillId, email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

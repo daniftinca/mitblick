@@ -127,9 +127,9 @@ public class ProfileManagementService {
         }
     }
 
-    public ProfileDTO addSkill(String skillName, String email) throws BusinessException {
+    public ProfileDTO addSkill(Long skillId, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
-        Optional<Skill> skillOptional = skillPersistenceManager.getByName(skillName);
+        Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
 
         if (profileOptional.isPresent() && skillOptional.isPresent()) {
             Profile profile = profileOptional.get();
@@ -173,9 +173,9 @@ public class ProfileManagementService {
         }
     }
 
-    public ProfileDTO removeSkill(String skillName, String email) throws BusinessException {
+    public ProfileDTO removeSkill(Long skillId, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
-        Optional<Skill> skillOptional = skillPersistenceManager.getByName(skillName);
+        Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
 
         if (profileOptional.isPresent() && skillOptional.isPresent()) {
             Profile profile = profileOptional.get();
