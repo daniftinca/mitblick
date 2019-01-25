@@ -12,13 +12,7 @@ export class ProfileService {
   }
 
   getProfileByEmail(email) {
-    const body = email;
-    return this.http.post(this.baseURL + '/manage-profiles/get-by-email', body,
-      {
-        headers: new HttpHeaders(
-          {'Content-Type': 'text/plain'}
-        )
-      });
+    return this.http.get(this.baseURL + '/manage-profiles/get-by-email/' + email);
   }
 
   addProjectToProfile(email, project) {
