@@ -1,3 +1,26 @@
-<p>
-  add-skill works!
-</p>
+<div class="popup-content">
+  <form
+    (ngSubmit)="submitAddSkill()"
+    #registerForm="ngForm"
+    #formElement
+  >
+    <h3>Add Skill</h3> <br>
+    <mat-form-field>
+      <input
+        type="text"
+        autocomplete="off"
+        #skillAreaNameElement
+        name="skillName"
+        matInput
+        [(ngModel)]="formData.name"
+        required
+        placeholder="Skill Name">
+    </mat-form-field>
+    <br>
+
+    <br>
+
+
+    <button type="submit" mat-button>Submit</button>
+  </form>
+</div>

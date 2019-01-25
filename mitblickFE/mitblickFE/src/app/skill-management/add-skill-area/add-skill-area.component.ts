@@ -19,6 +19,7 @@ export class AddSkillAreaComponent implements OnInit {
               public dialogRef: MatDialogRef<SkillManagementViewComponent>) {
   }
 
+
   submitAddSkillArea() {
     this.skillManagement.addSkillArea(this.data)
       .subscribe(
@@ -33,6 +34,7 @@ export class AddSkillAreaComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.dialogRef)
   }
 
 }

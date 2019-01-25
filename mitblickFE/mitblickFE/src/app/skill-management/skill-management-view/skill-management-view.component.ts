@@ -83,6 +83,18 @@ export class SkillManagementViewComponent implements OnInit {
     );
   }
 
+  deleteSkill(skillID, skillAreaName) {
+
+    this.skillManagement.removeSkill(skillID, skillAreaName)
+      .subscribe(
+        data => {
+          this.getSkillAreas();
+        }
+      )
+  }
+
+
+
   ngOnInit() {
     this.getSkillAreas();
   }

@@ -7,8 +7,6 @@ import skills.service.SkillManagementService;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -60,21 +58,16 @@ public class SkillManagementBoundary {
         }
     }
 
-    /**
-     * Registers a skill with the given JSON
-     *
-     * @param skillDTO
-     * @return
-     */
+
     @POST
     @Path("/delete-skill")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({"application/x-www-form-urlencoded"})
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteSkill(final SkillDTO skillDTO) {
+    public Response deleteSkill(@FormParam("skillId") Long skillId) {
 
         try {
 
-            skillManagementService.deleteSkill(skillDTO);
+            skillManagementService.deleteSkill(skillId);
 
             return Response.status(Response.Status.OK).build();
         } catch (BusinessException e) {

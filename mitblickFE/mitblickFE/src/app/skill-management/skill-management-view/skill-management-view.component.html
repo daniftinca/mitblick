@@ -23,7 +23,10 @@
         <mat-list-item role="listitem" *ngFor="let skill of skillarea.skills">
           <div class="single-skill">
             <div class="skill-name"> {{skill.name}}</div>
-            <button mat-mini-fab color="warn" class="delete-skill"><i class="material-icons">delete</i></button>
+            <button mat-mini-fab color="warn"
+                    class="delete-skill"
+                    (click)="deleteSkill(skill.id,skillarea.name)"
+            ><i class="material-icons">delete</i></button>
           </div>
         </mat-list-item>
       </mat-list>

@@ -33,11 +33,29 @@ export class SkillService {
       });
   }
 
-  addSkill() {
+  addSkill(skillData, skillAreaName) {
+
+    return this.http.post(this.baseURL + '/manage-skills/add-skill/' + skillAreaName,
+      skillData,
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/json'}
+        )
+      });
 
   }
 
-  removeSkill() {
+  removeSkill(skillID, skillAreaName) {
+    let body = new URLSearchParams();
+    body.set('skillId', skillID);
+    body.set('skillAreaName', skillAreaName);
+    return this.http.post(this.baseURL + '/manage-skill-areas/remove-skill/',
+      body.toString(),
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
+      });
 
   }
 

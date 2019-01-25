@@ -75,8 +75,8 @@ public class SkillManagementService {
 //        }
 //    }
 
-    public void deleteSkill(SkillDTO skillDTO) throws BusinessException {
-        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillDTO.getId());
+    public void deleteSkill(Long skillID) throws BusinessException {
+        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillID);
 
         if (skillBeforeOptional.isPresent()) {
             Skill skill = skillBeforeOptional.get();
