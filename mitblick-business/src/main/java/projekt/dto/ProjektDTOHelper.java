@@ -15,6 +15,7 @@ public class ProjektDTOHelper {
 
         ProjektDTO projektDTO = new ProjektDTO();
 
+        projektDTO.setId(projekt.getId());
         projektDTO.setName(projekt.getName());
         projektDTO.setClient(projekt.getClient());
         projektDTO.setBranch(projekt.getBranch());
@@ -29,6 +30,7 @@ public class ProjektDTOHelper {
 
         Projekt projekt = new Projekt();
 
+        projekt.setId(projektDTO.getId());
         projekt.setName(projektDTO.getName());
         projekt.setClient(projektDTO.getClient());
         projekt.setBranch(projektDTO.getBranch());
@@ -56,6 +58,7 @@ public class ProjektDTOHelper {
     }
 
     public static Projekt updateEntityWithDTO(Projekt projekt, ProjektDTO projektDTO) {
+        projekt.setId(projektDTO.getId());
         projekt.setName(projektDTO.getName());
         projekt.setClient(projektDTO.getName());
         projekt.setBranch(projektDTO.getBranch());

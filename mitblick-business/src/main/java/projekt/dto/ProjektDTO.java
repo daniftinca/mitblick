@@ -5,12 +5,21 @@ import java.util.Objects;
 
 public class ProjektDTO {
 
+    private Long id;
     private String name;
     private String client;
     private String branch;
     private Date startDate;
     private Date endDate;
     private String description;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -65,7 +74,8 @@ public class ProjektDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProjektDTO that = (ProjektDTO) o;
-        return Objects.equals(getName(), that.getName()) &&
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getClient(), that.getClient()) &&
                 Objects.equals(getBranch(), that.getBranch()) &&
                 Objects.equals(getStartDate(), that.getStartDate()) &&
@@ -75,13 +85,14 @@ public class ProjektDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getClient(), getBranch(), getStartDate(), getEndDate(), getDescription());
+        return Objects.hash(getId(), getName(), getClient(), getBranch(), getStartDate(), getEndDate(), getDescription());
     }
 
     @Override
     public String toString() {
         return "ProjektDTO{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", client='" + client + '\'' +
                 ", branch='" + branch + '\'' +
                 ", startDate=" + startDate +
