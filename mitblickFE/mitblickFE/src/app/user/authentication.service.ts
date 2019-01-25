@@ -59,7 +59,7 @@ export class AuthenticationService {
 
     localStorage.setItem('token', authResult.token);
 
-    localStorage.setItem('id_token', decodedToken.iss);
+    // localStorage.setItem('id_token', decodedToken.iss);
     localStorage.setItem('email', decodedToken.email);
     localStorage.setItem('expires_at', decodedToken.exp);
     localStorage.setItem('roles', decodedToken.role);

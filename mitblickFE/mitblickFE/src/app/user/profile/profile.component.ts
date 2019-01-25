@@ -10,7 +10,9 @@ import {AddProjectDialogComponent, ProjectDialogData} from "../add-project-dialo
 })
 export class ProfileComponent implements OnInit {
 
-  private profile: any;
+  private profile = {
+    skills : []
+};
 
   private new_project: ProjectDialogData;
 
