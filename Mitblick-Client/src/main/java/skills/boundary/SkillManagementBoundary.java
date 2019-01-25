@@ -26,19 +26,19 @@ public class SkillManagementBoundary {
      * @param headers
      * @return
      */
-    @POST
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces("application/json")
-    @Path("/update-skill")
-    public Response updateSkill(@FormParam("oldName") String oldName,@FormParam("newName") String newName, @Context HttpHeaders headers) {
-        try {
-
-            skillManagementService.updateSkill(oldName,newName);
-            return Response.ok().build();
-        } catch (BusinessException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
-        }
-    }
+//    @POST
+//    @Consumes("application/x-www-form-urlencoded")
+//    @Produces("application/json")
+//    @Path("/update-skill")
+//    public Response updateSkill(@FormParam("oldName") String oldName,@FormParam("newName") String newName, @Context HttpHeaders headers) {
+//        try {
+//
+//            skillManagementService.updateSkill(oldName,newName);
+//            return Response.ok().build();
+//        } catch (BusinessException e) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+//        }
+//    }
 
     /**
      * Registers a skill with the given JSON

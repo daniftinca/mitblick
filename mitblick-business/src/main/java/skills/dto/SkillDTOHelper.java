@@ -14,12 +14,14 @@ public class SkillDTOHelper {
     public static SkillDTO fromEntity(Skill skill) {
         SkillDTO skillDTO = new SkillDTO();
         skillDTO.setName(skill.getName());
+        skillDTO.setId(skill.getId());
         return skillDTO;
     }
 
     public static Skill toEntity(SkillDTO skillDTO) {
         Skill skill = new Skill();
         skill.setName(skillDTO.getName());
+        skill.setId(skillDTO.getId());
         return skill;
     }
 
@@ -41,6 +43,7 @@ public class SkillDTOHelper {
 
     public static Skill updateEntityWithDTO(Skill skill, SkillDTO skillDTO) {
         skill.setName(skillDTO.getName());
+        skill.setId(skillDTO.getId());
         return skill;
     }
 

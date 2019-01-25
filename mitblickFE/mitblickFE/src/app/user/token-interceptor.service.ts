@@ -27,7 +27,7 @@ export class TokenInterceptorService {
      * continues request execution
      */
     return next.handle(request).pipe(catchError((error, caught) => {
-      // intercept the respons error and displays it to the console
+      // intercept the response error and displays it to the console
       // console.log(error);;
       this.handleError(error);
       return of(error);
@@ -44,7 +44,7 @@ export class TokenInterceptorService {
     this.errorString = 'exceptionCodes.' + err.error.value;
     console.log(err);
     //this.translate.get(this.errorString).subscribe((res: string) => this.errorMsg = res);
-    this.openSnackBar(this.errorMsg);
+    this.openSnackBar(err.error);
 
   }
 }

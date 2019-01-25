@@ -12,13 +12,15 @@ import java.util.Objects;
 @Entity
 @NamedQueries(
         {
-                @NamedQuery(name = Skill.GET_SKILL_BY_NAME, query = "SELECT s FROM Skill s WHERE s.name = :name")
+                @NamedQuery(name = Skill.GET_SKILL_BY_NAME, query = "SELECT s FROM Skill s WHERE s.name = :name"),
+                @NamedQuery(name = Skill.GET_SKILL_BY_ID, query = "SELECT s FROM Skill s WHERE s.id = :id")
         }
 )
 public class Skill extends BaseEntity {
 
     public static final String GET_SKILL_BY_NAME = "get_skill_by_name";
-    @Column(name = "name", unique = true)
+    public static final String GET_SKILL_BY_ID = "get_skill_by_id";
+    @Column(name = "name")
     private String name;
 
 

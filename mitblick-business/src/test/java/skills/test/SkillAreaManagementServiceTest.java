@@ -50,7 +50,7 @@ public class SkillAreaManagementServiceTest {
     }
 
     @Test
-    public void deleteSkillArea() {
+    public void deleteSkillArea_Test() {
         SkillAreaDTO skillAreaDTO = new SkillAreaDTO();
         skillAreaDTO.setName("dev");
         skillAreaDTO.setDescription("development skills");

@@ -1,3 +1,57 @@
-<p>
-  register-user works!
-</p>
+
+<div class="register-user-form">
+
+
+
+
+  <form
+    (ngSubmit) = "submitRegister()"
+    #registerForm = "ngForm"
+    #formElement
+  >
+    <h3>Register User</h3> <br>
+    <mat-form-field>
+      <input
+        autocomplete="off"
+        #emailElement
+        name="email"
+        matInput
+        [(ngModel)] = "data.email"
+        required
+        [formControl]="emailFormControl"
+        [errorStateMatcher]="matcher"
+        placeholder="Email">
+      <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessages()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+    <mat-form-field>
+      <input type="password"
+             autocomplete="new-password"
+             #passwordElement
+             name="password"
+             matInput
+             [(ngModel)] = "data.password"
+             required
+             [formControl]="passwordFormControl"
+             [errorStateMatcher]="matcher"
+             placeholder="Password">
+
+      <mat-error *ngIf="passwordFormControl.hasError('passwordInvalid')">{{getPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+
+
+    <button type="submit" mat-button >Submit</button>
+  </form>
+  <!--<div class="form-info">-->
+
+    <!--{{'userManagementErrorMsg.passwordRequirements'| translate}}:-->
+    <!--<ul>-->
+      <!--<li>{{'userManagementErrorMsg.passwordReqLength'| translate}}</li>-->
+      <!--<li>{{'userManagementErrorMsg.passwordReqLetters'| translate}}</li>-->
+      <!--<li>{{'userManagementErrorMsg.passwordReqSpecial'| translate}}</li>-->
+      <!--<li>{{'userManagementErrorMsg.passwordReqDigit'| translate}}</li>-->
+    <!--</ul>{{'userManagementErrorMsg.emailRequirement'| translate}}.-->
+  <!--</div>-->
+</div>
