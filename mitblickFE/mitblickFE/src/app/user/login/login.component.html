@@ -1,0 +1,36 @@
+<mat-card class="login-component">
+  <form
+    (ngSubmit)="submitForm()"
+    #loginForm = "ngForm"
+    #formElement
+    class="login-form"
+        >
+    <h1>Login</h1>
+    <mat-form-field appearance="outline" class="username form-field">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Type your email here"
+              #emailControl = "ngModel"
+              #emailElement
+             required
+             name="email"
+             [(ngModel)] = "userLoginData.email"
+      >
+      <mat-icon matSuffix color="primary">email</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="password form-field">
+      <mat-label>Password</mat-label>
+      <input type="password"
+             matInput
+             placeholder="Type your password here"
+             #passwordControl = "ngModel"
+             #passwordElement
+             required
+             name="password"
+             [(ngModel)] = "userLoginData.password">
+      <mat-icon matSuffix color="primary">security</mat-icon>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="primary">Login</button>
+  </form>
+</mat-card>

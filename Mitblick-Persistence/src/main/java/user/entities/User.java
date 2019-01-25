@@ -39,11 +39,25 @@ public class User extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
 
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private Profile profile;
+
+
 
     public User() {
+
+        // THIS IS EMPTY FOR A REASON !!!
         //Empty constructor needed for Entity
     }
 
+//
+//    public Profile getProfile() {
+//        return profile;
+//    }
+//
+//    public void setProfile(Profile profile) {
+//        this.profile = profile;
+//    }
 
     public Boolean getActive() {
         return isActive;

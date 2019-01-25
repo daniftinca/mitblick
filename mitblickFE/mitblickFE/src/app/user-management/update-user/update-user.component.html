@@ -1,0 +1,78 @@
+<h3>Update</h3>
+<mat-tab-group>
+  <mat-tab label="Update user Info">
+    <div class="update-user-form">
+
+
+      <form (ngSubmit)="submitUpdate()" #updateForm="ngForm" #formElement>
+
+
+        <br>
+        <mat-form-field>
+          <input type="password"
+                 #passwordElement
+                 name="password"
+                 matInput
+                 [(ngModel)]="data.password"
+                 [formControl]="passwordFormControl"
+                 [errorStateMatcher]="matcher"
+                 placeholder="Password">
+
+          <mat-error *ngIf="passwordFormControl.hasError('passwordInvalid')">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <br>
+        <button type="submit" mat-button>Submit</button>
+
+      </form>
+      <!--<div class="form-info">
+
+        {{'userManagementErrorMsg.updateUserNoChange'| translate}}.<br>
+        {{'userManagementErrorMsg.passwordRequirements'| translate}}.:
+        <ul>
+          <li>{{'userManagementErrorMsg.passwordReqLength'| translate}}.</li>
+          <li>{{'userManagementErrorMsg.passwordReqLetters'| translate}}.</li>
+          <li>{{'userManagementErrorMsg.passwordReqSpecial'| translate}}.</li>
+          <li>{{'userManagementErrorMsg.passwordReqDigit'| translate}}.</li>
+        </ul>
+        {{'userManagementErrorMsg.emailRequirement'| translate}}.
+      </div>-->
+    </div>
+  </mat-tab>
+  <mat-tab label="Edit Roles">
+
+    <mat-list *ngFor="let element of this.userRoles">
+      <mat-list-item>{{element.type}}</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+
+    <br>
+    <mat-form-field>
+      <mat-select [(value)]="selectedrole"
+
+      >
+        <div *ngFor="let element of this.allRoles" class="options">
+          <mat-option
+            value={{element.type}}
+          >{{element.type}}
+          </mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button
+            color="primary"
+            style="margin:0 10px;"
+            (click)="addRoleToUser()
+"
+    >Add Role
+    </button>
+    <button mat-raised-button
+            color="warn"
+            style="margin:0 10px;"
+            (click)="removeRoleFromUser()"
+    >Revoke Role
+    </button>
+
+  </mat-tab>
+</mat-tab-group>

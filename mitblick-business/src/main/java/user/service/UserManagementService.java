@@ -3,6 +3,8 @@ package user.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
+import profile.dto.ProfileDTOHelper;
+import profile.service.ProfileManagementService;
 import user.dao.UserPersistenceManager;
 import user.dto.UserDTO;
 import user.dto.UserDTOHelper;
@@ -28,6 +30,8 @@ public class UserManagementService {
     @EJB
     private UserPersistenceManager userPersistenceManager;
 
+    @EJB
+    private ProfileManagementService profileManagementService;
 
     /**
      * Creates a user entity using a user DTO.
@@ -42,6 +46,8 @@ public class UserManagementService {
         user.setActive(true);
         user.setPassword(Encryptor.encrypt(userDTO.getPassword()));
         userPersistenceManager.createUser(user);
+        profileManagementService.create(ProfileDTOHelper.generateGenericProfileDTO(userDTO.getEmail()));
+
         return UserDTOHelper.fromEntity(user);
     }
 
@@ -59,9 +65,6 @@ public class UserManagementService {
 
 
     }
-
-
-
 
     private boolean validateFields(UserDTO userDTO) {
         return

@@ -3,9 +3,9 @@ package user.boundary;
 import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
+import profile.service.ProfileManagementService;
 import user.dto.UserDTO;
 import user.service.UserManagementService;
-import utils.Secured;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -18,6 +18,9 @@ public class UserManagementBoundary {
     @EJB
     private UserManagementService userManagementService;
 
+    @EJB
+    private ProfileManagementService profileManagementService;
+
     /**
      * Returns all users.
      *
@@ -25,7 +28,7 @@ public class UserManagementBoundary {
      * @return
      */
     @GET
-    @Secured("USER_MANAGEMENT")
+    //@Secured("USER_MANAGEMENT")
     @Path("/get-all-users")
     public Response getAllUsers(@Context SecurityContext securityContext) {
         try {
@@ -40,15 +43,15 @@ public class UserManagementBoundary {
     /**
      * Activates a user.
      *
-     * @param username
+     * @param email
      * @return
      */
     @POST
     @Produces("application/json")
     @Path("/activate-user")
-    public Response activateUser(@FormParam("username") String username) {
+    public Response activateUser(@FormParam("email") String email) {
         try {
-            userManagementService.activateUser(username);
+            userManagementService.activateUser(email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity(e.getExceptionCode()).build();
@@ -58,15 +61,15 @@ public class UserManagementBoundary {
     /**
      * Deactivates a User
      *
-     * @param username
+     * @param email
      * @return
      */
     @POST
     @Produces("application/json")
     @Path("/deactivate-user")
-    public Response deactivateUser(@FormParam("username") String username) {
+    public Response deactivateUser(@FormParam("email") String email) {
         try {
-            userManagementService.deactivateUser(username);
+            userManagementService.deactivateUser(email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getExceptionCode()).build();
@@ -97,7 +100,7 @@ public class UserManagementBoundary {
     private String getRequester(@Context HttpHeaders headers) {
         String authorizationHeader = headers.getRequestHeader("authorization").get(0);
         String token = authorizationHeader.substring("Bearer".length()).trim();
-        return JWT.decode(token).getClaim("username").asString();
+        return JWT.decode(token).getClaim("email").asString();
 
     }
 
@@ -117,7 +120,6 @@ public class UserManagementBoundary {
         try {
 
             userManagementService.createUser(userDTO);
-
             return Response.status(Response.Status.CREATED).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

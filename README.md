@@ -1,3 +1,38 @@
+# Tasks to finish Frontend:
+
+## Important: 
+
+Trebe bewertung la skill in profil.
+Trebe notificari la vortgesetzteri cand cineva isi face profilul cum trebuie, 
+vortgesetzteu trebe sa il accepte
+
+La proiect trebuie perioada, nu data. (start date, end date)
+
+
+
+
+(Dan) -> [x] admin add/edit users fe + generate pwd 
+
+(Dan) -> [x] on the edit user screen, have the possibility to add/remove roles
+
+(Tudi) -> [] user profile consisting of:
+
+    -personal info
+    -skills
+    -projects
+   
+- [] edit profile button + screen where you can crud skills and projects and edit personal info
+
+**Elevated Users:**
+(Dan) -> [] see all profiles, try infinite scrolling
+- [] sorts/filters
+(Dan) ->[] click on a profile to see more details
+- [] export to pdf
+- [] mass export to pdf as zip (optional)
+- [] screen to manage skills and skill areas
+
+
+
 # Mitblick
 The main repository for the Mitblick app
 
