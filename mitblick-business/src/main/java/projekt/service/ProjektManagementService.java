@@ -61,12 +61,12 @@ public class ProjektManagementService {
         }
     }
 
-    public void delete(ProjektDTO projektDTO) throws BusinessException {
-
+    public void delete(ProjektDTO projektDTO, String email) throws BusinessException {
+        Optional<Profile> profile = profilePersistenceManager.getByEmail(email);
         Optional<Projekt> projekt = projektPersistenceManager.getByName(projektDTO.getName());
 
-        if (projekt.isPresent()) {
-
+        if (projekt.isPresent() && profile.isPresent()) {
+            profile.get().getProjekts().remove(projekt.get());
             projektPersistenceManager.delete(projekt.get());
 
         } else {

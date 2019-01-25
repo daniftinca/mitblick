@@ -46,9 +46,19 @@ export class ProfileService {
       });
   }
 
-  removeProject(project) {
-    return this.http.post(this.baseURL + '/manage-projekts/delete',
+  removeProject(project, email) {
+    return this.http.post(this.baseURL + '/manage-projekts/delete/' + email,
       project,
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/json'}
+        )
+      });
+  }
+
+  updateProfile(profile) {
+    return this.http.post(this.baseURL + '/manage-profiles/update',
+      profile,
       {
         headers: new HttpHeaders(
           {'Content-Type': 'application/json'}

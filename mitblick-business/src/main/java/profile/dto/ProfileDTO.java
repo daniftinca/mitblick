@@ -3,7 +3,6 @@ package profile.dto;
 import projekt.dto.ProjektDTO;
 import skills.dto.SkillDTO;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ProfileDTO {
@@ -11,7 +10,7 @@ public class ProfileDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private byte[] photo;
+    private String photo;
 
     private List<SkillDTO> skills;
 
@@ -44,11 +43,11 @@ public class ProfileDTO {
         this.email = email;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -74,7 +73,7 @@ public class ProfileDTO {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", photo=" + Arrays.toString(photo) +
+                ", photo=" + photo +
                 ", skills=" + skills.toString() +
                 ", projekts=" + projekts.toString() +
                 '}';

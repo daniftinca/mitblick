@@ -66,13 +66,13 @@ public class ProjektManagementBoundary {
     }
 
     @POST
-    @Path("/delete")
+    @Path("/delete/{email}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(final ProjektDTO projektDTO, @Context HttpHeaders headers) {
+    public Response delete(final ProjektDTO projektDTO, @PathParam("email") String profileEmail, @Context HttpHeaders headers) {
 
         try {
-            projektManagementService.delete(projektDTO);
+            projektManagementService.delete(projektDTO, profileEmail);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

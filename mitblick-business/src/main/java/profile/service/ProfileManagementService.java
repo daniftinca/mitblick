@@ -50,7 +50,7 @@ public class ProfileManagementService {
 
             profilePersistenceManager.update(profileAfter);
 
-            return profileDTO;
+            return ProfileDTOHelper.fromEntity(profileAfter);
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }

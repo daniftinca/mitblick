@@ -19,7 +19,7 @@ public class ProfileDTOHelper {
         profileDTO.setFirstName(profile.getFirstName());
         profileDTO.setLastName(profile.getLastName());
         profileDTO.setEmail(profile.getEmail());
-        profileDTO.setPhoto(profile.getPhoto());
+        profileDTO.setPhoto(new String(profile.getPhoto()));
         profileDTO.setSkills(SkillDTOHelper.fromEntity(profile.getSkills()));
         profileDTO.setProjekts(ProjektDTOHelper.fromEntity(profile.getProjekts()));
 
@@ -33,7 +33,7 @@ public class ProfileDTOHelper {
         profile.setFirstName(profileDTO.getFirstName());
         profile.setLastName(profileDTO.getLastName());
         profile.setEmail(profileDTO.getEmail());
-        profile.setPhoto(profileDTO.getPhoto());
+        profile.setPhoto(profileDTO.getPhoto().getBytes());
         profile.setSkills(SkillDTOHelper.toEntity(profileDTO.getSkills()));
         profile.setProjekts(ProjektDTOHelper.toEntity(profileDTO.getProjekts()));
 
@@ -50,7 +50,7 @@ public class ProfileDTOHelper {
             profile.setLastName(profileDTO.getLastName());
         }
         if (profileDTO.getPhoto() != null) {
-            profile.setPhoto(profileDTO.getPhoto());
+            profile.setPhoto(profileDTO.getPhoto().getBytes());
         }
         if (profileDTO.getSkills() != null) {
             profile.setSkills(SkillDTOHelper.toEntity(profileDTO.getSkills()));

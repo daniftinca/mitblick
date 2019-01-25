@@ -22,10 +22,11 @@ import {TokenInterceptorService} from "./token-interceptor.service";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
+import {EditProfileComponent} from './edit-profile/edit-profile.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent],
+  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -51,7 +52,7 @@ import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog
     useClass: TokenInterceptorService,
     multi: true,
   }],
-  entryComponents: [AddProjectDialogComponent]
+  entryComponents: [AddProjectDialogComponent, EditProfileComponent]
 })
 export class UserModule {
 }

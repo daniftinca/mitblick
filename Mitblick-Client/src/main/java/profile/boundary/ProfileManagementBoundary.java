@@ -69,8 +69,9 @@ public class ProfileManagementBoundary {
     public Response update(ProfileDTO profileDTO, @Context HttpHeaders headers) {
         try {
 
-            profileManagementService.update(profileDTO);
-            return Response.ok().build();
+            ProfileDTO profile = profileManagementService.update(profileDTO);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
