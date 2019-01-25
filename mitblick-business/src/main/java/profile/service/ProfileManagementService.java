@@ -6,11 +6,13 @@ import profile.dao.ProfilePersistenceManager;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
 import profile.entities.Profile;
+import profile.entities.ProfileSkillEntry;
 import projekt.dao.ProjektPersistenceManager;
 import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillDTO;
 import skills.entities.Skill;
+import skills.entities.SkillArea;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -127,16 +129,20 @@ public class ProfileManagementService {
         }
     }
 
-    public ProfileDTO addSkill(Long skillId, String email) throws BusinessException {
+    public ProfileDTO addSkill(Long skillId,String skillAreaName,Integer rating, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
 
         if (profileOptional.isPresent() && skillOptional.isPresent()) {
             Profile profile = profileOptional.get();
-            Skill skill = skillOptional.get();
 
-            if (profile.getSkills().indexOf(skill) < 0) {
-                profile.getSkills().add(skill);
+            Skill skill = skillOptional.get();
+            ProfileSkillEntry skillEntry = new ProfileSkillEntry();
+            skillEntry.setSkill(skill);
+            skillEntry.setRating(rating);
+            skillEntry.setSkillAreaName(skillAreaName);
+            if (profile.getSkills().indexOf(skillEntry) < 0) {
+                profile.getSkills().add(skillEntry);
             } else {
                 throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
             }
@@ -172,7 +178,7 @@ public class ProfileManagementService {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
-
+    //TODO: Refactor pt skillentry
     public ProfileDTO removeSkill(Long skillId, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);

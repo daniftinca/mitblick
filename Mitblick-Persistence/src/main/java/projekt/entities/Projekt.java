@@ -26,23 +26,25 @@ public class Projekt extends BaseEntity {
     public static final String GET_PROJEKTS_BY_DATE = "get_projekts_by_date";
     public static final String GET_PROJEKT_BY_ID = "get_projekt_by_id";
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "client", nullable = false)
+    @Column(name = "client")
     private String client;
 
-    @Column(name = "branch", nullable = false)
+    @Column(name = "branch")
     private String branch;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     private Date date;
 
     @Column(name = "description")
     private String description;
 
-    public Projekt() {
 
+
+    public Projekt() {
+    //Empty constructor for a reason.
     }
 
     public String getName() {

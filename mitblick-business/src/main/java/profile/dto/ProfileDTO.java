@@ -1,5 +1,6 @@
 package profile.dto;
 
+import profile.entities.ProfileSkillEntry;
 import projekt.dto.ProjektDTO;
 import skills.dto.SkillDTO;
 
@@ -12,7 +13,7 @@ public class ProfileDTO {
     private String email;
     private String photo;
 
-    private List<SkillDTO> skills;
+    private List<ProfileSkillEntry> skills;
 
     private List<ProjektDTO> projekts;
 
@@ -51,11 +52,11 @@ public class ProfileDTO {
         this.photo = photo;
     }
 
-    public List<SkillDTO> getSkills() {
+    public List<ProfileSkillEntry> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<SkillDTO> skills) {
+    public void setSkills(List<ProfileSkillEntry> skills) {
         this.skills = skills;
     }
 

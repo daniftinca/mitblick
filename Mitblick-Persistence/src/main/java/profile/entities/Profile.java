@@ -40,8 +40,11 @@ public class Profile extends BaseEntity {
     @Column(name = "photo")
     private byte[] photo;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Skill> skills;
+    //TODO: Aici trebe schimbat pt rating si skillareas
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="Profile_ID")
+    private List<ProfileSkillEntry> skills;
+
 
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "profileID")
@@ -50,7 +53,7 @@ public class Profile extends BaseEntity {
     public Profile() {
     }
 
-    /** added a comment for shits and giggles */
+
 
     public String getFirstName() {
         return firstName;
@@ -84,11 +87,11 @@ public class Profile extends BaseEntity {
         this.photo = photo;
     }
 
-    public List<Skill> getSkills() {
+    public List<ProfileSkillEntry> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(List<ProfileSkillEntry> skills) {
         this.skills = skills;
     }
 
