@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,30 @@ export class SkillService {
   }
 
   getAllSkillAreas() {
-    return this.http.get(this.baseURL + 'manage-skill-areas')
+    return this.http.get(this.baseURL + '/manage-skill-areas/get-all-skillareas');
   }
+
+  addSkillArea(skillAreaData) {
+    return this.http.post(this.baseURL + '/manage-skill-areas/add-skill-area', skillAreaData,
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/json'}
+        )
+      })
+  }
+
+  removeSkillArea() {
+
+  }
+
+  addSkill() {
+
+  }
+
+  removeSkill() {
+
+  }
+
+
 
 }

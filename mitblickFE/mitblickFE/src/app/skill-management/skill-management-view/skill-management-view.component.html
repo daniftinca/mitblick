@@ -1,4 +1,23 @@
 <div class="page-contnet">
 
 
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let skillarea of skillAreas">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{skillarea.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{skillarea.description}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list role="list">
+        <!--{{skillarea.skills[0]['name']}}-->
+        <mat-list-item role="listitem" *ngFor="let skill of skillarea.skills">{{skill.name}}</mat-list-item>
+        <!--<div *ngFor="let skill of skillarea.skills" >{{skill.name}}</div>-->
+      </mat-list>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
 </div>
