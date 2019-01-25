@@ -52,25 +52,4 @@ public class SkillAreaPersistenceManager {
         }
     }
 
-
-    public List<Skill> getSkillsFromSkillArea(String skillAreaName) {
-        Optional<SkillArea> skillArea = getByName(skillAreaName);
-        if (!skillArea.isPresent())
-            return skillArea.get().getSkills();
-        else
-            return null;
-    }
-
-//    public void deleteSkill(Skill skill) {
-//        TypedQuery<SkillArea> q = em.createNamedQuery(SkillArea.GET_ALL_SKILLAREAS, SkillArea.class);
-//
-//        try {
-//            Optional<List<SkillArea>> skillAreas = Optional.of(q.getResultList());
-//            if (!(skillAreas.get().isEmpty()))
-//                skillAreas.get().forEach(skillArea -> skillArea.getSkills().remove(skill));
-//            //skillAreas.get();
-//        } catch (NoResultException ex) {
-//
-//        }
-//    }
 }

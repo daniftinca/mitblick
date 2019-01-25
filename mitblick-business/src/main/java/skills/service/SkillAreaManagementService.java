@@ -112,9 +112,9 @@ public class SkillAreaManagementService {
     }
 
     public List<Skill> getSkillsFromSkillArea(String skillAreaName) throws BusinessException {
-        List<Skill> skills = skillAreaPersistenceManager.getSkillsFromSkillArea(skillAreaName);
-        if (skills != null)
-            return skills;
+        Optional<SkillArea> skillArea = skillAreaPersistenceManager.getByName(skillAreaName);
+        if (skillArea.isPresent())
+            return skillArea.get().getSkills();
         else
             throw new BusinessException(ExceptionCode.SKILL_NOT_IN_SKILLAREA_VALIDATION_EXCEPTION);
     }

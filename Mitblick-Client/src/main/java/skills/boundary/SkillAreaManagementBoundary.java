@@ -117,7 +117,7 @@ public class SkillAreaManagementBoundary {
         }
     }
 
-    @POST
+    @GET
     @Path("/get-all-skillareas")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSkillAreas() {
@@ -130,16 +130,16 @@ public class SkillAreaManagementBoundary {
         }
 
     }
-    @POST
-    @Path("/get-all-skills-from-skillareas")
+    @GET
+    @Path("/get-all-skills-from-skillarea/{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllSkillsFromSkillAreas(SkillAreaDTO skillAreaDTO) {
+    public Response getAllSkillsFromSkillAreas(@PathParam("name") String name) {
         try {
-            List<Skill> skills = skillAreaManagementService.getSkillsFromSkillArea(skillAreaDTO.getName());
+            List<Skill> skills = skillAreaManagementService.getSkillsFromSkillArea(name);
             String allSkillsJson = new Gson().toJson(skills);
             return Response.ok(allSkillsJson).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
 
     }
