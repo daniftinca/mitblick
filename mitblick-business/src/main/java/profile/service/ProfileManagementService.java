@@ -12,7 +12,6 @@ import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillDTO;
 import skills.entities.Skill;
-import skills.entities.SkillArea;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -178,7 +177,8 @@ public class ProfileManagementService {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
-    //TODO: Refactor pt skillentry
+
+
     public ProfileDTO removeSkill(Long skillId, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
@@ -187,14 +187,11 @@ public class ProfileManagementService {
             Profile profile = profileOptional.get();
             Skill skill = skillOptional.get();
 
-            if (profile.getSkills().indexOf(skill) != -1) {
-                profile.getSkills().remove(skill);
-            } else {
-                throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
-            }
-
-
-            profilePersistenceManager.update(profile);
+            profile.setSkills(
+                    profile.getSkills().stream()
+                            .filter(profileSkillEntry -> !profileSkillEntry.getSkill().equals(skill))
+                            .collect(Collectors.toList())
+            );
 
             return ProfileDTOHelper.fromEntity(profile);
         } else {

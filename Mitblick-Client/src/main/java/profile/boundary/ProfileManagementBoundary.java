@@ -45,11 +45,10 @@ public class ProfileManagementBoundary {
         }
     }
 
-    @POST
-    @Path("/get-by-email")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @GET
+    @Path("/get-by-email/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getByEmail(String email, @Context SecurityContext securityContext) {
+    public Response getByEmail(@PathParam("email") String email, @Context SecurityContext securityContext) {
 
         try {
             ProfileDTO profile = profileManagementService.getByEmail(email);
@@ -110,10 +109,12 @@ public class ProfileManagementBoundary {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addSkill(@FormParam("skillId") Long skillId,
+                             @FormParam("skillAreaName") String skillAreaName,
+                             @FormParam("skillRating") Integer skillRating,
                              @FormParam("email") String email,
                              @Context HttpHeaders headers) {
         try {
-            profileManagementService.addSkill(skillId, email);
+            profileManagementService.addSkill(skillId, skillAreaName, skillRating, email);
             return Response.ok().build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

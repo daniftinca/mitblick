@@ -1,7 +1,6 @@
 package profile.entities;
 
 import projekt.entities.Projekt;
-import skills.entities.Skill;
 import user.entities.BaseEntity;
 
 import javax.persistence.*;
@@ -40,7 +39,7 @@ public class Profile extends BaseEntity {
     @Column(name = "photo")
     private byte[] photo;
 
-    //TODO: Aici trebe schimbat pt rating si skillareas
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="Profile_ID")
     private List<ProfileSkillEntry> skills;
