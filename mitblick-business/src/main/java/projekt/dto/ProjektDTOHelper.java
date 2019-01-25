@@ -18,7 +18,8 @@ public class ProjektDTOHelper {
         projektDTO.setName(projekt.getName());
         projektDTO.setClient(projekt.getClient());
         projektDTO.setBranch(projekt.getBranch());
-        projektDTO.setDate(projekt.getDate());
+        projektDTO.setStartDate(projekt.getStartDate());
+        projektDTO.setEndDate(projekt.getEndDate());
         projektDTO.setDescription(projekt.getDescription());
 
         return projektDTO;
@@ -31,7 +32,8 @@ public class ProjektDTOHelper {
         projekt.setName(projektDTO.getName());
         projekt.setClient(projektDTO.getClient());
         projekt.setBranch(projektDTO.getBranch());
-        projekt.setDate(projektDTO.getDate());
+        projekt.setStartDate(projektDTO.getStartDate());
+        projekt.setEndDate(projektDTO.getEndDate());
         projekt.setDescription(projektDTO.getDescription());
 
         return projekt;
@@ -57,7 +59,8 @@ public class ProjektDTOHelper {
         projekt.setName(projektDTO.getName());
         projekt.setClient(projektDTO.getName());
         projekt.setBranch(projektDTO.getBranch());
-        projekt.setDate(projektDTO.getDate());
+        projekt.setStartDate(projektDTO.getStartDate());
+        projekt.setEndDate(projektDTO.getEndDate());
 
         if (projektDTO.getDescription() != null) {
             projekt.setDescription(projektDTO.getDescription());

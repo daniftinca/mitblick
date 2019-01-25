@@ -107,17 +107,13 @@ public class ProjektManagementService {
     }
 
     private boolean isValidForCreation(ProjektDTO projektDTO) throws BusinessException {
-        /*if (projektPersistenceManager.getByName(projektDTO.getName()).isPresent()) {
-            throw new BusinessException(ExceptionCode.NAME_EXISTS_ALREADY);
-        }*/
-        // putem avea proiecte cu acelasi nume
         return validateFields(projektDTO);
     }
 
     private boolean validateFields(ProjektDTO projektDTO) {
         return
                 projektDTO.getName() != null && projektDTO.getClient() != null && projektDTO.getBranch() != null &&
-                        projektDTO.getDate() != null;
+                        projektDTO.getStartDate() != null && projektDTO.getEndDate() != null;
     }
 
     private void validateForUpdate(ProjektDTO projektDTO) throws BusinessException {

@@ -13,7 +13,8 @@ import java.util.Objects;
         @NamedQuery(name = Projekt.GET_PROJEKT_BY_NAME, query = "SELECT p FROM Projekt p WHERE p.name = :name"),
         @NamedQuery(name = Projekt.GET_PROJEKTS_BY_CLIENT, query = "SELECT p FROM Projekt p WHERE p.client = :client"),
         @NamedQuery(name = Projekt.GET_PROJEKTS_BY_BRANCH, query = "SELECT p FROM Projekt p WHERE p.branch = :branch"),
-        @NamedQuery(name = Projekt.GET_PROJEKTS_BY_DATE, query = "SELECT p FROM Projekt p WHERE p.date = :date"),
+        @NamedQuery(name = Projekt.GET_PROJEKTS_BY_START_DATE, query = "SELECT p FROM Projekt p WHERE p.startDate = :startDate"),
+        @NamedQuery(name = Projekt.GET_PROJEKTS_BY_END_DATE, query = "SELECT p FROM Projekt p WHERE p.endDate = :endDate"),
         @NamedQuery(name = Projekt.GET_PROJEKT_BY_ID, query = "SELECT p FROM Projekt p WHERE p.id = :id"),
 }
 )
@@ -23,7 +24,8 @@ public class Projekt extends BaseEntity {
     public static final String GET_PROJEKT_BY_NAME = "get_projekt_by_name";
     public static final String GET_PROJEKTS_BY_CLIENT = "get_projekts_by_client";
     public static final String GET_PROJEKTS_BY_BRANCH = "get_projekts_by_branch";
-    public static final String GET_PROJEKTS_BY_DATE = "get_projekts_by_date";
+    public static final String GET_PROJEKTS_BY_START_DATE = "get_projekts_by_start_date";
+    public static final String GET_PROJEKTS_BY_END_DATE = "get_projekts_by_end_date";
     public static final String GET_PROJEKT_BY_ID = "get_projekt_by_id";
 
     @Column(name = "name")
@@ -35,8 +37,11 @@ public class Projekt extends BaseEntity {
     @Column(name = "branch")
     private String branch;
 
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "startDate")
+    private Date startDate;
+
+    @Column(name = "endDate")
+    private Date endDate;
 
     @Column(name = "description")
     private String description;
@@ -71,12 +76,20 @@ public class Projekt extends BaseEntity {
         this.branch = branch;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getDescription() {
@@ -93,16 +106,17 @@ public class Projekt extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Projekt projekt = (Projekt) o;
-        return getName().equals(projekt.getName()) &&
-                getClient().equals(projekt.getClient()) &&
-                getBranch().equals(projekt.getBranch()) &&
-                getDate().equals(projekt.getDate()) &&
+        return Objects.equals(getName(), projekt.getName()) &&
+                Objects.equals(getClient(), projekt.getClient()) &&
+                Objects.equals(getBranch(), projekt.getBranch()) &&
+                Objects.equals(getStartDate(), projekt.getStartDate()) &&
+                Objects.equals(getEndDate(), projekt.getEndDate()) &&
                 Objects.equals(getDescription(), projekt.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getName(), getClient(), getBranch(), getDate(), getDescription());
+        return Objects.hash(super.hashCode(), getName(), getClient(), getBranch(), getStartDate(), getEndDate(), getDescription());
     }
 
     @Override
@@ -111,7 +125,8 @@ public class Projekt extends BaseEntity {
                 "name='" + name + '\'' +
                 ", client='" + client + '\'' +
                 ", branch='" + branch + '\'' +
-                ", date='" + date.toString() + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", description='" + description + '\'' +
                 '}';
     }

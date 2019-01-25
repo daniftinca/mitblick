@@ -1,13 +1,15 @@
 package projekt.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class ProjektDTO {
 
     private String name;
     private String client;
     private String branch;
-    private Date date;
+    private Date startDate;
+    private Date endDate;
     private String description;
 
     public String getName() {
@@ -34,21 +36,21 @@ public class ProjektDTO {
         this.branch = branch;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    // exception :-??
-    public void setDate(Date date) {
-        this.date = date;
-//        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//        try {
-//            this.date = formatter.parse(date);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public String getDescription() {
         return description;
@@ -59,12 +61,31 @@ public class ProjektDTO {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProjektDTO that = (ProjektDTO) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getClient(), that.getClient()) &&
+                Objects.equals(getBranch(), that.getBranch()) &&
+                Objects.equals(getStartDate(), that.getStartDate()) &&
+                Objects.equals(getEndDate(), that.getEndDate()) &&
+                Objects.equals(getDescription(), that.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getClient(), getBranch(), getStartDate(), getEndDate(), getDescription());
+    }
+
+    @Override
     public String toString() {
         return "ProjektDTO{" +
                 "name='" + name + '\'' +
                 ", client='" + client + '\'' +
                 ", branch='" + branch + '\'' +
-                ", date=" + date.toString() +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", description='" + description + '\'' +
                 '}';
     }
