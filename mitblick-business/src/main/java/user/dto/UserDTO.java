@@ -1,9 +1,23 @@
 package user.dto;
 
+import notifications.entities.Notification;
+
+import java.util.List;
+
 public class UserDTO {
     private String password;
     private String email;
     private Boolean isActive;
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    private List<Notification> notifications;
 
 
 
@@ -35,7 +49,10 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
+                "password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", isActive=" + isActive +
+                ", notifications=" + notifications +
                 '}';
     }
 }
