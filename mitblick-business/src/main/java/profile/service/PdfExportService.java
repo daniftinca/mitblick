@@ -3,11 +3,13 @@ package profile.service;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.codec.Base64;
 import exception.BusinessException;
 import exception.ExceptionCode;
 import profile.dto.ProfileDTO;
 
 import javax.ejb.Stateless;
+import java.io.IOException;
 import java.util.List;
 
 @Stateless
@@ -65,8 +67,21 @@ public class PdfExportService {
         table.addCell(getCell(profileDTO.getEmail(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));*/
 
         if (profileDTO.getPhoto() != null && !profileDTO.getPhoto().equals("")) {
+            String base64String = new String(profileDTO.getPhoto());
+            base64String = base64String.replaceFirst("data.*,", "");
+            byte[] bytes = Base64.decode(base64String);
+            PdfPCell cell = null;
+            try {
+                cell = new PdfPCell(Image.getInstance(bytes));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (BadElementException e) {
+                e.printStackTrace();
+            }
+
             table.addCell(getCell("Photo", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
-            table.addCell(getCell(new String(profileDTO.getPhoto().getBytes()), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
+//            table.addCell(getCell(new String(profileDTO.getPhoto().getBytes()), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
+            table.addCell(cell);
         }
         if (profileDTO.getRegion() != null) {
             table.addCell(getCell("Region", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
