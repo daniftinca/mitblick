@@ -6,7 +6,16 @@
   <button mat-button *ngIf="isLoggedIn()&&hasPermission('SKILL_MANAGEMENT')" routerLinkActive="active"
           routerLink='/manage-skills'>Manage Skills
   </button>
+  <div class="align-right">
+    <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_REVIEW')"
+            routerLinkActive="active"
+            routerLink='/notifications'
+    >
+      <mat-icon matBadge="{{this.unread}}" [matBadgeHidden]="this.unread<=0" matBadgeColor="warn">notifications
+      </mat-icon>
+    </button>
 
 
-  <button (click)="logout()" *ngIf="isLoggedIn()" class="logout" mat-button>Log out</button>
+    <button (click)="logout()" *ngIf="isLoggedIn()" mat-button>Log out</button>
+  </div>
 </mat-toolbar>

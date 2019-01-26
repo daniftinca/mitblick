@@ -1,0 +1,12 @@
+.notification-content {
+  max-width: 500px;
+  margin: 30px auto;
+  .mat-card {
+    margin: 40px 0;
+
+  }
+
+  .unread {
+    background: #3F51B507;
+  }
+}

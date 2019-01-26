@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../user/authentication.service";
 import {Router} from "@angular/router";
+import {NotificationsService} from "../../user/notifications.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,15 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  unread = 2;
+
+  constructor(private authService: AuthenticationService,
+              private router: Router,
+              private notifService: NotificationsService) {
+  }
+
+  amountOfUnread() {
+    this.unread = this.notifService.getAmountOfNotifs();
   }
 
   isLoggedIn(){
@@ -21,6 +30,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.amountOfUnread();
   }
 
   logout() {

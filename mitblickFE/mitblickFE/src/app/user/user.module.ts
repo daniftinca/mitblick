@@ -23,10 +23,11 @@ import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
+import {NotificationsComponent} from './notifications/notifications.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent],
+  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent, NotificationsComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
