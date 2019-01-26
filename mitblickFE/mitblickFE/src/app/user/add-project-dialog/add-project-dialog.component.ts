@@ -7,7 +7,8 @@ export interface ProjectDialogData {
   client: string;
   branch: string;
   description: string;
-  date: Date;
+  startDate: Date;
+  endDate: Date;
 }
 
 @Component({
@@ -16,7 +17,6 @@ export interface ProjectDialogData {
   styleUrls: ['./add-project-dialog.component.scss']
 })
 export class AddProjectDialogComponent implements OnInit {
-
   constructor(
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectDialogData) {

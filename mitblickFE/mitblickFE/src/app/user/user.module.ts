@@ -13,6 +13,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
+  MatSelectModule,
   MatSnackBarModule
 } from "@angular/material";
 import {MatListModule} from '@angular/material/list';
@@ -24,10 +25,11 @@ import {FormsModule} from "@angular/forms";
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {NotificationsComponent} from './notifications/notifications.component';
+import {AddSkillDialogComponent} from './add-skill-dialog/add-skill-dialog.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent, NotificationsComponent],
+  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent, NotificationsComponent, AddSkillDialogComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -45,7 +47,8 @@ import {NotificationsComponent} from './notifications/notifications.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   exports: [LoginComponent, RouterModule],
   providers: [{
@@ -53,7 +56,7 @@ import {NotificationsComponent} from './notifications/notifications.component';
     useClass: TokenInterceptorService,
     multi: true,
   }],
-  entryComponents: [AddProjectDialogComponent, EditProfileComponent]
+  entryComponents: [AddProjectDialogComponent, EditProfileComponent, AddSkillDialogComponent]
 })
 export class UserModule {
 }

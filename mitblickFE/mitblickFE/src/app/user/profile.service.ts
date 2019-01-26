@@ -59,4 +59,22 @@ export class ProfileService {
         )
       });
   }
+
+  addSkillToProfile(skillid: number, skillAreaName: string, skillRating: number, email: string) {
+    let body = new URLSearchParams();
+    // @ts-ignore
+    body.set('skillId', skillid);
+    body.set('skillAreaName', skillAreaName);
+    // @ts-ignore
+    body.set('skillRating', skillRating);
+    body.set('email', email);
+
+    return this.http.post(this.baseURL + '/manage-profiles/add-skill',
+      body.toString(),
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
+      });
+  }
 }

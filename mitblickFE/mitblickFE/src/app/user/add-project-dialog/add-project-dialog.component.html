@@ -13,9 +13,14 @@
     <input matInput [(ngModel)]="data.description" placeholder="Description">
   </mat-form-field>
   <mat-form-field>
-    <input [matDatepicker]="picker" matInput [(ngModel)]="data.date" placeholder="Choose a date">
+    <input [matDatepicker]="picker" matInput [(ngModel)]="data.startDate" placeholder="Choose a start date">
     <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input [matDatepicker]="picker2" matInput [(ngModel)]="data.endDate" placeholder="Choose an end date">
+    <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
