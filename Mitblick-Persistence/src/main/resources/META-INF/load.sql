@@ -24,7 +24,6 @@ INSERT INTO `skill`(`name`, `skillArea`) VALUES ("Python",2);
 INSERT INTO `skill`(`name`, `skillArea`) VALUES ("C",1);
 INSERT INTO `skill`(`name`, `skillArea`) VALUES ("C++",1);
 
--- INSERT INTO `users_roles`(`User_ID`, `roles_ID`) VALUES (2,1);
 INSERT INTO `region`(`name`)
 VALUES ("Cluj-Napoca"),
        ("Sibiu"),
@@ -39,3 +38,6 @@ VALUES ("Junior Consultant"),
        ("Senior Manager"),
        ("Associated Partner"),
        ("Partner");
+
+
+-- INSERT INTO `users_roles`(`User_ID`, `roles_ID`) VALUES (2,1);

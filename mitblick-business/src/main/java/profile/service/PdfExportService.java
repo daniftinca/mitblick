@@ -34,6 +34,13 @@ public class PdfExportService {
 
     }
 
+    public void createSinglePdf(ProfileDTO profileDTO, Document document) throws BusinessException {
+        document.open();
+        addContent(document, profileDTO);
+        document.close();
+
+    }
+
     private void addContent(Document document, ProfileDTO profileDTO) throws BusinessException {
         document.addTitle("Profile");
         Paragraph preface = new Paragraph();
@@ -63,8 +70,6 @@ public class PdfExportService {
         table.addCell(getCell(profileDTO.getFirstName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
         table.addCell(getCell("Last Name", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
         table.addCell(getCell(profileDTO.getLastName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
-        /*table.addCell(getCell("Email", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
-        table.addCell(getCell(profileDTO.getEmail(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));*/
 
         if (profileDTO.getPhoto() != null && !profileDTO.getPhoto().equals("")) {
             String base64String = new String(profileDTO.getPhoto());
@@ -72,7 +77,9 @@ public class PdfExportService {
             byte[] bytes = Base64.decode(base64String);
             PdfPCell cell = null;
             try {
-                cell = new PdfPCell(Image.getInstance(bytes));
+                Image image = Image.getInstance(bytes);
+                image.scaleAbsolute(202f, 200f);
+                cell = new PdfPCell(image);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (BadElementException e) {
@@ -80,7 +87,6 @@ public class PdfExportService {
             }
 
             table.addCell(getCell("Photo", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
-//            table.addCell(getCell(new String(profileDTO.getPhoto().getBytes()), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
             table.addCell(cell);
         }
         if (profileDTO.getRegion() != null) {

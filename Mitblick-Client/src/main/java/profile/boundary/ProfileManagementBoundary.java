@@ -31,10 +31,9 @@ public class ProfileManagementBoundary {
 
 
     @GET
-    @Path("/get-by-id")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/get-by-id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(long id, @Context SecurityContext securityContext) {
+    public Response getById(@PathParam("id") long id, @Context SecurityContext securityContext) {
 
         try {
             ProfileDTO profile = profileManagementService.getById(id);
