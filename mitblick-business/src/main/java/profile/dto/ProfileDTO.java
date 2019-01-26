@@ -17,6 +17,16 @@ public class ProfileDTO {
     private Region region;
     private JobTitle jobTitle;
 
+    public Boolean getAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        isAccepted = accepted;
+    }
+
+    private Boolean isAccepted = false;
+
     private List<ProfileSkillEntry> skills;
 
     private List<ProjektDTO> projekts;
@@ -102,6 +112,7 @@ public class ProfileDTO {
                 ", photo='" + photo + '\'' +
                 ", region=" + region +
                 ", jobTitle=" + jobTitle +
+                ", isAccepted=" + isAccepted +
                 ", skills=" + skills +
                 ", projekts=" + projekts +
                 '}';

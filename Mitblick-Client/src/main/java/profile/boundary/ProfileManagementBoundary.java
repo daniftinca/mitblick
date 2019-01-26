@@ -165,6 +165,16 @@ public class ProfileManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
-    
+    @POST
+    @Path("/accept")
+    @Consumes({"application/x-www-form-urlencoded"})
+    public Response acceptProfile(@FormParam("supervisorEmail") String supervisorEmail,@FormParam("userEmail") String userEmail, @Context HttpHeaders headers) {
+        try {
+            profileManagementService.acceptProfile(supervisorEmail,userEmail);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
 
 }

@@ -53,7 +53,30 @@ public class User extends BaseEntity {
     @JoinColumn(name = "userId")
     private List<Notification> notifications;
 
-//    @OneToOne(cascade = CascadeType.ALL)
+    public List<User> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supervisorId")
+    private List<User> employees;
+
+    public String getSupervisorMail() {
+        return supervisorMail;
+    }
+
+    public void setSupervisorMail(String supervisorMail) {
+        this.supervisorMail = supervisorMail;
+    }
+
+    @Column
+    private String supervisorMail;
+
+    //    @OneToOne(cascade = CascadeType.ALL)
 //    private Profile profile;
 
 
@@ -126,12 +149,14 @@ public class User extends BaseEntity {
                 Objects.equals(isActive, user.isActive) &&
                 Objects.equals(failedAttempts, user.failedAttempts) &&
                 Objects.equals(roles, user.roles) &&
-                Objects.equals(notifications, user.notifications);
+                Objects.equals(notifications, user.notifications) &&
+                Objects.equals(employees, user.employees) &&
+                Objects.equals(supervisorMail, user.supervisorMail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), email, password, isActive, failedAttempts, roles, notifications);
+        return Objects.hash(super.hashCode(), email, password, isActive, failedAttempts, roles, notifications, employees, supervisorMail);
     }
 
     @Override
@@ -143,6 +168,8 @@ public class User extends BaseEntity {
                 ", failedAttempts=" + failedAttempts +
                 ", roles=" + roles +
                 ", notifications=" + notifications +
+                ", employees=" + employees +
+                ", supervisorMail='" + supervisorMail + '\'' +
                 '}';
     }
 }

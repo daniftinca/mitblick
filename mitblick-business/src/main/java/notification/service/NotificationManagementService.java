@@ -76,4 +76,16 @@ public class NotificationManagementService {
         else
             throw  new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
     }
+
+    public void markAllNotificationsAsRead(String userMail) throws BusinessException {
+        Optional<User> userOptional = userPersistenceManager.getUserByEmail(userMail);
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            user.getNotifications().forEach(notification -> {
+                    notification.setRead(true);
+            });
+        }
+        else
+            throw  new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
+    }
 }

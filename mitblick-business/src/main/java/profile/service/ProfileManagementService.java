@@ -2,6 +2,8 @@ package profile.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
+import notifications.dao.NotificationPersistenceManager;
+import notifications.entities.Notification;
 import profile.dao.ProfilePersistenceManager;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
@@ -12,6 +14,8 @@ import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
 import skills.dto.SkillDTO;
 import skills.entities.Skill;
+import user.dao.UserPersistenceManager;
+import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -33,6 +37,12 @@ public class ProfileManagementService {
     @EJB
     private ProjektPersistenceManager projektPersistenceManager;
 
+    @EJB
+    private UserPersistenceManager userPersistenceMAnager;
+
+    @EJB
+    private NotificationPersistenceManager notificationPersistenceManager;
+
 
     public ProfileDTO create(ProfileDTO profileDTO) throws BusinessException {
         validateForCreation(profileDTO);
@@ -51,10 +61,25 @@ public class ProfileManagementService {
 
             profilePersistenceManager.update(profileAfter);
 
+            sendNotifications(profileAfter);
             return ProfileDTOHelper.fromEntity(profileAfter);
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
+    }
+
+    private void sendNotifications(Profile profileAfter) {
+        Optional<User> supervisorOptional = userPersistenceMAnager.getSupervisor(profileAfter.getEmail());
+        Notification notification = new Notification();
+        notification.setTitle("Profile Review");
+        notification.setMessage("Profile updated. Please review changes.");
+        notification.setUserMail(profileAfter.getEmail());
+        notification.setRead(false);
+        Notification notif = notificationPersistenceManager.create(notification);
+
+        if (supervisorOptional.isPresent())
+            supervisorOptional.get().getNotifications().add(notif);
+
     }
 
     public void delete(ProfileDTO profileDTO) throws BusinessException {
@@ -128,7 +153,7 @@ public class ProfileManagementService {
         }
     }
 
-    public ProfileDTO addSkill(Long skillId,String skillAreaName,Integer rating, String email) throws BusinessException {
+    public ProfileDTO addSkill(Long skillId, String skillAreaName, Integer rating, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
 
@@ -222,4 +247,19 @@ public class ProfileManagementService {
         }
     }
 
+    public void acceptProfile(String supervisorMail, String userMail) throws BusinessException {
+        Optional<User> userOptional = userPersistenceMAnager.getUserByEmail(userMail);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user.getSupervisorMail() == supervisorMail) {
+                Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(userMail);
+                if (profileOptional.isPresent()) {
+                    profileOptional.get().setAccepted(true);
+                } else
+                    throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
+            } else
+                throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+        } else
+            throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+    }
 }

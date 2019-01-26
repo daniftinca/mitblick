@@ -21,6 +21,30 @@ public class NotificationManagementBoundary {
 
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/add-notification")
+    public Response createNotification(final Notification notification) {
+        notificationManagementService.createNotification(notification);
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    @POST
+    @Path("/delete-notification")
+    @Consumes({"application/x-www-form-urlencoded"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteNotification(@FormParam("notificationId") Long notificationId) {
+
+        try {
+
+            notificationManagementService.deleteNotification(notificationId);
+            return Response.status(Response.Status.OK).build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+    @POST
     @Path("/mark-notification-as-read")
     @Consumes({"application/x-www-form-urlencoded"})
     @Produces(MediaType.APPLICATION_JSON)
@@ -29,6 +53,21 @@ public class NotificationManagementBoundary {
         try {
 
             notificationManagementService.markNotificationAsRead(notificationId);
+            return Response.status(Response.Status.OK).build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+    @POST
+    @Path("/mark-all-as-read")
+    @Consumes({"application/x-www-form-urlencoded"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response markAllAsRead(@FormParam("userMail") String userMail) {
+
+        try {
+
+            notificationManagementService.markAllNotificationsAsRead(userMail);
             return Response.status(Response.Status.OK).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
@@ -60,6 +99,7 @@ public class NotificationManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
+
 
 
 
