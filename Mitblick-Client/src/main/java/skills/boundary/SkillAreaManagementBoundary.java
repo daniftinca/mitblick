@@ -128,7 +128,6 @@ public class SkillAreaManagementBoundary {
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-
     }
     @GET
     @Path("/get-all-skills-from-skillarea/{name}")
