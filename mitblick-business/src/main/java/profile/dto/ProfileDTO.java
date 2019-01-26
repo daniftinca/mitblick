@@ -88,6 +88,11 @@ public class ProfileDTO {
         this.projekts = projekts;
     }
 
+    public String skillEntryToString(int index) {
+        return this.getSkills().get(index).getSkill().getName() + "/n" + this.getSkills().get(index).getSkillAreaName()
+                + "/n" + this.getSkills().get(index).getRating().toString();
+    }
+
     @Override
     public String toString() {
         return "ProfileDTO{" +

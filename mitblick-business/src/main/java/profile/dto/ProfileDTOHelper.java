@@ -18,7 +18,9 @@ public class ProfileDTOHelper {
         profileDTO.setFirstName(profile.getFirstName());
         profileDTO.setLastName(profile.getLastName());
         profileDTO.setEmail(profile.getEmail());
-        //profileDTO.setPhoto(new String(profile.getPhoto()));
+        if (profile.getPhoto() != null) {
+            profileDTO.setPhoto(new String(profile.getPhoto()));
+        }
         profileDTO.setRegion(profile.getRegion());
         profileDTO.setJobTitle(profile.getJobTitle());
         profileDTO.setSkills(profile.getSkills());
@@ -34,7 +36,9 @@ public class ProfileDTOHelper {
         profile.setFirstName(profileDTO.getFirstName());
         profile.setLastName(profileDTO.getLastName());
         profile.setEmail(profileDTO.getEmail());
-        //profile.setPhoto(profileDTO.getPhoto().getBytes());
+        if (profileDTO.getPhoto() != null) {
+            profile.setPhoto(profileDTO.getPhoto().getBytes());
+        }
         profile.setRegion(profileDTO.getRegion());
         profile.setJobTitle(profileDTO.getJobTitle());
         profile.setSkills(profileDTO.getSkills());

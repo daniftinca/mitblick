@@ -29,7 +29,7 @@ VALUES ("Cluj-Napoca"),
        ("Brasov"),
        ("Timisoara");
 
-INSERT INTO `jobtitle`(`ID`, `name`)
+INSERT INTO `jobtitle`(`name`)
 VALUES ("Junior Consultant"),
        ("Consultant"),
        ("Senior Consultant"),

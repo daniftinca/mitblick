@@ -4,6 +4,7 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import filter.AuthenticationFilter;
 import filter.CorsFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import profile.boundary.PdfGeneratorBoundary;
 import profile.boundary.ProfileManagementBoundary;
 import projekt.boundary.ProjektManagementBoundary;
 import skills.boundary.SkillAreaManagementBoundary;
@@ -33,6 +34,7 @@ public class AppBoundary extends Application {
         classes.add(UserManagementBoundary.class);
         classes.add(PermissionManagementBoundary.class);
         classes.add(ProfileManagementBoundary.class);
+        classes.add(PdfGeneratorBoundary.class);
         classes.add(ProjektManagementBoundary.class);
         classes.add(CorsFilter.class);
         classes.add(MultiPartFeature.class);
