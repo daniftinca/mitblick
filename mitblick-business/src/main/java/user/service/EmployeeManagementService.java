@@ -7,6 +7,7 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -56,6 +57,15 @@ public class EmployeeManagementService {
                 employee.setSupervisorMail(null);
             }else
                 throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+        }else
+            throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+    }
+
+    public List<User> getAllEmployeesFromSupervisor(String supervisorEmail)throws BusinessException{
+        Optional<User> supervisorOptional = userPersistenceManager.getUserByEmail(supervisorEmail);
+        if(supervisorOptional.isPresent()){
+            User supervisor = supervisorOptional.get();
+            return supervisor.getEmployees();
         }else
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
     }
