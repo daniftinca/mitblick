@@ -5,12 +5,17 @@ import user.entities.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Notification.GET_NOTIFICATION_BY_ID, query = "SELECT n FROM Notification n WHERE n.id = :id")
+})
 public class Notification extends BaseEntity {
-
+    public static final String GET_NOTIFICATION_BY_ID = "get_notification_by_id";
     @Column(name = "title")
     private String title;
 

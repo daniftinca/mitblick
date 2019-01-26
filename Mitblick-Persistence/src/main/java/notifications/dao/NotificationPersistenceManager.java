@@ -4,7 +4,11 @@ import notifications.entities.Notification;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @Stateless
 public class NotificationPersistenceManager {
@@ -21,4 +25,13 @@ public class NotificationPersistenceManager {
         em.remove(notification);
     }
 
+    public Optional<Notification> getById(Long Id){
+        TypedQuery<Notification> q = em.createNamedQuery(Notification.GET_NOTIFICATION_BY_ID, Notification.class)
+                .setParameter("id", Id);
+        try {
+            return Optional.of(q.getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
+    }
 }
