@@ -100,8 +100,8 @@ public class ProfileDTO {
     }
 
     public String skillEntryToString(int index) {
-        return this.getSkills().get(index).getSkill().getName() + "/n" + this.getSkills().get(index).getSkillAreaName()
-                + "/n" + this.getSkills().get(index).getRating().toString();
+        return this.getSkills().get(index).getSkill().getName() + ", " + this.getSkills().get(index).getSkillAreaName()
+                + " : lvl. " + this.getSkills().get(index).getRating().toString();
     }
 
     @Override
