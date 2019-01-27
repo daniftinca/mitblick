@@ -11,6 +11,7 @@ INSERT INTO `permissions`(`description`, `type`) VALUES ("Profile review permiss
 INSERT INTO `roles_permissions`(`Role_ID`, `permissions_ID`) VALUES (1,1);
 INSERT INTO `roles_permissions`(`Role_ID`, `permissions_ID`) VALUES (1,2);
 INSERT INTO `roles_permissions`(`Role_ID`, `permissions_ID`) VALUES (1,3);
+INSERT INTO `roles_permissions`(`Role_ID`, `permissions_ID`) VALUES (1,4);
 INSERT INTO `roles_permissions`(`Role_ID`, `permissions_ID`) VALUES (4,4);
 INSERT INTO `roles_permissions`(`Role_ID`, `permissions_ID`) VALUES (3,3);
 
@@ -24,20 +25,14 @@ INSERT INTO `skill`(`name`, `skillArea`) VALUES ("Python",2);
 INSERT INTO `skill`(`name`, `skillArea`) VALUES ("C",1);
 INSERT INTO `skill`(`name`, `skillArea`) VALUES ("C++",1);
 
-INSERT INTO `region`(`name`)
-VALUES ("Cluj-Napoca"),
-       ("Sibiu"),
-       ("Brasov"),
-       ("Timisoara");
-
-INSERT INTO `jobtitle`(`name`)
-VALUES ("Junior Consultant"),
-       ("Consultant"),
-       ("Senior Consultant"),
-       ("Manager"),
-       ("Senior Manager"),
-       ("Associated Partner"),
-       ("Partner");
 
 
--- INSERT INTO `users_roles`(`User_ID`, `roles_ID`) VALUES (2,1);
+INSERT INTO `users`( `email`, `FAILEDATTEMPTS`, `isActive`, `password`) VALUES ('admin@mitblick.com',0,true,"¦ù9§Èç‚x“ùqÔäH-‰");
+INSERT INTO `users`( `email`, `FAILEDATTEMPTS`, `isActive`, `password`) VALUES ('user1@mitblick.com',0,true,"¦ù9§Èç‚x“ùqÔäH-‰");
+INSERT INTO `users`( `email`, `FAILEDATTEMPTS`, `isActive`, `password`) VALUES ('user2@mitblick.com',0,true,"¦ù9§Èç‚x“ùqÔäH-‰");
+INSERT INTO `users_roles`(`User_ID`, `roles_ID`) VALUES (1,1);
+
+INSERT INTO `region`(`name`) VALUES ("Cluj-Napoca"),("Sibiu"),("Brasov"),("Timisoara");
+
+INSERT INTO `jobtitle`(`name`) VALUES ("Junior Consultant"),("Consultant"), ("Senior Consultant"), ("Manager"), ("Senior Manager"), ("Associated Partner"), ("Partner");
+
