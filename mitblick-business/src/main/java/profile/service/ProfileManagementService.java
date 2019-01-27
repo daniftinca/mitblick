@@ -19,7 +19,6 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -101,13 +100,22 @@ public class ProfileManagementService {
     }
 
 
-
-
     //TODO : make to lists
-    public List<Profile> filter(List<String> filterCriteriaNames, List<String> filterCriteriaValues) {
-        return new ArrayList<>();
+    public List<ProfileDTO> filter(List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) {
+
+        return this.getAll().stream()
+                .filter(profileDTO -> {
+                    return profileDTO.getFirstName().equals("Santa");
+                })
+                .collect(Collectors.toList());
     }
 
+    private boolean checkProfileForFilter(Profile profile, List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) throws NoSuchFieldException, IllegalAccessException {
+
+        return true;
+
+
+    }
 
     public ProfileDTO getById(Long id) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getById(id);
