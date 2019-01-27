@@ -20,11 +20,11 @@ public class EmployeeManagementBoundary {
     @POST
     @Path("/add-employee-to-supervisor")
     @Consumes({"application/x-www-form-urlencoded"})
-    public Response addEmployeeToSupervisor(@FormParam("supervisorEmail") String supervisorEmail,@FormParam("employeeEmail") String employeeEmail){
+    public Response addEmployeeToSupervisor(@FormParam("supervisorEmail") String supervisorEmail, @FormParam("employeeEmail") String employeeEmail) {
         try {
-            employeeManagementService.addEmployeeToSupervisor(supervisorEmail,employeeEmail);
+            employeeManagementService.addEmployeeToSupervisor(supervisorEmail, employeeEmail);
             return Response.status(Response.Status.OK).build();
-        }catch (BusinessException e){
+        } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
@@ -32,11 +32,11 @@ public class EmployeeManagementBoundary {
     @POST
     @Path("/remove-employee-from-supervisor")
     @Consumes({"application/x-www-form-urlencoded"})
-    public Response removeEmployeeFromSupervisor(@FormParam("supervisorEmail") String supervisorEmail,@FormParam("employeeEmail") String employeeEmail){
+    public Response removeEmployeeFromSupervisor(@FormParam("supervisorEmail") String supervisorEmail, @FormParam("employeeEmail") String employeeEmail) {
         try {
-            employeeManagementService.removeEmployeeFromSupervisor(supervisorEmail,employeeEmail);
+            employeeManagementService.removeEmployeeFromSupervisor(supervisorEmail, employeeEmail);
             return Response.status(Response.Status.OK).build();
-        }catch (BusinessException e){
+        } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
@@ -53,6 +53,15 @@ public class EmployeeManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
 
+    }
+
+    @GET
+    @Path("/get-all-supervisors")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllSupervisors() {
+        List<User> supervisors = employeeManagementService.getAllSupervisors();
+        String allEmployeesJson = new Gson().toJson(supervisors);
+        return Response.ok(allEmployeesJson).build();
     }
 
 }

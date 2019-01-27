@@ -7,6 +7,7 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,7 +23,7 @@ public class EmployeeManagementService {
         Optional<User> supervisorOptional = userPersistenceManager.getUserByEmail(supervisorEmail);
         Optional<User> employeeOptional = userPersistenceManager.getUserByEmail(employeeEmail);
 
-        if(supervisorOptional.isPresent() && employeeOptional.isPresent()){
+        if(supervisorOptional.isPresent() && employeeOptional.isPresent() && !supervisorEmail.equals(employeeEmail)){
             User supervisor = supervisorOptional.get();
             User employee = employeeOptional.get();
             validateSupervisor(supervisor);
@@ -37,7 +38,7 @@ public class EmployeeManagementService {
         AtomicBoolean ok = new AtomicBoolean(false);
         supervisor.getRoles().forEach(role -> {
             role.getPermissions().forEach(permission -> {
-                if(permission.getType() == "PROFILE_REVIEW")
+                if(permission.getType().equals("PROFILE_REVIEW") )
                     ok.set(true);
             });
         });
@@ -52,7 +53,7 @@ public class EmployeeManagementService {
             User supervisor = supervisorOptional.get();
             User employee = employeeOptional.get();
             validateSupervisor(supervisor);
-            if(supervisor.getEmployees().contains(employee) && employee.getSupervisorMail() == supervisorEmail){
+            if(supervisor.getEmployees().contains(employee) && employee.getSupervisorMail().equals(supervisorEmail) ){
                 supervisor.getEmployees().remove(employee);
                 employee.setSupervisorMail(null);
             }else
@@ -68,6 +69,18 @@ public class EmployeeManagementService {
             return supervisor.getEmployees();
         }else
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+    }
+
+    public List<User> getAllSupervisors(){
+        List<User> users = userPersistenceManager.getAllUsers();
+        List<User> supervisors = new ArrayList<>();
+        users.forEach(user -> {
+            user.getRoles().forEach(role -> {
+                if(role.getType().equals("SUPERVISOR"))
+                    supervisors.add(user);
+            });
+        });
+        return supervisors;
     }
 
 

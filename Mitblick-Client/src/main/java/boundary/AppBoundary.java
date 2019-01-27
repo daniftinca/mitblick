@@ -10,6 +10,7 @@ import projekt.boundary.ProjektManagementBoundary;
 import skills.boundary.SkillAreaManagementBoundary;
 import skills.boundary.SkillManagementBoundary;
 import user.boundary.AuthenticationBoundary;
+import user.boundary.EmployeeManagementBoundary;
 import user.boundary.PermissionManagementBoundary;
 import user.boundary.UserManagementBoundary;
 
@@ -40,6 +41,8 @@ public class AppBoundary extends Application {
         classes.add(MultiPartFeature.class);
         classes.add(SkillManagementBoundary.class);
         classes.add(SkillAreaManagementBoundary.class);
+        classes.add(EmployeeManagementBoundary.class);
+
         return classes;
     }
 }
