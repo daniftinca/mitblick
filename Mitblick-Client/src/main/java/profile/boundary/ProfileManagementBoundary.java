@@ -176,4 +176,21 @@ public class ProfileManagementBoundary {
         }
     }
 
+// TODO: Still working on it.
+//    @GET
+//    @Path("/filter")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public String filter(@QueryParam("index") int index, @QueryParam("amount") int amount,@QueryParam("criterias") List<Pair<String,String>> criterias){
+//        Pair<Integer, List<Profile>> profiles = profileManagementService.filter(index, amount, criterias);
+//
+//        try {
+//            return new ObjectMapper().writeValueAsString(profiles);
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return "not working";
+//    }
+
+
 }

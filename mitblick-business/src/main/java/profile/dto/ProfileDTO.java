@@ -32,6 +32,7 @@ public class ProfileDTO {
     private List<ProjektDTO> projekts;
 
     public ProfileDTO() {
+
     }
 
     public String getFirstName() {
