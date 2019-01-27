@@ -9,6 +9,7 @@ export interface SkillDialogData {
   skillRating: number;
   email: string;
   skillName: string;
+  skillEntries: {};
 }
 
 @Component({
@@ -37,13 +38,31 @@ export class AddSkillDialogComponent implements OnInit {
   }
 
   getSkills(area) {
+    var skills = [];
     for (var id in this.skillEntries) {
       // @ts-ignore
       if (this.skillEntries[id].name == area) {
-        // @ts-ignore
-        return this.skillEntries[id].skills;
+
+        for (var j in this.skillEntries[id].skills) {
+          if (this.filterSkills(this.skillEntries[id].skills[j])) {
+            skills.push(this.skillEntries[id].skills[j]);
+          }
+        }
+
       }
     }
+    return skills;
+  }
+
+  filterSkills(skill) {
+    for (var i in this.data.skillEntries) {
+      for (var j in this.data.skillEntries[i]) {
+        if (this.data.skillEntries[i][j].id == skill.id) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   setSkillName(id) {

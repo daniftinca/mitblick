@@ -33,14 +33,16 @@
 
             <mat-list-item *ngFor="let skill of this.skillEntries[key]" role="listitem">
               <div class="single-skill">
-                <div mat-line>
                   <div class="skill-name"> {{skill.name}}
                     <mat-chip-list>
                       <mat-chip color="primary" selected>{{skill.rating}}</mat-chip>
                     </mat-chip-list>
                   </div>
 
-                </div>
+                <button (click)="removeSkill(skill.id, key)" class="delete-skill"
+                        color="warn"
+                        mat-mini-fab
+                ><i class="material-icons">delete</i></button>
 
               </div>
             </mat-list-item>
@@ -57,7 +59,7 @@
 
       <mat-divider></mat-divider>
       <h2 mat-subheader>Projects</h2>
-      <mat-list-item *ngFor="let project of profile.projekts">
+      <mat-list-item *ngFor="let project of projekts()">
         <mat-icon mat-list-icon>show_chart</mat-icon>
         <h3 mat-line><b>{{project.name}} </b></h3>
         <h4 mat-line>{{project.client}} </h4>

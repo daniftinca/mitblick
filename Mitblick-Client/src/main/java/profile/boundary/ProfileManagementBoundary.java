@@ -143,8 +143,9 @@ public class ProfileManagementBoundary {
                                 @FormParam("email") String email,
                                 @Context HttpHeaders headers) {
         try {
-            profileManagementService.removeSkill(skillId, email);
-            return Response.ok().build();
+            ProfileDTO profile = profileManagementService.removeSkill(skillId, email);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }

@@ -15,3 +15,10 @@
 .chip-override {
   font-size: 10px;
 }
+
+.single-skill {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: space-between;
+}

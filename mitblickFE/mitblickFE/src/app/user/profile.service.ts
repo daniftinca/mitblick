@@ -77,4 +77,19 @@ export class ProfileService {
         )
       });
   }
+
+  removeSkillFromProfile(skillid: number, email: string) {
+    let body = new URLSearchParams();
+    // @ts-ignore
+    body.set('skillId', skillid);
+    body.set('email', email);
+
+    return this.http.post(this.baseURL + '/manage-profiles/remove-skill',
+      body.toString(),
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
+      });
+  }
 }

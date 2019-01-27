@@ -220,7 +220,7 @@ public class ProfileManagementService {
 
             profile.setSkills(
                     profile.getSkills().stream()
-                            .filter(profileSkillEntry -> !profileSkillEntry.getSkill().equals(skill))
+                            .filter(profileSkillEntry -> !profileSkillEntry.getSkill().getId().equals(skill.getId()))
                             .collect(Collectors.toList())
             );
 

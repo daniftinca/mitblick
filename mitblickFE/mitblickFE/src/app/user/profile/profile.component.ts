@@ -24,6 +24,13 @@ export class ProfileComponent implements OnInit {
 
 
   constructor(private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService) {
+    this.profile = {
+      firstname: "",
+      lastname: "",
+      photo: "",
+      projekts: [],
+      skills: [],
+    };
   }
 
   ngOnInit() {
@@ -44,7 +51,7 @@ export class ProfileComponent implements OnInit {
   addSkillDialog(): void {
     const dialogRef = this.dialog.open(AddSkillDialogComponent, {
       width: '350px',
-      data: {}
+      data: {skillEntries: this.skillEntries}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -53,7 +60,11 @@ export class ProfileComponent implements OnInit {
       var skillAreaName = result.skillAreaName;
       var skillRating = result.skillRating;
       var email = this.profile.email;
-      this.profile.skills.push({skillAreaName: skillAreaName, rating: skillRating, skill: {name: result.skillName}});
+      this.profile.skills.push({
+        skillAreaName: skillAreaName,
+        rating: skillRating,
+        skill: {name: result.skillName, id: result.skillid}
+      });
       this.getSkillEntries();
       this.profileService.addSkillToProfile(skillid, skillAreaName, skillRating, email).subscribe();
     });
@@ -94,12 +105,32 @@ export class ProfileComponent implements OnInit {
         }
 
         if (this.new_profile.photo == "" || this.new_profile.photo == undefined) {
-          this.new_profile.photo = this.profile.photo;
+          if (this.profile.photo == "https://material.angular.io/assets/img/examples/shiba1.jpg") {
+            this.new_profile.photo = "";
+          } else {
+            this.new_profile.photo = this.profile.photo;
+          }
         }
 
         this.profileService.updateProfile(this.new_profile).subscribe(res => this.profile = res);
       }
     });
+  }
+
+  removeSkill(skillid: number, skillarea: string) {
+    this.profileService.removeSkillFromProfile(skillid, this.profile.email).subscribe(res => {
+      this.profile = res;
+      this.getSkillEntries();
+    });
+    // for(var idx in this.skillEntries[skillarea]){
+    //   // @ts-ignore
+    //   if(this.skillEntries[idx].id == skillid){
+    //     this.skillEntries[skillarea].pop(this.skillEntries[idx]);
+    //     if(this.skillEntries[skillarea].length == 0){
+    //       delete this.skillEntries[skillarea];
+    //     }
+    //   }
+    // }
   }
 
 
@@ -118,13 +149,21 @@ export class ProfileComponent implements OnInit {
       if (this.skillEntries == undefined || !(sa_name in this.skillEntries)) {
         this.skillEntries[sa_name] = [];
       }
-      var skill = {name: skillentry.skill.name, rating: skillentry.rating};
+      var skill = {name: skillentry.skill.name, rating: skillentry.rating, id: skillentry.skill.id};
       this.skillEntries[sa_name].push(skill);
     }
   }
 
   keys() {
-    return Object.keys(this.skillEntries);
+    if (this.skillEntries != undefined) {
+      return Object.keys(this.skillEntries);
+    }
+  }
+
+  projekts() {
+    if (this.profile != undefined) {
+      return this.profile.projekts;
+    }
   }
 
 }
