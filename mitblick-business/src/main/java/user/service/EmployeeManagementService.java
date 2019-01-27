@@ -18,6 +18,13 @@ public class EmployeeManagementService {
     @EJB
     UserPersistenceManager userPersistenceManager;
 
+    /**
+     * Adds a employee(given by Email) to the list of employees of  supervisor(given by Email), and sets the supervisor
+     * Email of the given employee to be the given supervisorEmail
+     * @param supervisorEmail
+     * @param employeeEmail
+     * @throws BusinessException
+     */
     public void addEmployeeToSupervisor(String supervisorEmail, String employeeEmail) throws BusinessException{
 
         Optional<User> supervisorOptional = userPersistenceManager.getUserByEmail(supervisorEmail);
@@ -34,7 +41,7 @@ public class EmployeeManagementService {
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
     }
 
-    public void validateSupervisor(User supervisor) throws BusinessException{
+    private void validateSupervisor(User supervisor) throws BusinessException{
         AtomicBoolean ok = new AtomicBoolean(false);
         supervisor.getRoles().forEach(role -> {
             role.getPermissions().forEach(permission -> {
@@ -42,10 +49,16 @@ public class EmployeeManagementService {
                     ok.set(true);
             });
         });
-        if(ok.get()==false)
+        if(!ok.get())
             throw new BusinessException(ExceptionCode.USER_PERMISSION_VALIDATION);
     }
 
+    /**
+     * Removes employee from the given supervisor.
+     * @param supervisorEmail
+     * @param employeeEmail
+     * @throws BusinessException
+     */
     public void removeEmployeeFromSupervisor(String supervisorEmail, String employeeEmail)throws BusinessException{
         Optional<User> supervisorOptional = userPersistenceManager.getUserByEmail(supervisorEmail);
         Optional<User> employeeOptional = userPersistenceManager.getUserByEmail(employeeEmail);
@@ -62,6 +75,12 @@ public class EmployeeManagementService {
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
     }
 
+    /**
+     * Gets the list of employees of the given supervisor
+     * @param supervisorEmail
+     * @return
+     * @throws BusinessException
+     */
     public List<User> getAllEmployeesFromSupervisor(String supervisorEmail)throws BusinessException{
         Optional<User> supervisorOptional = userPersistenceManager.getUserByEmail(supervisorEmail);
         if(supervisorOptional.isPresent()){
@@ -71,6 +90,10 @@ public class EmployeeManagementService {
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
     }
 
+    /**
+     * Gets all supervisors.
+     * @return
+     */
     public List<User> getAllSupervisors(){
         List<User> users = userPersistenceManager.getAllUsers();
         List<User> supervisors = new ArrayList<>();

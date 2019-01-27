@@ -47,16 +47,6 @@ public class SkillManagementService {
         return skillAreaOptional;
     }
 
-//    public void validateSkillForUpdate(SkillDTO skillDTO) throws BusinessException {
-//        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()))
-//            throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
-//    }
-
-    public void validateSkillForDelete(SkillDTO skillDTO) throws BusinessException {
-        if (!(skillPersistenceManager.getByName(skillDTO.getName()).isPresent()))
-            throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
-    }
-
 //    public SkillDTO updateSkill(String oldName, String newName) throws BusinessException {
 //
 //        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(oldName);
@@ -75,6 +65,11 @@ public class SkillManagementService {
 //        }
 //    }
 
+    /**
+     * Deletes skill given by ID.
+     * @param skillID
+     * @throws BusinessException
+     */
     public void deleteSkill(Long skillID) throws BusinessException {
         Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillID);
 

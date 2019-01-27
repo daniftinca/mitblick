@@ -122,7 +122,7 @@ public class SkillAreaManagementBoundary {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSkillAreas() {
         try {
-            Optional<List<SkillArea>> skillAreas = skillAreaManagementService.getAllSkillareas();
+            Optional<List<SkillArea>> skillAreas = skillAreaManagementService.getAllSkillAreas();
             String allSkillAreasJson = new Gson().toJson(skillAreas.get());
             return Response.ok(allSkillAreasJson).build();
         } catch (Exception e) {

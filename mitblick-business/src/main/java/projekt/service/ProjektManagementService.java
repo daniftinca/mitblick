@@ -24,9 +24,12 @@ public class ProjektManagementService {
     @EJB
     private ProfilePersistenceManager profilePersistenceManager;
 
-    /*
-    email -> profile
-    profile.getProjekts.add()
+    /**
+     * Create a Project entity using a ProjectDTO
+     * @param projektDTO
+     * @param email
+     * @return
+     * @throws BusinessException
      */
     public ProjektDTO create(ProjektDTO projektDTO, String email) throws BusinessException {
 
@@ -45,6 +48,12 @@ public class ProjektManagementService {
 
     }
 
+    /**
+     * Updates a project entity using a projectDTO.
+     * @param projektDTO
+     * @return
+     * @throws BusinessException
+     */
     public ProjektDTO update(ProjektDTO projektDTO) throws BusinessException {
         Optional<Projekt> projektBeforeOptional = projektPersistenceManager.getByName(projektDTO.getName());
 
@@ -61,6 +70,12 @@ public class ProjektManagementService {
         }
     }
 
+    /**
+     * Deletes a project from a profile and then deletes the project entity.
+     * @param projektDTO
+     * @param email
+     * @throws BusinessException
+     */
     public void delete(ProjektDTO projektDTO, String email) throws BusinessException {
         Optional<Profile> profile = profilePersistenceManager.getByEmail(email);
         Optional<Projekt> projekt = projektPersistenceManager.getByName(projektDTO.getName());
@@ -75,6 +90,10 @@ public class ProjektManagementService {
 
     }
 
+    /**
+     * Gets a list of all existing projects.
+     * @return
+     */
     public List<ProjektDTO> getAll() {
         return projektPersistenceManager.getAll()
                 .stream()
@@ -82,6 +101,12 @@ public class ProjektManagementService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets a project by Id.
+     * @param id
+     * @return
+     * @throws BusinessException
+     */
     public Projekt getById(Long id) throws BusinessException {
         Optional<Projekt> profileOptional = projektPersistenceManager.getById(id);
         if (profileOptional.isPresent()) {
@@ -91,6 +116,12 @@ public class ProjektManagementService {
         }
     }
 
+    /**
+     * Gets a project by name.
+     * @param name
+     * @return
+     * @throws BusinessException
+     */
     public Projekt getByName(String name) throws BusinessException {
         Optional<Projekt> profileOptional = projektPersistenceManager.getByName(name);
         if (profileOptional.isPresent()) {

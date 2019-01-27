@@ -26,21 +26,27 @@ public class SkillAreaManagementService {
     private SkillPersistenceManager skillPersistenceManager;
 
 
-    public void validateSkillAreaForUpdate(SkillAreaDTO skillAreaDTO) throws BusinessException {
+    private void validateSkillAreaForUpdate(SkillAreaDTO skillAreaDTO) throws BusinessException {
         if (skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent())
             throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
     }
 
-    public void validateSkillAreaForDelete(SkillAreaDTO skillAreaDTO) throws BusinessException {
+    private void validateSkillAreaForDelete(SkillAreaDTO skillAreaDTO) throws BusinessException {
         if (!(skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent()))
             throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
     }
 
-    public void validateSkillAreaForCreation(SkillAreaDTO skillAreaDTO) throws BusinessException {
+    private void validateSkillAreaForCreation(SkillAreaDTO skillAreaDTO) throws BusinessException {
         if (skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent())
             throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
     }
 
+    /**
+     * Creates a skillArea entity from a skillAreaDTO.
+     * @param skillAreaDTO
+     * @return
+     * @throws BusinessException
+     */
     public SkillAreaDTO createSkillArea(SkillAreaDTO skillAreaDTO) throws BusinessException {
         validateSkillAreaForCreation(skillAreaDTO);
         SkillArea skillArea = SkillAreaDTOHelper.toEntity(skillAreaDTO);
@@ -48,6 +54,13 @@ public class SkillAreaManagementService {
         return SkillAreaDTOHelper.fromEntity(skillArea);
     }
 
+    /**
+     * Updates a skillArea by its old name, using a skillAreaDTO.
+     * @param oldName
+     * @param skillAreaDTO
+     * @return
+     * @throws BusinessException
+     */
     public SkillAreaDTO updateSkillArea(String oldName, SkillAreaDTO skillAreaDTO) throws BusinessException {
 
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(oldName);
@@ -66,6 +79,11 @@ public class SkillAreaManagementService {
         }
     }
 
+    /**
+     * Deletes a skillArea using a skillAreaDTO.
+     * @param skillAreaDTO
+     * @throws BusinessException
+     */
     public void deleteSkillArea(SkillAreaDTO skillAreaDTO) throws BusinessException {
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaDTO.getName());
 
@@ -77,6 +95,12 @@ public class SkillAreaManagementService {
         }
     }
 
+    /**
+     * Adds a skill (given by ID) to a skillArea(given by Name)
+     * @param skillId
+     * @param skillAreaName
+     * @throws BusinessException
+     */
     public void addSkillToSkillArea(Long skillId, String skillAreaName) throws BusinessException {
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaName);
         Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillId);
@@ -92,6 +116,12 @@ public class SkillAreaManagementService {
             throw new BusinessException(ExceptionCode.SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION);
     }
 
+    /**
+     * Removes a skill (given by ID) from a skillArea(given by Name)
+     * @param skillId
+     * @param skillAreaName
+     * @throws BusinessException
+     */
     public void removeSkillFromSkillArea(Long skillId, String skillAreaName) throws BusinessException {
         Optional<SkillArea> skillAreaBeforeOptional = skillAreaPersistenceManager.getByName(skillAreaName);
         Optional<Skill> skillBeforeOptional = skillPersistenceManager.getById(skillId);
@@ -107,10 +137,20 @@ public class SkillAreaManagementService {
             throw new BusinessException(ExceptionCode.SKILLAREA_OR_SKILL_VALIDATION_EXCEPTION);
     }
 
-    public Optional<List<SkillArea>> getAllSkillareas() {
+    /**
+     * Gets all SkillAreas
+     * @return
+     */
+    public Optional<List<SkillArea>> getAllSkillAreas() {
         return skillAreaPersistenceManager.getAll();
     }
 
+    /**
+     * Gets all skills from a skillArea given by name.
+     * @param skillAreaName
+     * @return
+     * @throws BusinessException
+     */
     public List<Skill> getSkillsFromSkillArea(String skillAreaName) throws BusinessException {
         Optional<SkillArea> skillArea = skillAreaPersistenceManager.getByName(skillAreaName);
         if (skillArea.isPresent())
@@ -119,6 +159,12 @@ public class SkillAreaManagementService {
             throw new BusinessException(ExceptionCode.SKILL_NOT_IN_SKILLAREA_VALIDATION_EXCEPTION);
     }
 
+    /**
+     * Gets the skillArea to which a skill belongs
+     * @param skill
+     * @return
+     * @throws BusinessException
+     */
     public SkillArea getSkillAreaBySkill(Skill skill) throws BusinessException {
         Optional<List<SkillArea>> optionalSkillAreas = skillAreaPersistenceManager.getAll();
         List<SkillArea> finalSkillAreas = new ArrayList<>();

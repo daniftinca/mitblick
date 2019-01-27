@@ -46,6 +46,12 @@ public class ProfileManagementService {
     private NotificationPersistenceManager notificationPersistenceManager;
 
 
+    /**
+     * Create a Profile entity using a ProfileDTO.
+     * @param profileDTO
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO create(ProfileDTO profileDTO) throws BusinessException {
         validateForCreation(profileDTO);
         Profile profile = ProfileDTOHelper.toEntity(profileDTO);
@@ -54,6 +60,12 @@ public class ProfileManagementService {
         return ProfileDTOHelper.fromEntity(profile);
     }
 
+    /**
+     * Updates a Profile entity using a ProfileDTO.
+     * @param profileDTO
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO update(ProfileDTO profileDTO) throws BusinessException {
         Optional<Profile> profileBeforeOptional = profilePersistenceManager.getByEmail(profileDTO.getEmail());
 
@@ -73,6 +85,11 @@ public class ProfileManagementService {
         }
     }
 
+    /**
+     * Sends notification to the supervisor of the person who has this profile.
+     * @param profileAfter
+     * @param message
+     */
     private void sendNotifications(Profile profileAfter, String message) {
         Optional<User> supervisorOptional = userPersistenceMAnager.getSupervisor(profileAfter.getEmail());
         Notification notification = new Notification();
@@ -87,6 +104,11 @@ public class ProfileManagementService {
 
     }
 
+    /**
+     * Deletes Profile
+     * @param profileDTO
+     * @throws BusinessException
+     */
     public void delete(ProfileDTO profileDTO) throws BusinessException {
         Optional<Profile> profile = profilePersistenceManager.getByEmail(profileDTO.getEmail());
 
@@ -97,6 +119,10 @@ public class ProfileManagementService {
         }
     }
 
+    /**
+     * Gets all Profiles as a list of ProfileDTOs
+     * @return
+     */
     public List<ProfileDTO> getAll() {
         return profilePersistenceManager.getAll()
                 .stream()
@@ -139,6 +165,13 @@ public class ProfileManagementService {
 
     }
 
+    /**
+     * Checks if the given Profile has a certain skill.
+     * @param profile
+     * @param skillID
+     * @return
+     * @throws BusinessException
+     */
     private Boolean profileHasSkill(Profile profile, Long skillID) throws BusinessException {
         Skill skill = this.skillPersistenceManager.getById(skillID).orElseThrow(() -> new BusinessException(ExceptionCode.SKILL_NOT_FOUND));
         List<ProfileSkillEntry> skills = profile.getSkills();
@@ -149,6 +182,12 @@ public class ProfileManagementService {
     }
 
 
+    /**
+     * Gets a Profile by ID.
+     * @param id
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO getById(Long id) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getById(id);
         if (profileOptional.isPresent()) {
@@ -158,6 +197,12 @@ public class ProfileManagementService {
         }
     }
 
+    /**
+     * Gets a Profile by Email.
+     * @param email
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO getByEmail(String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         if (profileOptional.isPresent()) {
@@ -167,18 +212,34 @@ public class ProfileManagementService {
         }
     }
 
+    /**
+     * Validates Profile for Creation
+     * @param profileDTO
+     * @throws BusinessException
+     */
     private void validateForCreation(ProfileDTO profileDTO) throws BusinessException {
         if (!isValidForCreation(profileDTO)) {
             throw new BusinessException(ExceptionCode.PROFILE_VALIDATION_EXCEPTION);
         }
     }
 
+    /**
+     * Validates Fields
+     * @param profileDTO
+     * @return
+     */
     private boolean validateFields(ProfileDTO profileDTO) {
         return
                 profileDTO.getEmail() != null
                         && isValidEmail(profileDTO.getEmail());
     }
 
+    /**
+     * Checks if Profile is valid for Creation
+     * @param profileDTO
+     * @return
+     * @throws BusinessException
+     */
     private boolean isValidForCreation(ProfileDTO profileDTO) throws BusinessException {
         if (profilePersistenceManager.getByEmail(profileDTO.getEmail()).isPresent()) {
             throw new BusinessException(ExceptionCode.EMAIL_EXISTS_ALREADY);
@@ -186,6 +247,11 @@ public class ProfileManagementService {
         return validateFields(profileDTO);
     }
 
+    /**
+     * Checks if email is valid
+     * @param email
+     * @return
+     */
     private boolean isValidEmail(String email) {
         final Pattern validEmailAddressRegex =
                 Pattern.compile("^[a-zA-Z][A-Za-z0-9._]*@[a-zA-z]+.[a-z]+$", Pattern.CASE_INSENSITIVE);
@@ -193,16 +259,35 @@ public class ProfileManagementService {
         return matcher.find();
     }
 
+    /**
+     * Checks if the list of skills is valid.
+     * @param skills
+     * @return
+     */
     private boolean isValidSkills(List<SkillDTO> skills) {
         return false;
     }
 
+    /**
+     * Validates Profile for Update
+     * @param profileDTO
+     * @throws BusinessException
+     */
     private void validateForUpdate(ProfileDTO profileDTO) throws BusinessException {
         if (!validateFields(profileDTO)) {
             throw new BusinessException(ExceptionCode.PROFILE_VALIDATION_EXCEPTION);
         }
     }
 
+    /**
+     * Adds skill to profile.
+     * @param skillId
+     * @param skillAreaName
+     * @param rating
+     * @param email
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO addSkill(Long skillId, String skillAreaName, Integer rating, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
@@ -217,15 +302,12 @@ public class ProfileManagementService {
             skillEntry.setSkillAreaName(skillAreaName);
             if (profile.getSkills().indexOf(skillEntry) < 0) {
                 profile.getSkills().add(skillEntry);
+                if(profile.getAccepted() == true){
+                    profile.setAccepted(false);
+                    sendNotifications(profile, "Skills in profile updated. Please review changes.");
+                }
             } else {
                 throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
-            }
-
-
-            profilePersistenceManager.update(profile);
-            if(profile.getAccepted() == true){
-                profile.setAccepted(false);
-                sendNotifications(profile, "Skills in profile updated. Please review changes.");
             }
             return ProfileDTOHelper.fromEntity(profile);
         } else {
@@ -233,6 +315,14 @@ public class ProfileManagementService {
         }
     }
 
+
+    /**
+     * Adds a project to profile.
+     * @param projektName
+     * @param email
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO addProjekt(String projektName, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Projekt> projektOptional = projektPersistenceManager.getByName(projektName);
@@ -243,15 +333,12 @@ public class ProfileManagementService {
 
             if (profile.getProjekts().indexOf(projekt) < 0) {
                 profile.getProjekts().add(projekt);
+                if(profile.getAccepted() == true){
+                    profile.setAccepted(false);
+                    sendNotifications(profile,"Projects in profile updated. Please review changes.");
+                }
             } else {
                 throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
-            }
-
-
-            profilePersistenceManager.update(profile);
-            if(profile.getAccepted() == true){
-                profile.setAccepted(false);
-                sendNotifications(profile,"Projects in profile updated. Please review changes.");
             }
             return ProfileDTOHelper.fromEntity(profile);
         } else {
@@ -259,7 +346,13 @@ public class ProfileManagementService {
         }
     }
 
-
+    /**
+     * Removes skill from Profile
+     * @param skillId
+     * @param email
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO removeSkill(Long skillId, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Skill> skillOptional = skillPersistenceManager.getById(skillId);
@@ -280,6 +373,13 @@ public class ProfileManagementService {
         }
     }
 
+    /**
+     * Removes a project from profile.
+     * @param projektName
+     * @param email
+     * @return
+     * @throws BusinessException
+     */
     public ProfileDTO removeProjekt(String projektName, String email) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(email);
         Optional<Projekt> projektOptional = projektPersistenceManager.getByName(projektName);
@@ -294,20 +394,23 @@ public class ProfileManagementService {
                 throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
             }
 
-
-            profilePersistenceManager.update(profile);
-
             return ProfileDTOHelper.fromEntity(profile);
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
 
+    /**
+     * Accept Profile after reviewing the changes.
+     * @param supervisorMail the supervisor who reviews and accepts changes
+     * @param userMail the user whose profile is reviewed.
+     * @throws BusinessException
+     */
     public void acceptProfile(String supervisorMail, String userMail) throws BusinessException {
         Optional<User> userOptional = userPersistenceMAnager.getUserByEmail(userMail);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if (user.getSupervisorMail() == supervisorMail) {
+            if (user.getSupervisorMail().equals(supervisorMail)) {
                 Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(userMail);
                 if (profileOptional.isPresent()) {
                     profileOptional.get().setAccepted(true);
