@@ -50,6 +50,7 @@ public class ProfileManagementService {
         validateForCreation(profileDTO);
         Profile profile = ProfileDTOHelper.toEntity(profileDTO);
         profilePersistenceManager.create(profile);
+        sendNotifications(profile, "Profile created. Please review.");
         return ProfileDTOHelper.fromEntity(profile);
     }
 
@@ -62,19 +63,21 @@ public class ProfileManagementService {
             Profile profileAfter = ProfileDTOHelper.updateEntityWithDTO(profileBefore, profileDTO);
 
             profilePersistenceManager.update(profileAfter);
-
-            sendNotifications(profileAfter);
+            if(profileAfter.getAccepted() == true){
+                profileAfter.setAccepted(false);
+                sendNotifications(profileAfter, "Profile updated. Please review changes.");
+            }
             return ProfileDTOHelper.fromEntity(profileAfter);
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
         }
     }
 
-    private void sendNotifications(Profile profileAfter) {
+    private void sendNotifications(Profile profileAfter, String message) {
         Optional<User> supervisorOptional = userPersistenceMAnager.getSupervisor(profileAfter.getEmail());
         Notification notification = new Notification();
         notification.setTitle("Profile Review");
-        notification.setMessage("Profile updated. Please review changes.");
+        notification.setMessage(message);
         notification.setUserMail(profileAfter.getEmail());
         notification.setRead(false);
         Notification notif = notificationPersistenceManager.create(notification);
@@ -220,7 +223,10 @@ public class ProfileManagementService {
 
 
             profilePersistenceManager.update(profile);
-
+            if(profile.getAccepted() == true){
+                profile.setAccepted(false);
+                sendNotifications(profile, "Skills in profile updated. Please review changes.");
+            }
             return ProfileDTOHelper.fromEntity(profile);
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
@@ -243,7 +249,10 @@ public class ProfileManagementService {
 
 
             profilePersistenceManager.update(profile);
-
+            if(profile.getAccepted() == true){
+                profile.setAccepted(false);
+                sendNotifications(profile,"Projects in profile updated. Please review changes.");
+            }
             return ProfileDTOHelper.fromEntity(profile);
         } else {
             throw new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
