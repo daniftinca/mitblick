@@ -2,7 +2,6 @@ package profile.service;
 
 import exception.BusinessException;
 import exception.ExceptionCode;
-import javafx.util.Pair;
 import notifications.dao.NotificationPersistenceManager;
 import notifications.entities.Notification;
 import profile.dao.ProfilePersistenceManager;
@@ -101,13 +100,11 @@ public class ProfileManagementService {
                 .collect(Collectors.toList());
     }
 
-//    public Pair<Integer, List<Profile>> filter(int index, int amount, List<Pair<String, String>> criterias) {
-//        return profilePersistenceManager.filter(index, amount, criterias);
-//    }
+
 
 
     //TODO : make to lists
-    public List<Profile> filter(List<Pair<String, String>> filterCriterias) {
+    public List<Profile> filter(List<String> filterCriteriaNames, List<String> filterCriteriaValues) {
         return new ArrayList<>();
     }
 

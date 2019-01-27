@@ -77,10 +77,9 @@ public class ProfileDTOHelper {
     public static ProfileDTO generateGenericProfileDTO(String email) {
         ProfileDTO profileDTO = new ProfileDTO();
 
-        profileDTO.setFirstName("firstName");
-        profileDTO.setLastName("lastName");
+        profileDTO.setFirstName("qwer");
+        profileDTO.setLastName("asdf");
         profileDTO.setEmail(email);
-
         profileDTO.setSkills(new ArrayList<>());
         profileDTO.setProjekts(new ArrayList<>());
         profileDTO.setPhoto("");
