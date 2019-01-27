@@ -11,6 +11,8 @@ import {ManageAllUsersComponent} from "../user-management/manage-all-users/manag
 import {SkillManagementViewComponent} from "../skill-management/skill-management-view/skill-management-view.component";
 import {SkillManagementModule} from "../skill-management/skill-management.module";
 import {NotificationsComponent} from "../user/notifications/notifications.component";
+import {ProfileManagementComponent} from "../profile-management/profile-management/profile-management.component";
+import {ProfileManagementModule} from "../profile-management/profile-management.module";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -18,6 +20,7 @@ const loginRoutes: Routes = [
   {path: 'manage-all-users', component: ManageAllUsersComponent},
   {path: 'manage-skills', component: SkillManagementViewComponent},
   {path: 'notifications', component: NotificationsComponent},
+  {path: 'superior-view', component: ProfileManagementComponent},
 
 ];
 @NgModule({
@@ -40,7 +43,8 @@ const loginRoutes: Routes = [
     RouterModule.forChild(loginRoutes),
     UserModule,
     UserManagementModule,
-    SkillManagementModule
+    SkillManagementModule,
+    ProfileManagementModule
   ]
 })
 export class NavigationModule {

@@ -5,6 +5,7 @@ import exception.ExceptionCode;
 import notifications.dao.NotificationPersistenceManager;
 import notifications.entities.Notification;
 import profile.dao.ProfilePersistenceManager;
+import profile.dto.FilterDTO;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
 import profile.entities.Profile;
@@ -19,6 +20,7 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -100,22 +102,49 @@ public class ProfileManagementService {
     }
 
 
-    //TODO : make to lists
-    public List<ProfileDTO> filter(List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) {
+    public FilterDTO filter(int index, int amount, List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) throws BusinessException {
 
-        return this.getAll().stream()
-                .filter(profileDTO -> {
-                    return profileDTO.getFirstName().equals("Santa");
-                })
+        List<Profile> profiles = this.profilePersistenceManager.filter(index, amount, filterCriteriaNames, filterCriteriaValues);
+        Integer filterAmount = this.profilePersistenceManager.filterAmount(filterCriteriaNames, filterCriteriaValues);
+
+        if (skillIds != null) {
+            if (!skillIds.isEmpty()) {
+                int count = 0;
+                boolean skillFlag = true;
+                List<Profile> newProfiles = new LinkedList<>();
+                for (Profile profile : profiles) {
+                    for (Long id : skillIds) {
+                        if (!profileHasSkill(profile, id)) {
+                            skillFlag = false;
+                        }
+                    }
+                    if (skillFlag) {
+                        newProfiles.add(profile);
+                        count++;
+                    }
+                    skillFlag = true;
+                }
+                filterAmount = count;
+                profiles = newProfiles;
+            }
+        }
+
+        FilterDTO filterDTO = new FilterDTO();
+        filterDTO.setAmount(filterAmount);
+        filterDTO.setProfiles(profiles);
+        return filterDTO;
+
+    }
+
+    private Boolean profileHasSkill(Profile profile, Long skillID) throws BusinessException {
+        Skill skill = this.skillPersistenceManager.getById(skillID).orElseThrow(() -> new BusinessException(ExceptionCode.SKILL_NOT_FOUND));
+        List<ProfileSkillEntry> skills = profile.getSkills();
+        List<Skill> skillList = skills.stream()
+                .map(ProfileSkillEntry::getSkill)
                 .collect(Collectors.toList());
+        return skillList.contains(skill);
     }
 
-    private boolean checkProfileForFilter(Profile profile, List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) throws NoSuchFieldException, IllegalAccessException {
-
-        return true;
-
-
-    }
 
     public ProfileDTO getById(Long id) throws BusinessException {
         Optional<Profile> profileOptional = profilePersistenceManager.getById(id);

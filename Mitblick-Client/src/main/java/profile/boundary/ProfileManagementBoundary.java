@@ -1,7 +1,10 @@
 package profile.boundary;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import exception.BusinessException;
+import profile.dto.FilterDTO;
 import profile.dto.ProfileDTO;
 import profile.service.ProfileManagementService;
 
@@ -177,21 +180,24 @@ public class ProfileManagementBoundary {
         }
     }
 
-// TODO: Still working on it.
-//    @GET
-//    @Path("/filter")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String filter(@QueryParam("index") int index, @QueryParam("amount") int amount,@QueryParam("criterias") List<Pair<String,String>> criterias){
-//        Pair<Integer, List<Profile>> profiles = profileManagementService.filter(index, amount, criterias);
-//
-//        try {
-//            return new ObjectMapper().writeValueAsString(profiles);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return "not working";
-//    }
+    @GET
+    @Path("/filter")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String filter(@QueryParam("index") int index, @QueryParam("amount") int amount, @QueryParam("criteriaName") List<String> criteriaNames, @QueryParam("criteriaValues") List<String> criteriaValues, @QueryParam("skillId") List<Long> skillIDs) {
+
+
+        try {
+            FilterDTO filterDTO = profileManagementService.filter(index, amount, criteriaNames, criteriaValues, skillIDs);
+            return new ObjectMapper().writeValueAsString(filterDTO);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "not working because json exception";
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            return "not working because business exception";
+        }
+
+    }
 
 
 }

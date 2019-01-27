@@ -1,10 +1,5 @@
 package profile.dao;
 
-
-
-
-
-
 import profile.entities.Profile;
 
 import javax.ejb.Stateless;
@@ -69,47 +64,60 @@ public class ProfilePersistenceManager {
         }
     }
 
-//    /**
-//     * Filters the database for profiles with the given criterias.
-//     *
-//     * @param index     startindex, or where to begin the filter
-//     * @param amount    how many results to display
-//     * @param criterias a List of Key Value pairs, which contains the criteria name as the key and the actual criteria as a value
-//     * @return
-//     */
-//    public Pair<Integer, List<Profile>> filter(int index, int amount, List<Pair<String, String>> criterias) {
-//
-//        CriteriaBuilder builder = em.getCriteriaBuilder();
-//        CriteriaQuery<Profile> criteriaQuery = builder.createQuery(Profile.class);
-//        Metamodel metamodel = em.getMetamodel();
-//
-//        EntityType<Profile> entityType = metamodel.entity(Profile.class);
-//        Root<Profile> root = criteriaQuery.from(entityType);
-//
-//
-//        criteriaQuery.orderBy(builder.asc(root.get("lastName")));
-//        buildFilterCriteria(builder, criteriaQuery, root, criterias);
-//
-//        TypedQuery<Profile> query = em.createQuery(criteriaQuery);
-//        Integer amountOfResults = query.getResultList().size();
-//
-//        query.setFirstResult(index);
-//        query.setMaxResults(amount);
-//
-//        return new Pair<>(amountOfResults, query.getResultList());
-//    }
-//
-//    private void buildFilterCriteria(CriteriaBuilder builder, CriteriaQuery criteriaQuery, Root<Profile> root, List<Pair<String, String>> criterias) {
-//        List<Predicate> result = new ArrayList<>();
-//
-//        for (Pair<String, String> criteria : criterias) {
-//            result.add(builder.like(root.get(criteria.getKey()), criteria.getValue()));
-//        }
-//
-//        if (!result.isEmpty()) {
-//            criteriaQuery.where(result.toArray(new Predicate[0]));
-//        }
-//    }
+    /**
+     * Filters the database for profiles with the given criterias.
+     *
+     * @param index     startindex, or where to begin the filter
+     * @param amount    how many results to display
+     * @return
+     */
+    public List<Profile> filter(int index, int amount, List<String> criteriaNames, List<String> criteriaValues) {
+
+        CriteriaQuery<Profile> criteriaQuery = getProfileCriteriaQuery(criteriaNames, criteriaValues);
+
+        TypedQuery<Profile> query = em.createQuery(criteriaQuery);
+
+        query.setFirstResult(index);
+        query.setMaxResults(amount);
+
+        return query.getResultList();
+    }
+
+
+    public Integer filterAmount(List<String> criteriaNames, List<String> criteriaValues) {
+
+        CriteriaQuery<Profile> criteriaQuery = getProfileCriteriaQuery(criteriaNames, criteriaValues);
+
+        TypedQuery<Profile> query = em.createQuery(criteriaQuery);
+        return query.getResultList().size();
+    }
+
+    private CriteriaQuery<Profile> getProfileCriteriaQuery(List<String> criteriaNames, List<String> criteriaValues) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Profile> criteriaQuery = builder.createQuery(Profile.class);
+        Metamodel metamodel = em.getMetamodel();
+
+        EntityType<Profile> entityType = metamodel.entity(Profile.class);
+        Root<Profile> root = criteriaQuery.from(entityType);
+
+
+        criteriaQuery.orderBy(builder.asc(root.get("lastName")), builder.asc(root.get("firstName")));
+        buildFilterCriteria(builder, criteriaQuery, root, criteriaNames, criteriaValues);
+        return criteriaQuery;
+    }
+
+
+    private void buildFilterCriteria(CriteriaBuilder builder, CriteriaQuery criteriaQuery, Root<Profile> root, List<String> criteriaNames, List<String> criteriaValues) {
+        List<Predicate> result = new ArrayList<>();
+
+        for (int i = 0; i < criteriaNames.size(); i++) {
+            result.add(builder.like(root.get(criteriaNames.get(i)), criteriaValues.get(i)));
+        }
+
+        if (!result.isEmpty()) {
+            criteriaQuery.where(result.toArray(new Predicate[0]));
+        }
+    }
 
 
 }
