@@ -60,7 +60,7 @@ export class ProfileService {
       });
   }
 
-  addSkillToProfile(skillid: number, skillAreaName: string, skillRating: number, email: string) {
+  addSkillToProfile(skillid, skillAreaName: string, skillRating, email: string) {
     let body = new URLSearchParams();
     // @ts-ignore
     body.set('skillId', skillid);

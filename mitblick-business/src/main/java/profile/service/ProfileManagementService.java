@@ -20,6 +20,7 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -100,8 +101,14 @@ public class ProfileManagementService {
                 .collect(Collectors.toList());
     }
 
-    public Pair<Integer, List<Profile>> filter(int index, int amount, List<Pair<String, String>> criterias) {
-        return profilePersistenceManager.filter(index, amount, criterias);
+//    public Pair<Integer, List<Profile>> filter(int index, int amount, List<Pair<String, String>> criterias) {
+//        return profilePersistenceManager.filter(index, amount, criterias);
+//    }
+
+
+    //TODO : make to lists
+    public List<Profile> filter(List<Pair<String, String>> filterCriterias) {
+        return new ArrayList<>();
     }
 
 

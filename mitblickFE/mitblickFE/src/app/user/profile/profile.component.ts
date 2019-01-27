@@ -165,7 +165,6 @@ export class ProfileComponent implements OnInit {
       return this.profile.projekts;
     }
   }
-
 }
 
 
