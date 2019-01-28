@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import exception.BusinessException;
 import profile.dto.FilterDTO;
 import profile.dto.ProfileDTO;
+import profile.entities.JobTitle;
+import profile.entities.Region;
 import profile.service.ProfileManagementService;
 
 import javax.ejb.EJB;
@@ -279,6 +281,30 @@ public class ProfileManagementBoundary {
             return "not working because business exception";
         }
 
+    }
+
+    @GET
+    @Path("/get-all-jobTitles")
+    public Response getAllJobTitles(@Context SecurityContext securityContext) {
+        try {
+            List<JobTitle> jobTitles = profileManagementService.getAllJobTitles();
+            String allJobTitles = new Gson().toJson(jobTitles);
+            return Response.ok(allJobTitles).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @GET
+    @Path("/get-all-regions")
+    public Response getAllRegions() {
+        try {
+            List<Region> regions = profileManagementService.getAllRegions();
+            String allRegions = new Gson().toJson(regions);
+            return Response.ok(allRegions).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
 

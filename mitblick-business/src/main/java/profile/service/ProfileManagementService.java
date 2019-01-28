@@ -8,8 +8,10 @@ import profile.dao.ProfilePersistenceManager;
 import profile.dto.FilterDTO;
 import profile.dto.ProfileDTO;
 import profile.dto.ProfileDTOHelper;
+import profile.entities.JobTitle;
 import profile.entities.Profile;
 import profile.entities.ProfileSkillEntry;
+import profile.entities.Region;
 import projekt.dao.ProjektPersistenceManager;
 import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
@@ -421,4 +423,16 @@ public class ProfileManagementService {
         } else
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
     }
+
+
+    public List<JobTitle> getAllJobTitles() {
+        return profilePersistenceManager.getAllJobTitles();
+    }
+
+
+    public List<Region> getAllRegions() {
+        return profilePersistenceManager.getAllRegions();
+    }
+
+
 }

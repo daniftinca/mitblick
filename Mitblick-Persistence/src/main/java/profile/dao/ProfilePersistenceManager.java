@@ -1,6 +1,8 @@
 package profile.dao;
 
+import profile.entities.JobTitle;
 import profile.entities.Profile;
+import profile.entities.Region;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -42,6 +44,14 @@ public class ProfilePersistenceManager {
     public List<Profile> getAll() {
         return em.createNamedQuery(Profile.GET_ALL_PROFILES, Profile.class)
                 .getResultList();
+    }
+
+    public List<JobTitle> getAllJobTitles() {
+        return em.createNamedQuery(JobTitle.GET_ALL_JOB_TITLES, JobTitle.class).getResultList();
+    }
+
+    public List<Region> getAllRegions() {
+        return em.createNamedQuery(Region.GET_ALL_REGIONS, Region.class).getResultList();
     }
 
     public Optional<Profile> getById(@NotNull Long id) {
