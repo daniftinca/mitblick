@@ -49,7 +49,7 @@ export class ProfileManagementComponent implements OnInit {
       filterCriteriaValues,
       skillIds)
       .subscribe(data => {
-        //console.log(data);
+        console.log(data);
         this.filter = data;
         this.profiles = this.filter.profiles;
         this.resultAmount = this.filter.amount;

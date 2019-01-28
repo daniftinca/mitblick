@@ -6,7 +6,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 })
 export class ProfileManagementService {
 
-  baseURL = 'http://localhost:8080/mitblick/rest'
+  baseURL = 'http://localhost:8080/mitblick/rest';
 
   constructor(private http: HttpClient) {
   }
