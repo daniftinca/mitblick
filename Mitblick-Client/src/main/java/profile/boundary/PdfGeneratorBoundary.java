@@ -31,9 +31,9 @@ public class PdfGeneratorBoundary {
     private ProfileManagementService profileManagementService;
 
     /**
-     * Export a bug identified by an id into a pdf file
+     * Export all profiles into a pdf file.
      *
-     * @return Response with a pdf
+     * @return Response with a pdf | INTERNAL_SERVER_ERROR
      */
     @GET
     @Path("/profiles")
@@ -61,6 +61,12 @@ public class PdfGeneratorBoundary {
         }
     }
 
+    /**
+     * Export a profile, identified by an id, into a pdf file.
+     *
+     * @param id Profile id.
+     * @return Response with a pdf | INTERNAL_SERVER_ERROR
+     */
     @GET
     @Path("/profile-by-id/{id}")
     // @Secured(PROFILE_EXPORT_PDF) ?
@@ -87,6 +93,12 @@ public class PdfGeneratorBoundary {
         }
     }
 
+    /**
+     * Export a list of profiles, identified by a list of ids, into a pdf file.
+     *
+     * @param idList List of profile ids.
+     * @return Response with a pdf | INTERNAL_SERVER_ERROR
+     */
     @GET
     @Path("/profiles-by-ids/{idList}")
     // @Secured(PROFILE_EXPORT_PDF) ?
