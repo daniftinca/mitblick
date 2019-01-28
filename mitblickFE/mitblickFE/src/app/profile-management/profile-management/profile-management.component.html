@@ -11,7 +11,7 @@
                  *ngIf="profile.photo===undefined || profile.photo==''">
           </div>
           <mat-card-title>{{profile.firstName+" "+profile.lastName}}</mat-card-title>
-          <mat-card-subtitle>Job title</mat-card-subtitle>
+          <mat-card-subtitle>{{profile.jobTitle.name}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p> Something</p>

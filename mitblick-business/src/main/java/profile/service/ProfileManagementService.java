@@ -160,7 +160,7 @@ public class ProfileManagementService {
 
         FilterDTO filterDTO = new FilterDTO();
         filterDTO.setAmount(filterAmount);
-        filterDTO.setProfiles(profiles);
+        filterDTO.setProfiles(ProfileDTOHelper.fromEntity(profiles));
         return filterDTO;
 
     }

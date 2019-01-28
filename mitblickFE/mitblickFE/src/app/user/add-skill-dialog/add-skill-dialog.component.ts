@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ProfileComponent} from "../profile/profile.component";
 import {SkillService} from "../../skill-management/skill.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 export interface SkillDialogData {
   skillid: number;
@@ -21,10 +22,20 @@ export class AddSkillDialogComponent implements OnInit {
   private skillEntries: any;
   private numbers: any;
 
+  private skillarea = new FormControl(Validators.requiredTrue);
+  private skill = new FormControl(Validators.required);
+  private rating = new FormControl(Validators.required);
+  private form = new FormGroup({skillarea: this.skillarea, skill: this.skill, rating: this.rating});
+
+
   constructor(
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SkillDialogData,
     private skillService: SkillService) {
+  }
+
+  sendResponse() {
+    this.dialogRef.close(this.data);
   }
 
   onNoClick(): void {

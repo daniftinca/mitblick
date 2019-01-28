@@ -1,19 +1,17 @@
 package profile.dto;
 
-import profile.entities.Profile;
-
 import java.util.List;
 import java.util.Objects;
 
 public class FilterDTO {
-    private List<Profile> profiles;
+    private List<ProfileDTO> profiles;
     private Integer amount;
 
-    public List<Profile> getProfiles() {
+    public List<ProfileDTO> getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(List<Profile> profiles) {
+    public void setProfiles(List<ProfileDTO> profiles) {
         this.profiles = profiles;
     }
 

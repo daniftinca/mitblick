@@ -30,6 +30,8 @@ export class ProfileComponent implements OnInit {
       photo: "",
       projekts: [],
       skills: [],
+      jobTitle: {name: ""},
+      region: {name: ""}
     };
   }
 

@@ -21,7 +21,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./token-interceptor.service";
 import {HttpModule} from "@angular/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {NotificationsComponent} from './notifications/notifications.component';
@@ -48,7 +48,8 @@ import {AddSkillDialogComponent} from './add-skill-dialog/add-skill-dialog.compo
     MatNativeDateModule,
     MatButtonModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   exports: [LoginComponent, RouterModule],
   providers: [{

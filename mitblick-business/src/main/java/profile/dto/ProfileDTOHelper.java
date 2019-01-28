@@ -4,6 +4,7 @@ import profile.entities.Profile;
 import projekt.dto.ProjektDTOHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileDTOHelper {
 
@@ -27,6 +28,17 @@ public class ProfileDTOHelper {
         profileDTO.setProjekts(ProjektDTOHelper.fromEntity(profile.getProjekts()));
 
         return profileDTO;
+    }
+
+    public static List<ProfileDTO> fromEntity(List<Profile> profiles) {
+
+        List<ProfileDTO> profileDTOs = new ArrayList<ProfileDTO>();
+
+        for (Profile profile : profiles) {
+            profileDTOs.add(fromEntity(profile));
+        }
+
+        return profileDTOs;
     }
 
     public static Profile toEntity(ProfileDTO profileDTO) {
