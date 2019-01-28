@@ -90,6 +90,13 @@ public class SkillAreaManagementBoundary {
         }
     }
 
+    /**
+     * Add a skill to a skill area.
+     *
+     * @param skillId       Id of the skill that has to be added.
+     * @param skillAreaName Name of the skill area.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/add-skill")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -104,6 +111,13 @@ public class SkillAreaManagementBoundary {
         }
     }
 
+    /**
+     * Remove skill from skill area.
+     *
+     * @param skillId Id of the skill that has to be removes.
+     * @param skillAreaName Name of the skill area.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/remove-skill")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -117,6 +131,11 @@ public class SkillAreaManagementBoundary {
         }
     }
 
+    /**
+     * Get all skill areas.
+     *
+     * @return Skill areas as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-all-skillareas")
     @Produces(MediaType.APPLICATION_JSON)
@@ -129,6 +148,13 @@ public class SkillAreaManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
+
+    /**
+     * Get all skills from a skill area.
+     *
+     * @param name Name of the skill area.
+     * @return Skills as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-all-skills-from-skillarea/{name}")
     @Produces(MediaType.APPLICATION_JSON)

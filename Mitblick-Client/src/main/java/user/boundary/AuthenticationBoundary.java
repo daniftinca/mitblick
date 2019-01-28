@@ -54,6 +54,12 @@ public class AuthenticationBoundary {
         }
     }
 
+    /**
+     * Create a JWT token for a user.
+     *
+     * @param user The user for whom the token is created.
+     * @return User JWT token
+     */
     private String issueToken(User user) {
         LocalTime midnight = LocalTime.MIDNIGHT;
         LocalDate today = LocalDate.now(ZoneId.of("Europe/Bucharest"));

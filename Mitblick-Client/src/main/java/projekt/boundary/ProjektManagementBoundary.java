@@ -17,6 +17,12 @@ public class ProjektManagementBoundary {
     @EJB
     private ProjektManagementService projektManagementService;
 
+    /**
+     * Get all projects.
+     *
+     * @param securityContext
+     * @return List of projects as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-all")
     public Response getAll(@Context SecurityContext securityContext) {
@@ -30,6 +36,13 @@ public class ProjektManagementBoundary {
         }
     }
 
+    /**
+     * Update a project
+     *
+     * @param projektDTO A projectDTO with which the project will be updated by their id.
+     * @param headers
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -44,6 +57,13 @@ public class ProjektManagementBoundary {
         }
     }
 
+    /**
+     * Create a project.
+     *
+     * @param projektDTO ProjectDTO containing the project that has to be created.
+     * @param headers
+     * @return
+     */
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -58,6 +78,12 @@ public class ProjektManagementBoundary {
         }
     }
 
+    /**
+     * Get the user (email) that gave a request.
+     *
+     * @param headers
+     * @return User email
+     */
     private String getRequester(@Context HttpHeaders headers) {
         String authorizationHeader = headers.getRequestHeader("authorization").get(0);
         String token = authorizationHeader.substring("Bearer".length()).trim();
@@ -65,6 +91,14 @@ public class ProjektManagementBoundary {
 
     }
 
+    /**
+     * Delete project.
+     *
+     * @param projektDTO   ProjectDTO containing the project that has to be deleted.
+     * @param profileEmail Email of the profile (user).
+     * @param headers
+     * @return
+     */
     @POST
     @Path("/delete/{email}")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -59,6 +59,12 @@ public class SkillManagementBoundary {
     }
 
 
+    /**
+     * Delete a skill.
+     *
+     * @param skillId Id of the skill that has to be deleted.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/delete-skill")
     @Consumes({"application/x-www-form-urlencoded"})

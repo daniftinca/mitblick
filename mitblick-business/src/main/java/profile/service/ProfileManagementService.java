@@ -425,11 +425,21 @@ public class ProfileManagementService {
     }
 
 
+    /**
+     * Get all job titles from the database.
+     *
+     * @return List of all job titles.
+     */
     public List<JobTitle> getAllJobTitles() {
         return profilePersistenceManager.getAllJobTitles();
     }
 
 
+    /**
+     * Get all regions from the database.
+     *
+     * @return List of regions.
+     */
     public List<Region> getAllRegions() {
         return profilePersistenceManager.getAllRegions();
     }

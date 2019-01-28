@@ -11,7 +11,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.Optional;
 
 @Path("/manage-notifications")
 public class NotificationManagementBoundary {
@@ -20,6 +19,12 @@ public class NotificationManagementBoundary {
     private NotificationManagementService notificationManagementService;
 
 
+    /**
+     * Add a notification.
+     *
+     * @param notification The notification that has to be added.
+     * @return CREATED
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -29,6 +34,12 @@ public class NotificationManagementBoundary {
         return Response.status(Response.Status.CREATED).build();
     }
 
+    /**
+     * Delete a notification by id.
+     *
+     * @param notificationId Id of the notification that has to be deleted.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/delete-notification")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -44,6 +55,12 @@ public class NotificationManagementBoundary {
         }
     }
 
+    /**
+     * Mark a notification as read.
+     *
+     * @param notificationId The id of the notification.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/mark-notification-as-read")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -59,6 +76,12 @@ public class NotificationManagementBoundary {
         }
     }
 
+    /**
+     * Mark all notifications as read.
+     *
+     * @param userMail Email of the user whose notifications should be marked.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/mark-all-as-read")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -74,6 +97,12 @@ public class NotificationManagementBoundary {
         }
     }
 
+    /**
+     * Get all notification for a specific user.
+     *
+     * @param mail Email of the user.
+     * @return Notifications as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-notifications-by-user")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -88,6 +117,12 @@ public class NotificationManagementBoundary {
         }
     }
 
+    /**
+     * Get the amount of unread notifications for a user.
+     *
+     * @param mail Email of the user.
+     * @return Amount | BAD_REQUEST
+     */
     @GET
     @Path("/get-amount-of-notifications")
     @Consumes({"application/x-www-form-urlencoded"})

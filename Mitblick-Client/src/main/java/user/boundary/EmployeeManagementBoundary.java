@@ -17,6 +17,13 @@ public class EmployeeManagementBoundary {
     @EJB
     private EmployeeManagementService employeeManagementService;
 
+    /**
+     * Adds an employee to a supervisor.
+     *
+     * @param supervisorEmail Email of the supervisor.
+     * @param employeeEmail   Email of the user.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/add-employee-to-supervisor")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -29,6 +36,13 @@ public class EmployeeManagementBoundary {
         }
     }
 
+    /**
+     * Removes an employee from a supervisor.
+     *
+     * @param supervisorEmail Email of the supervisor.
+     * @param employeeEmail Email of the employee that has to be removed.
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/remove-employee-from-supervisor")
     @Consumes({"application/x-www-form-urlencoded"})
@@ -41,6 +55,12 @@ public class EmployeeManagementBoundary {
         }
     }
 
+    /**
+     * Get all employees that have the supervisor with the given email.
+     *
+     * @param supervisorEmail Email of the supervisor
+     * @return Employees as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-employees-from-supervisor/{supervisorEmail}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -55,6 +75,11 @@ public class EmployeeManagementBoundary {
 
     }
 
+    /**
+     *Get all supervisors from the database.
+     *
+     * @return Supervisors as Json.
+     */
     @GET
     @Path("/get-all-supervisors")
     @Produces(MediaType.APPLICATION_JSON)

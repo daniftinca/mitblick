@@ -264,6 +264,7 @@ public class ProfileManagementBoundary {
         }
     }
 
+
     @GET
     @Path("/filter")
     @Produces(MediaType.APPLICATION_JSON)
@@ -283,6 +284,12 @@ public class ProfileManagementBoundary {
 
     }
 
+    /**
+     * Get all job titles from the database.
+     *
+     * @param securityContext
+     * @return Job titles as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-all-jobTitles")
     public Response getAllJobTitles(@Context SecurityContext securityContext) {
@@ -295,9 +302,15 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Get all regions from the database.
+     *
+     * @param securityContext
+     * @return Regions as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-all-regions")
-    public Response getAllRegions() {
+    public Response getAllRegions(@Context SecurityContext securityContext) {
         try {
             List<Region> regions = profileManagementService.getAllRegions();
             String allRegions = new Gson().toJson(regions);

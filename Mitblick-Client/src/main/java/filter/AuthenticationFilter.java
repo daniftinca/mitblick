@@ -74,7 +74,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
     }
 
-
     private void validateToken(String token) throws BusinessException {
         if (JWT.decode(token).getClaim("exp").asDate().compareTo(Date.from(Instant.now())) < 0) {
             throw new BusinessException(ExceptionCode.TOKEN_EXPIRED);
