@@ -13,6 +13,7 @@ import {SkillManagementModule} from "../skill-management/skill-management.module
 import {NotificationsComponent} from "../user/notifications/notifications.component";
 import {ProfileManagementComponent} from "../profile-management/profile-management/profile-management.component";
 import {ProfileManagementModule} from "../profile-management/profile-management.module";
+import {TranslationModule} from "../translation/translation.module";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -23,6 +24,8 @@ const loginRoutes: Routes = [
   {path: 'superior-view', component: ProfileManagementComponent},
 
 ];
+
+
 @NgModule({
   declarations: [NavbarComponent],
   exports: [
@@ -34,6 +37,19 @@ const loginRoutes: Routes = [
     UserManagementModule
   ],
   imports: [
+    // TranslateModule.forChild({
+    //
+    //   loader: {
+    //
+    //     provide: TranslateLoader,
+    //
+    //     useFactory: HttpLoaderFactory,
+    //
+    //     deps: [HttpClient]
+    //
+    //   }
+    //
+    // }),
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
@@ -44,7 +60,8 @@ const loginRoutes: Routes = [
     UserModule,
     UserManagementModule,
     SkillManagementModule,
-    ProfileManagementModule
+    ProfileManagementModule,
+    TranslationModule,
   ]
 })
 export class NavigationModule {

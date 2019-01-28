@@ -1,0 +1,19 @@
+<div>
+  <mat-menu #lngMenu="matMenu">
+
+    <div *ngFor="let languages of allLanguages">
+      <button mat-menu-item (click)="changeLanguage($event, languages.Id)">
+        {{languages.Name}}
+      </button>
+    </div>
+
+  </mat-menu>
+  <button mat-button id="language" [matMenuTriggerFor]="lngMenu">
+    <!--{{'header.language' | translate}}-->
+    Language
+  </button>
+</div>
+
+<!--<p>-->
+<!--translate-content works! -->
+<!--</p>-->

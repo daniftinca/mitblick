@@ -3,6 +3,7 @@ import {AuthenticationService} from "../../user/authentication.service";
 import {Router} from "@angular/router";
 import {NotificationsService} from "../../user/notifications.service";
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
               private router: Router,
               private notifService: NotificationsService) {
   }
+
 
   amountOfUnread() {
     this.unread = this.notifService.getAmountOfNotifs();
