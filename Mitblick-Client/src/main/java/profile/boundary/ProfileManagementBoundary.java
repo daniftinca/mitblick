@@ -183,7 +183,7 @@ public class ProfileManagementBoundary {
     @GET
     @Path("/filter")
     @Produces(MediaType.APPLICATION_JSON)
-    public String filter(@QueryParam("index") int index, @QueryParam("amount") int amount, @QueryParam("criteriaName") List<String> criteriaNames, @QueryParam("criteriaValues") List<String> criteriaValues, @QueryParam("skillId") List<Long> skillIDs) {
+    public String filter(@QueryParam("index") int index, @QueryParam("amount") int amount, @QueryParam("criteriaName") List<String> criteriaNames, @QueryParam("criteriaValue") List<String> criteriaValues, @QueryParam("skillId") List<Long> skillIDs) {
 
 
         try {

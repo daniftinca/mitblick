@@ -111,13 +111,11 @@ public class ProfilePersistenceManager {
         List<Predicate> result = new ArrayList<>();
 
         for (int i = 0; i < criteriaNames.size(); i++) {
-            result.add(builder.like(root.get(criteriaNames.get(i)), criteriaValues.get(i)));
+            result.add(builder.like(root.get(criteriaNames.get(i)), "%" + criteriaValues.get(i) + "%"));
         }
 
         if (!result.isEmpty()) {
             criteriaQuery.where(result.toArray(new Predicate[0]));
         }
     }
-
-
 }
