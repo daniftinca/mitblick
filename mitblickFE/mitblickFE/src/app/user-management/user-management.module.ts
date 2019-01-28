@@ -46,6 +46,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     RegisterUserComponent,
     UpdateUserComponent,
     DeactivationPopupComponent
-  ],
+  ]
 })
 export class UserManagementModule { }

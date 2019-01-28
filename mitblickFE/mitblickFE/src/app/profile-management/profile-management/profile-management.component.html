@@ -1,15 +1,16 @@
 <div class="page-contnet">
-  <!--<div class="filter-controls">-->
-  <!--<form class="filter-form">-->
-  <!--<mat-form-field>-->
-  <!--<input matInput placeholder="First name">-->
-  <!--</mat-form-field>-->
-
-  <!--<mat-form-field>-->
-  <!--<input matInput placeholder="Last Name">-->
-  <!--</mat-form-field>-->
-  <!--</form>-->
-  <!--</div>-->
+  <div class="filter-controls">
+    <h2>Filter</h2>
+    <form class="filter-form">
+      <mat-form-field>
+        <input matInput placeholder="First name">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Last Name">
+      </mat-form-field>
+    </form>
+  </div>
 
   <div class="profiles">
     <div class="single-profile" *ngFor="let profile of profiles ">
@@ -18,14 +19,14 @@
           <div mat-card-avatar><img *ngIf="profile.photo!=null && profile.photo!=''" mat-card-avatar
                                     src="{{profile.photo}}">
             <img mat-card-avatar
-                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                 src="http://chittagongit.com//images/no-profile-picture-icon/no-profile-picture-icon-14.jpg"
                  *ngIf="profile.photo===undefined || profile.photo==''">
           </div>
           <mat-card-title>{{profile?.firstName+" "+profile?.lastName}}</mat-card-title>
           <mat-card-subtitle>{{profile?.jobTitle?.name}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p> Something</p>
+          <p> Skills will be here. </p>
         </mat-card-content>
         <mat-card-actions>
 
