@@ -52,9 +52,9 @@ public class PdfGeneratorBoundary {
             pdfExportService.createPdf(profileManagementService.getAll(), document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=new-android-book.pdf");
+            response.header("Content-Disposition", "attachment; filename=allProfiles.pdf");
             file.deleteOnExit();
-            return response.build();
+            return response.entity(file).build();
 
         } catch (DocumentException | BusinessException | IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
@@ -78,9 +78,9 @@ public class PdfGeneratorBoundary {
             pdfExportService.createSinglePdf(profileManagementService.getById(id), document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=new-android-book.pdf");
+            response.header("Content-Disposition", "attachment; filename=profile" + id + ".pdf");
             file.deleteOnExit();
-            return response.build();
+            return response.entity(file).build();
 
         } catch (DocumentException | BusinessException | IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
@@ -110,9 +110,9 @@ public class PdfGeneratorBoundary {
             pdfExportService.createPdf(profileDTOList, document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=new-android-book.pdf");
+            response.header("Content-Disposition", "attachment; filename=profileList.pdf");
             file.deleteOnExit();
-            return response.build();
+            return response.entity(file).build();
 
         } catch (DocumentException | BusinessException | IOException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
