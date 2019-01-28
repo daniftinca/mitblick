@@ -64,7 +64,7 @@ public class ProfileManagementService {
         validateForCreation(profileDTO);
         Profile profile = ProfileDTOHelper.toEntity(profileDTO);
         profilePersistenceManager.create(profile);
-        sendNotifications(profile, "Profile created. Please review.");
+        sendNotifications(profile, "Profile created. Please review.", "CREATE");
         return ProfileDTOHelper.fromEntity(profile);
     }
 
@@ -86,7 +86,7 @@ public class ProfileManagementService {
             profilePersistenceManager.update(profileAfter);
             if (profileAfter.getAccepted() == true) {
                 profileAfter.setAccepted(false);
-                sendNotifications(profileAfter, "Profile updated. Please review changes.");
+                sendNotifications(profileAfter, "Profile updated. Please review changes.", "UPDATE");
             }
             return ProfileDTOHelper.fromEntity(profileAfter);
         } else {
@@ -100,17 +100,20 @@ public class ProfileManagementService {
      * @param profileAfter
      * @param message
      */
-    private void sendNotifications(Profile profileAfter, String message) {
+    private void sendNotifications(Profile profileAfter, String message, String type) {
         Optional<User> supervisorOptional = userPersistenceMAnager.getSupervisor(profileAfter.getEmail());
-        Notification notification = new Notification();
-        notification.setTitle("Profile Review");
-        notification.setMessage(message);
-        notification.setUserMail(profileAfter.getEmail());
-        notification.setRead(false);
-        Notification notif = notificationPersistenceManager.create(notification);
-
-        if (supervisorOptional.isPresent())
+        if (supervisorOptional.isPresent()) {
+            Notification notification = new Notification();
+            notification.setTitle("Profile Review");
+            notification.setMessage(message);
+            notification.setUserMail(profileAfter.getEmail());
+            notification.setRead(false);
+            notification.setType(type);
+            Notification notif = notificationPersistenceManager.create(notification);
             supervisorOptional.get().getNotifications().add(notif);
+            String mailBody = "Notification for employee" + profileAfter.getFirstName() + " " + profileAfter.getLastName() + ". " + message;
+            sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
+        }
 
     }
 
@@ -326,7 +329,7 @@ public class ProfileManagementService {
                 profile.getSkills().add(skillEntry);
                 if (profile.getAccepted() == true) {
                     profile.setAccepted(false);
-                    sendNotifications(profile, "Skills in profile updated. Please review changes.");
+                    sendNotifications(profile, "Skills in profile updated. Please review changes.", "SKILL");
                 }
             } else {
                 throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
@@ -358,7 +361,7 @@ public class ProfileManagementService {
                 profile.getProjekts().add(projekt);
                 if (profile.getAccepted() == true) {
                     profile.setAccepted(false);
-                    sendNotifications(profile, "Projects in profile updated. Please review changes.");
+                    sendNotifications(profile, "Projects in profile updated. Please review changes.", "PROJECT");
                 }
             } else {
                 throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
@@ -448,6 +451,30 @@ public class ProfileManagementService {
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
     }
 
+    /**
+     * Unaccepts a profile.
+     *
+     * @param supervisorMail
+     * @param userMail
+     * @throws BusinessException
+     */
+    public void unacceptProfile(String supervisorMail, String userMail) throws BusinessException {
+        Optional<User> userOptional = userPersistenceMAnager.getUserByEmail(userMail);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user.getSupervisorMail().equals(supervisorMail)) {
+                Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(userMail);
+                if (profileOptional.isPresent()) {
+                    if(profileOptional.get().getAccepted() == true)
+                        profileOptional.get().setAccepted(false);
+                } else
+                    throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
+            } else
+                throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+        } else
+            throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
+    }
+
 
     /**
      * Get all job titles from the database.
@@ -469,15 +496,14 @@ public class ProfileManagementService {
     }
 
 
-
-    public void sendMailUsingSSL() {
+    public void sendMailUsingSSL(String recieverMail, String mailSubject, String mailMessage) {
         String host = "smtp.gmail.com";
-        String username = "ana20bianca@gmail.com";
-        String password = "";
-        String from = "ana20bianca@gmail.com";
-        String to = "daniftinca@pettitudes.com";
-        String subject = "Test mail";
-        String text = "This is a sample message. Thank you.";
+        String username = "noreply.mitblick@gmail.com";
+        String password = "mitblick123";
+        String from = "noreply.mitblick@gmail.com";
+        String to = recieverMail;
+        String subject = mailSubject;
+        String text = mailMessage;
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.socketFactory.port", "465");
@@ -488,10 +514,11 @@ public class ProfileManagementService {
         sendEMail(properties, username, password, from, to,
                 subject, text);
     }
+
     public void sendEMail(Properties properties,
-                                String username, String password,
-                                String fromEmailAddress, String toEmailAddress,
-                                String subject, String messageText) {
+                          String username, String password,
+                          String fromEmailAddress, String toEmailAddress,
+                          String subject, String messageText) {
         Session session = Session.getInstance(properties,
                 new Authenticator() {
                     @Override

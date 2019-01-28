@@ -264,6 +264,18 @@ public class ProfileManagementBoundary {
         }
     }
 
+    @POST
+    @Path("/unaccept")
+    @Consumes({"application/x-www-form-urlencoded"})
+    public Response unacceptProfile(@FormParam("supervisorEmail") String supervisorEmail, @FormParam("userEmail") String userEmail, @Context HttpHeaders headers) {
+        try {
+            profileManagementService.unacceptProfile(supervisorEmail,userEmail);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
     @GET
     @Path("/filter")
     @Produces(MediaType.APPLICATION_JSON)
@@ -320,21 +332,21 @@ public class ProfileManagementBoundary {
     }
 
 
-    /**
-     * TODO : add jd
-     * @return
-     */
-    @POST
-    @Path("/send-email")
-    public Response sendEmail(){
-        try{
-            profileManagementService.sendMailUsingSSL();
-            return Response.ok().build();
-        }
-        catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
-    }
+//    /**
+//     * Sends email. Needs recieverEmail, subject and message as parameters.
+//     * @return
+//     */
+//    @POST
+//    @Path("/send-email")
+//    public Response sendEmail(){
+//        try{
+//            profileManagementService.sendMailUsingSSL(/*add Parameters*/);
+//            return Response.ok().build();
+//        }
+//        catch (Exception e) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+//        }
+//    }
 
 
 }

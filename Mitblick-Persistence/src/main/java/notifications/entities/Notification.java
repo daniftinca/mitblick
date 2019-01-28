@@ -28,11 +28,22 @@ public class Notification extends BaseEntity {
     @Column(name = "isRead", nullable = false)
     private Boolean isRead = false;
 
+    @Column(name = "type")
+    private String type;
+
+
 
     public Notification() {
         //DO NOT TOUCH! THIS SHOULD BE EMPTY
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;
@@ -76,12 +87,13 @@ public class Notification extends BaseEntity {
         return Objects.equals(title, that.title) &&
                 Objects.equals(message, that.message) &&
                 Objects.equals(userMail, that.userMail) &&
-                Objects.equals(isRead, that.isRead);
+                Objects.equals(isRead, that.isRead) &&
+                Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), title, message, userMail, isRead);
+        return Objects.hash(super.hashCode(), title, message, userMail, isRead, type);
     }
 
     @Override
@@ -91,6 +103,7 @@ public class Notification extends BaseEntity {
                 ", message='" + message + '\'' +
                 ", userMail='" + userMail + '\'' +
                 ", isRead=" + isRead +
+                ", type='" + type + '\'' +
                 '}';
     }
 }
