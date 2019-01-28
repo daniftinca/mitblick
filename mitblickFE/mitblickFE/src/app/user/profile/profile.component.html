@@ -7,8 +7,8 @@
 
     <mat-card-title>{{profile.firstName}} {{profile.lastName}}</mat-card-title>
     <mat-card-subtitle>{{profile.email}}</mat-card-subtitle>
-    <h1 mat-card-subtitle>{{profile.jobTitle.name}}</h1>
-    <h4 mat-card-subtitle>{{profile.region.name}}</h4>
+    <h1 mat-card-subtitle>{{profile?.jobTitle?.name}}</h1>
+    <h4 mat-card-subtitle>{{profile?.region?.name}}</h4>
   </mat-card-header>
   <button (click)="editProfileDialog()" color="primary" mat-raised-button>
     <i class="material-icons">edit</i> Edit Profile
