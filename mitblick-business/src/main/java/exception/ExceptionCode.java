@@ -26,7 +26,8 @@ public enum ExceptionCode {
     PROJEKT_VALIDATION_EXCEPTION(6001, "Projekt validation exception"),
     NAME_NOT_FOUND(6002, "A projekt with this name does not exist."),
     PROFILE_NOT_EXPORTED(7001, "Profile could not be exported to pdf."),
-    NOTIFICATION_VALIDATION_EXCEPTION(7000, "This notification doesn't exist");
+    NOTIFICATION_VALIDATION_EXCEPTION(7000, "This notification doesn't exist"),
+    SEND_EMAIL_EXCEPTION(8000, "Exception appeared while sending email");
     int id;
     String message;
 

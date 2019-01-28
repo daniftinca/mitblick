@@ -264,7 +264,6 @@ public class ProfileManagementBoundary {
         }
     }
 
-
     @GET
     @Path("/filter")
     @Produces(MediaType.APPLICATION_JSON)
@@ -317,6 +316,23 @@ public class ProfileManagementBoundary {
             return Response.ok(allRegions).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+
+    /**
+     * TODO : add jd
+     * @return
+     */
+    @POST
+    @Path("/send-email")
+    public Response sendEmail(){
+        try{
+            profileManagementService.sendMailUsingSSL();
+            return Response.ok().build();
+        }
+        catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
 

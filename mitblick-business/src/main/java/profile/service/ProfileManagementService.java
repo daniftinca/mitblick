@@ -1,5 +1,6 @@
 package profile.service;
 
+import com.sun.mail.smtp.SMTPTransport;
 import exception.BusinessException;
 import exception.ExceptionCode;
 import notifications.dao.NotificationPersistenceManager;
@@ -22,12 +23,16 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.security.Security;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.Properties;
+
 
 @Stateless
 public class ProfileManagementService {
@@ -50,6 +55,7 @@ public class ProfileManagementService {
 
     /**
      * Create a Profile entity using a ProfileDTO.
+     *
      * @param profileDTO
      * @return
      * @throws BusinessException
@@ -64,6 +70,7 @@ public class ProfileManagementService {
 
     /**
      * Updates a Profile entity using a ProfileDTO.
+     *
      * @param profileDTO
      * @return
      * @throws BusinessException
@@ -77,7 +84,7 @@ public class ProfileManagementService {
             Profile profileAfter = ProfileDTOHelper.updateEntityWithDTO(profileBefore, profileDTO);
 
             profilePersistenceManager.update(profileAfter);
-            if(profileAfter.getAccepted() == true){
+            if (profileAfter.getAccepted() == true) {
                 profileAfter.setAccepted(false);
                 sendNotifications(profileAfter, "Profile updated. Please review changes.");
             }
@@ -89,6 +96,7 @@ public class ProfileManagementService {
 
     /**
      * Sends notification to the supervisor of the person who has this profile.
+     *
      * @param profileAfter
      * @param message
      */
@@ -108,6 +116,7 @@ public class ProfileManagementService {
 
     /**
      * Deletes Profile
+     *
      * @param profileDTO
      * @throws BusinessException
      */
@@ -123,6 +132,7 @@ public class ProfileManagementService {
 
     /**
      * Gets all Profiles as a list of ProfileDTOs
+     *
      * @return
      */
     public List<ProfileDTO> getAll() {
@@ -169,6 +179,7 @@ public class ProfileManagementService {
 
     /**
      * Checks if the given Profile has a certain skill.
+     *
      * @param profile
      * @param skillID
      * @return
@@ -186,6 +197,7 @@ public class ProfileManagementService {
 
     /**
      * Gets a Profile by ID.
+     *
      * @param id
      * @return
      * @throws BusinessException
@@ -201,6 +213,7 @@ public class ProfileManagementService {
 
     /**
      * Gets a Profile by Email.
+     *
      * @param email
      * @return
      * @throws BusinessException
@@ -216,6 +229,7 @@ public class ProfileManagementService {
 
     /**
      * Validates Profile for Creation
+     *
      * @param profileDTO
      * @throws BusinessException
      */
@@ -227,6 +241,7 @@ public class ProfileManagementService {
 
     /**
      * Validates Fields
+     *
      * @param profileDTO
      * @return
      */
@@ -238,6 +253,7 @@ public class ProfileManagementService {
 
     /**
      * Checks if Profile is valid for Creation
+     *
      * @param profileDTO
      * @return
      * @throws BusinessException
@@ -251,6 +267,7 @@ public class ProfileManagementService {
 
     /**
      * Checks if email is valid
+     *
      * @param email
      * @return
      */
@@ -263,6 +280,7 @@ public class ProfileManagementService {
 
     /**
      * Checks if the list of skills is valid.
+     *
      * @param skills
      * @return
      */
@@ -272,6 +290,7 @@ public class ProfileManagementService {
 
     /**
      * Validates Profile for Update
+     *
      * @param profileDTO
      * @throws BusinessException
      */
@@ -283,6 +302,7 @@ public class ProfileManagementService {
 
     /**
      * Adds skill to profile.
+     *
      * @param skillId
      * @param skillAreaName
      * @param rating
@@ -304,7 +324,7 @@ public class ProfileManagementService {
             skillEntry.setSkillAreaName(skillAreaName);
             if (profile.getSkills().indexOf(skillEntry) < 0) {
                 profile.getSkills().add(skillEntry);
-                if(profile.getAccepted() == true){
+                if (profile.getAccepted() == true) {
                     profile.setAccepted(false);
                     sendNotifications(profile, "Skills in profile updated. Please review changes.");
                 }
@@ -320,6 +340,7 @@ public class ProfileManagementService {
 
     /**
      * Adds a project to profile.
+     *
      * @param projektName
      * @param email
      * @return
@@ -335,9 +356,9 @@ public class ProfileManagementService {
 
             if (profile.getProjekts().indexOf(projekt) < 0) {
                 profile.getProjekts().add(projekt);
-                if(profile.getAccepted() == true){
+                if (profile.getAccepted() == true) {
                     profile.setAccepted(false);
-                    sendNotifications(profile,"Projects in profile updated. Please review changes.");
+                    sendNotifications(profile, "Projects in profile updated. Please review changes.");
                 }
             } else {
                 throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
@@ -350,6 +371,7 @@ public class ProfileManagementService {
 
     /**
      * Removes skill from Profile
+     *
      * @param skillId
      * @param email
      * @return
@@ -377,6 +399,7 @@ public class ProfileManagementService {
 
     /**
      * Removes a project from profile.
+     *
      * @param projektName
      * @param email
      * @return
@@ -404,8 +427,9 @@ public class ProfileManagementService {
 
     /**
      * Accept Profile after reviewing the changes.
+     *
      * @param supervisorMail the supervisor who reviews and accepts changes
-     * @param userMail the user whose profile is reviewed.
+     * @param userMail       the user whose profile is reviewed.
      * @throws BusinessException
      */
     public void acceptProfile(String supervisorMail, String userMail) throws BusinessException {
@@ -445,4 +469,48 @@ public class ProfileManagementService {
     }
 
 
+
+    public void sendMailUsingSSL() {
+        String host = "smtp.gmail.com";
+        String username = "ana20bianca@gmail.com";
+        String password = "";
+        String from = "ana20bianca@gmail.com";
+        String to = "daniftinca@pettitudes.com";
+        String subject = "Test mail";
+        String text = "This is a sample message. Thank you.";
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.port", "465");
+        sendEMail(properties, username, password, from, to,
+                subject, text);
+    }
+    public void sendEMail(Properties properties,
+                                String username, String password,
+                                String fromEmailAddress, String toEmailAddress,
+                                String subject, String messageText) {
+        Session session = Session.getInstance(properties,
+                new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication
+                    getPasswordAuthentication() {
+                        return new PasswordAuthentication(username,
+                                password);
+                    }
+                });
+        try {
+            Message msg = new MimeMessage(session);
+            msg.setFrom(new InternetAddress(fromEmailAddress));
+            msg.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(toEmailAddress));
+            msg.setSubject(subject);
+            msg.setText(messageText);
+            Transport.send(msg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }
