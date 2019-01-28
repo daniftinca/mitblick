@@ -13,9 +13,9 @@
           routerLinkActive="active">Supervisor Profile View
   </button>
   <div class="align-right">
-
+    <div class="language">
     <app-translate-content></app-translate-content>
-
+    </div>
     <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_REVIEW')"
             routerLinkActive="active"
             routerLink='/notifications'

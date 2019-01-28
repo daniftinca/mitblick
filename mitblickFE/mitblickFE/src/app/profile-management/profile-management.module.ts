@@ -16,8 +16,8 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     MatPaginatorModule,
     MatCardModule,
-    FormsModule,
     MatFormFieldModule,
+    FormsModule,
     MatInputModule,
     MatButtonModule
   ]
