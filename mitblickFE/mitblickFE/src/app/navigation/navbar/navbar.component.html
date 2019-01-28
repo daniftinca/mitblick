@@ -13,6 +13,9 @@
           routerLinkActive="active">Supervisor Profile View
   </button>
   <div class="align-right">
+
+    <app-translate-content></app-translate-content>
+
     <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_REVIEW')"
             routerLinkActive="active"
             routerLink='/notifications'
@@ -24,4 +27,5 @@
 
     <button (click)="logout()" *ngIf="isLoggedIn()" mat-button>Log out</button>
   </div>
+
 </mat-toolbar>

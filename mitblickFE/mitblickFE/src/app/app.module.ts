@@ -8,6 +8,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatButtonModule, MatCheckboxModule, MatIconRegistry} from "@angular/material";
 import {RouterModule, Routes} from "@angular/router";
 import {UserModule} from "./user/user.module";
+import {HttpClient} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
 const appRoutes: Routes = [
   {
@@ -15,11 +18,31 @@ const appRoutes: Routes = [
   },
 
 ];
+
+export function HttpLoaderFactory(http: HttpClient) {
+
+  return new TranslateHttpLoader(http);
+
+}
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    TranslateModule.forRoot({
+
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+
+    }),
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
