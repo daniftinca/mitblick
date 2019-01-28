@@ -8,6 +8,10 @@
   </mat-form-field>
   <button mat-button type="button" md-button (click)="imgFileInput.click()">Add a photo</button>
   <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>
+
+  <mat-form-field>
+
+  </mat-form-field>
   <div id="chosen_image" width="100px" style="float:right">
 
   </div>
@@ -15,3 +19,4 @@
     <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
     <button mat-button (click)="onNoClick()">Cancel</button>
   </div>
+</div>

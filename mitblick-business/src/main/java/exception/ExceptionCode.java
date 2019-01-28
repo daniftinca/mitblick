@@ -24,7 +24,9 @@ public enum ExceptionCode {
     SKILL_NOT_IN_SKILLAREA_VALIDATION_EXCEPTION(4004, "Skill does not exist in Skillarea, can't be removed."),
     PROFILE_VALIDATION_EXCEPTION(5001, "Validation Exception"),
     PROJEKT_VALIDATION_EXCEPTION(6001, "Projekt validation exception"),
-    NAME_NOT_FOUND(6002, "A projekt with this name does not exist.");
+    NAME_NOT_FOUND(6002, "A projekt with this name does not exist."),
+    PROFILE_NOT_EXPORTED(7001, "Profile could not be exported to pdf."),
+    NOTIFICATION_VALIDATION_EXCEPTION(7000, "This notification doesn't exist");
     int id;
     String message;
 

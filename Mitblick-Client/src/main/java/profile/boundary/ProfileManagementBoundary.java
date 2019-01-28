@@ -1,8 +1,13 @@
 package profile.boundary;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import exception.BusinessException;
+import profile.dto.FilterDTO;
 import profile.dto.ProfileDTO;
+import profile.entities.JobTitle;
+import profile.entities.Region;
 import profile.service.ProfileManagementService;
 
 import javax.ejb.EJB;
@@ -16,6 +21,12 @@ public class ProfileManagementBoundary {
     @EJB
     private ProfileManagementService profileManagementService;
 
+    /**
+     * Get all profiles.
+     *
+     * @param securityContext
+     * @return List of profiles as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-all")
     public Response getAll(@Context SecurityContext securityContext) {
@@ -30,11 +41,17 @@ public class ProfileManagementBoundary {
     }
 
 
+    /**
+     * Get a profile identified by an id.
+     *
+     * @param id              Profile id.
+     * @param securityContext
+     * @return Profile as Json | BAD_REQUEST
+     */
     @GET
-    @Path("/get-by-id")
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/get-by-id/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(long id, @Context SecurityContext securityContext) {
+    public Response getById(@PathParam("id") long id, @Context SecurityContext securityContext) {
 
         try {
             ProfileDTO profile = profileManagementService.getById(id);
@@ -45,6 +62,13 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Get a profile identified by an email.
+     *
+     * @param email Profile email.
+     * @param securityContext
+     * @return Profile as Json | BAD_REQUEST
+     */
     @GET
     @Path("/get-by-email/{email}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -60,7 +84,13 @@ public class ProfileManagementBoundary {
     }
 
 
-
+    /**
+     * Update a profile.
+     *
+     * @param profileDTO A profileDTO with which the profile will be updated by their id.
+     * @param headers
+     * @return Updated profile as Json | BAD_REQUEST
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -76,6 +106,12 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Create a profile.
+     *
+     * @param profileDTO ProfileDTO containing the profile that has to be created.
+     * @return CREATED | BAD_REQUEST
+     */
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -90,6 +126,12 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Delete a profile.
+     *
+     * @param profileDTO ProfileDTO containing the profile that has to be deleted.
+     * @return O | BAD_REQUEST
+     */
     @POST
     @Path("/delete")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -104,6 +146,16 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Add a skill to a profile. Profile has a skill entry a skill id, a skill area name and a skill rating are required.
+     *
+     * @param skillId Id of the skill that has to be added.
+     * @param skillAreaName Name of the skill area.
+     * @param skillRating Rating of the skill.
+     * @param email Email of the profile.
+     * @param headers
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/add-skill")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -121,6 +173,14 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Add a project to a profile.
+     *
+     * @param projektName Name of the project that has to be added.
+     * @param email Email of the profile.
+     * @param headers
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/add-projekt")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -136,6 +196,14 @@ public class ProfileManagementBoundary {
         }
     }
 
+    /**
+     * Remove a skill from a profile.
+     *
+     * @param skillId Id of the skill that has to be removed.
+     * @param email Email of the profile.
+     * @param headers
+     * @return Profile with the skil removed as Json | BAD_REQUEST
+     */
     @POST
     @Path("/remove-skill")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -144,13 +212,22 @@ public class ProfileManagementBoundary {
                                 @FormParam("email") String email,
                                 @Context HttpHeaders headers) {
         try {
-            profileManagementService.removeSkill(skillId, email);
-            return Response.ok().build();
+            ProfileDTO profile = profileManagementService.removeSkill(skillId, email);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
 
+    /**
+     * Remove a project from a profile.
+     *
+     * @param projektName Name of the project that has to be removed.
+     * @param email Email of the profile.
+     * @param headers
+     * @return OK | BAD_REQUEST
+     */
     @POST
     @Path("/remove-projekt")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -165,6 +242,83 @@ public class ProfileManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
-    
+
+
+    /**
+     * Accept Profile after reviewing the changes.
+     *
+     * @param supervisorEmail The supervisor who reviews and accepts changes.
+     * @param userEmail The user whose profile is reviewed.
+     * @param headers
+     * @return OK | BAD_REQUEST
+     */
+    @POST
+    @Path("/accept")
+    @Consumes({"application/x-www-form-urlencoded"})
+    public Response acceptProfile(@FormParam("supervisorEmail") String supervisorEmail, @FormParam("userEmail") String userEmail, @Context HttpHeaders headers) {
+        try {
+            profileManagementService.acceptProfile(supervisorEmail,userEmail);
+            return Response.ok().build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+
+    @GET
+    @Path("/filter")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String filter(@QueryParam("index") int index, @QueryParam("amount") int amount, @QueryParam("criteriaName") List<String> criteriaNames, @QueryParam("criteriaValue") List<String> criteriaValues, @QueryParam("skillId") List<Long> skillIDs) {
+
+
+        try {
+            FilterDTO filterDTO = profileManagementService.filter(index, amount, criteriaNames, criteriaValues, skillIDs);
+            return new ObjectMapper().writeValueAsString(filterDTO);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "not working because json exception";
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            return "not working because business exception";
+        }
+
+    }
+
+    /**
+     * Get all job titles from the database.
+     *
+     * @param securityContext
+     * @return Job titles as Json | BAD_REQUEST
+     */
+    @GET
+    @Path("/get-all-jobTitles")
+    public Response getAllJobTitles(@Context SecurityContext securityContext) {
+        try {
+            List<JobTitle> jobTitles = profileManagementService.getAllJobTitles();
+            String allJobTitles = new Gson().toJson(jobTitles);
+            return Response.ok(allJobTitles).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    /**
+     * Get all regions from the database.
+     *
+     * @param securityContext
+     * @return Regions as Json | BAD_REQUEST
+     */
+    @GET
+    @Path("/get-all-regions")
+    public Response getAllRegions(@Context SecurityContext securityContext) {
+        try {
+            List<Region> regions = profileManagementService.getAllRegions();
+            String allRegions = new Gson().toJson(regions);
+            return Response.ok(allRegions).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
 
 }

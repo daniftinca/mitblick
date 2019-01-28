@@ -1,5 +1,7 @@
 package user.entities;
 
+import notifications.entities.Notification;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -39,9 +41,43 @@ public class User extends BaseEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Profile profile;
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
 
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "userId")
+    private List<Notification> notifications;
+
+    public List<User> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "supervisorId")
+    private List<User> employees;
+
+    public String getSupervisorMail() {
+        return supervisorMail;
+    }
+
+    public void setSupervisorMail(String supervisorMail) {
+        this.supervisorMail = supervisorMail;
+    }
+
+    @Column
+    private String supervisorMail;
+
+    //    @OneToOne(cascade = CascadeType.ALL)
+//    private Profile profile;
 
 
     public User() {
@@ -76,7 +112,6 @@ public class User extends BaseEntity {
     }
 
 
-
     public String getEmail() {
         return email;
     }
@@ -109,25 +144,32 @@ public class User extends BaseEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         User user = (User) o;
-        return
-                Objects.equals(email, user.email) &&
+        return Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(isActive, user.isActive);
+                Objects.equals(isActive, user.isActive) &&
+                Objects.equals(failedAttempts, user.failedAttempts) &&
+                Objects.equals(roles, user.roles) &&
+                Objects.equals(notifications, user.notifications) &&
+                Objects.equals(employees, user.employees) &&
+                Objects.equals(supervisorMail, user.supervisorMail);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(super.hashCode(), email, password, isActive);
+        return Objects.hash(super.hashCode(), email, password, isActive, failedAttempts, roles, notifications, employees, supervisorMail);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", status='" + isActive + '\'' +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isActive=" + isActive +
+                ", failedAttempts=" + failedAttempts +
+                ", roles=" + roles +
+                ", notifications=" + notifications +
+                ", employees=" + employees +
+                ", supervisorMail='" + supervisorMail + '\'' +
                 '}';
     }
-
 }

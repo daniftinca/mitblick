@@ -7,6 +7,8 @@
 
     <mat-card-title>{{profile.firstName}} {{profile.lastName}}</mat-card-title>
     <mat-card-subtitle>{{profile.email}}</mat-card-subtitle>
+    <h1 mat-card-subtitle>{{profile?.jobTitle?.name}}</h1>
+    <h4 mat-card-subtitle>{{profile?.region?.name}}</h4>
   </mat-card-header>
   <button (click)="editProfileDialog()" color="primary" mat-raised-button>
     <i class="material-icons">edit</i> Edit Profile
@@ -22,30 +24,50 @@
     </p>
     <mat-list>
       <h2 mat-subheader>Skills</h2>
-      <mat-list-item *ngFor="let skill of profile.skills">
-        <mat-icon mat-list-icon>done</mat-icon>
-        <h3 mat-line>{{skill.name}} </h3>
-        <h4 mat-line>
-          <mat-chip-list>
-            <mat-chip class="chip-override" color="primary" selected>Skill area 1</mat-chip>
-            <mat-chip class="chip-override" color="accent" selected>Skill area 2</mat-chip>
-          </mat-chip-list>
-        </h4>
-        <h4>
-          <mat-chip (click)="removeSkill" class="chip-override" color="#44AA00" selected>
-            <mat-icon mat-list-icon>delete</mat-icon>
-          </mat-chip>
-        </h4>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let key of keys()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{key}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+
+            <mat-list-item *ngFor="let skill of this.skillEntries[key]" role="listitem">
+              <div class="single-skill">
+                  <div class="skill-name"> {{skill.name}}
+                    <mat-chip-list>
+                      <mat-chip color="primary" selected>{{skill.rating}}</mat-chip>
+                    </mat-chip-list>
+                  </div>
+
+                <button (click)="removeSkill(skill.id, key)" class="delete-skill"
+                        color="warn"
+                        mat-mini-fab
+                ><i class="material-icons">delete</i></button>
+
+              </div>
+            </mat-list-item>
+          </mat-list>
+
+        </mat-expansion-panel>
+
+      </mat-accordion>
+      <mat-list-item>
+        <button (click)="addSkillDialog()" color="primary" mat-raised-button>
+          <i class="material-icons">add</i> Add skill
+        </button>
       </mat-list-item>
 
       <mat-divider></mat-divider>
       <h2 mat-subheader>Projects</h2>
-      <mat-list-item *ngFor="let project of profile.projekts">
+      <mat-list-item *ngFor="let project of projekts()">
         <mat-icon mat-list-icon>show_chart</mat-icon>
         <h3 mat-line><b>{{project.name}} </b></h3>
         <h4 mat-line>{{project.client}} </h4>
         <h4 mat-line>{{project.branch}} </h4>
-        <h4 mat-line>{{project.date}} </h4>
+        <h4 mat-line>{{project.startDate}} </h4>
+        <h4 mat-line>{{project.endDate}} </h4>
 
         <h5 mat-line>{{project.description}}</h5>
         <h4>

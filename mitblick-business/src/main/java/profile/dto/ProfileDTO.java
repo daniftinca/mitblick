@@ -17,11 +17,22 @@ public class ProfileDTO {
     private Region region;
     private JobTitle jobTitle;
 
+    public Boolean getAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        isAccepted = accepted;
+    }
+
+    private Boolean isAccepted = false;
+
     private List<ProfileSkillEntry> skills;
 
     private List<ProjektDTO> projekts;
 
     public ProfileDTO() {
+
     }
 
     public String getFirstName() {
@@ -88,6 +99,11 @@ public class ProfileDTO {
         this.projekts = projekts;
     }
 
+    public String skillEntryToString(int index) {
+        return this.getSkills().get(index).getSkill().getName() + ", " + this.getSkills().get(index).getSkillAreaName()
+                + " : lvl. " + this.getSkills().get(index).getRating().toString();
+    }
+
     @Override
     public String toString() {
         return "ProfileDTO{" +
@@ -97,6 +113,7 @@ public class ProfileDTO {
                 ", photo='" + photo + '\'' +
                 ", region=" + region +
                 ", jobTitle=" + jobTitle +
+                ", isAccepted=" + isAccepted +
                 ", skills=" + skills +
                 ", projekts=" + projekts +
                 '}';

@@ -3,21 +3,36 @@ import {ProfileService} from "../profile.service";
 import {MatDialog} from "@angular/material";
 import {AddProjectDialogComponent, ProjectDialogData} from "../add-project-dialog/add-project-dialog.component";
 import {EditProfileComponent, ProfileDialogData} from "../edit-profile/edit-profile.component";
+import {SkillService} from "../../skill-management/skill.service";
+import {AddSkillDialogComponent} from "../add-skill-dialog/add-skill-dialog.component";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
+
 export class ProfileComponent implements OnInit {
 
-  private profile;
+  private profile: any;
+  private skillEntries: {};
+
+
 
   private new_project: ProjectDialogData;
   private new_profile: ProfileDialogData;
 
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog) {
+  constructor(private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService) {
+    this.profile = {
+      firstname: "",
+      lastname: "",
+      photo: "",
+      projekts: [],
+      skills: [],
+      jobTitle: {name: ""},
+      region: {name: ""}
+    };
   }
 
   ngOnInit() {
@@ -27,11 +42,34 @@ export class ProfileComponent implements OnInit {
       if (this.profile.photo == "" || this.profile.photo == undefined) {
         this.profile.photo = "https://material.angular.io/assets/img/examples/shiba1.jpg";
       }
+      this.getSkillEntries();
     });
   }
 
   alertUser() {
     alert("First name: " + this.profile.firstName);
+  }
+
+  addSkillDialog(): void {
+    const dialogRef = this.dialog.open(AddSkillDialogComponent, {
+      width: '350px',
+      data: {skillEntries: this.skillEntries}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      var skillid = result.skillid;
+      var skillAreaName = result.skillAreaName;
+      var skillRating = result.skillRating;
+      var email = this.profile.email;
+      this.profile.skills.push({
+        skillAreaName: skillAreaName,
+        rating: skillRating,
+        skill: {name: result.skillName, id: result.skillid}
+      });
+      this.getSkillEntries();
+      this.profileService.addSkillToProfile(skillid, skillAreaName, skillRating, email).subscribe();
+    });
   }
 
   addProjectDialog(): void {
@@ -69,12 +107,32 @@ export class ProfileComponent implements OnInit {
         }
 
         if (this.new_profile.photo == "" || this.new_profile.photo == undefined) {
-          this.new_profile.photo = this.profile.photo;
+          if (this.profile.photo == "https://material.angular.io/assets/img/examples/shiba1.jpg") {
+            this.new_profile.photo = "";
+          } else {
+            this.new_profile.photo = this.profile.photo;
+          }
         }
 
         this.profileService.updateProfile(this.new_profile).subscribe(res => this.profile = res);
       }
     });
+  }
+
+  removeSkill(skillid: number, skillarea: string) {
+    this.profileService.removeSkillFromProfile(skillid, this.profile.email).subscribe(res => {
+      this.profile = res;
+      this.getSkillEntries();
+    });
+    // for(var idx in this.skillEntries[skillarea]){
+    //   // @ts-ignore
+    //   if(this.skillEntries[idx].id == skillid){
+    //     this.skillEntries[skillarea].pop(this.skillEntries[idx]);
+    //     if(this.skillEntries[skillarea].length == 0){
+    //       delete this.skillEntries[skillarea];
+    //     }
+    //   }
+    // }
   }
 
 
@@ -85,6 +143,30 @@ export class ProfileComponent implements OnInit {
     // this.profileService.getProfileByEmail(this.profile.email).subscribe(res => this.profile = res);
   }
 
+  getSkillEntries() {
+    this.skillEntries = {};
+    for (var id in this.profile.skills) {
+      var skillentry = this.profile.skills[id];
+      var sa_name = skillentry.skillAreaName;
+      if (this.skillEntries == undefined || !(sa_name in this.skillEntries)) {
+        this.skillEntries[sa_name] = [];
+      }
+      var skill = {name: skillentry.skill.name, rating: skillentry.rating, id: skillentry.skill.id};
+      this.skillEntries[sa_name].push(skill);
+    }
+  }
+
+  keys() {
+    if (this.skillEntries != undefined) {
+      return Object.keys(this.skillEntries);
+    }
+  }
+
+  projekts() {
+    if (this.profile != undefined) {
+      return this.profile.projekts;
+    }
+  }
 }
 
 

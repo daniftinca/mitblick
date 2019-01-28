@@ -12,12 +12,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "profile")
 @NamedQueries({
-                @NamedQuery(name = Profile.GET_ALL_PROFILES, query = "SELECT p FROM Profile p"),
-                @NamedQuery(name = Profile.GET_PROFILE_BY_FIRST_NAME, query = "SELECT p FROM Profile p WHERE p.firstName = :firstName"),
-                @NamedQuery(name = Profile.GET_PROFILE_BY_LAST_NAME, query = "SELECT p FROM Profile p WHERE p.lastName = :lastName"),
-                @NamedQuery(name = Profile.GET_PROFILE_BY_EMAIL, query = "SELECT p FROM Profile p WHERE p.email = :email"),
+        @NamedQuery(name = Profile.GET_ALL_PROFILES, query = "SELECT p FROM Profile p"),
+        @NamedQuery(name = Profile.GET_PROFILE_BY_FIRST_NAME, query = "SELECT p FROM Profile p WHERE p.firstName = :firstName"),
+        @NamedQuery(name = Profile.GET_PROFILE_BY_LAST_NAME, query = "SELECT p FROM Profile p WHERE p.lastName = :lastName"),
+        @NamedQuery(name = Profile.GET_PROFILE_BY_EMAIL, query = "SELECT p FROM Profile p WHERE p.email = :email"),
         @NamedQuery(name = Profile.GET_PROFILE_BY_ID, query = "SELECT p FROM Profile p WHERE p.id = :id"),
-        }
+}
 )
 public class Profile extends BaseEntity {
 
@@ -39,6 +39,9 @@ public class Profile extends BaseEntity {
     @Column(name = "photo")
     private byte[] photo;
 
+    @Column(name = "isAccepted", nullable = false)
+    private Boolean isAccepted = false;
+
     @ManyToOne()
     @JoinColumn(name = "region")
     private Region region;
@@ -48,7 +51,7 @@ public class Profile extends BaseEntity {
     private JobTitle jobTitle;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="Profile_ID")
+    @JoinColumn(name = "Profile_ID")
     private List<ProfileSkillEntry> skills;
 
 
@@ -123,26 +126,35 @@ public class Profile extends BaseEntity {
         this.projekts = projekts;
     }
 
+    public Boolean getAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        isAccepted = accepted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Profile profile = (Profile) o;
-        return Objects.equals(getFirstName(), profile.getFirstName()) &&
-                Objects.equals(getLastName(), profile.getLastName()) &&
-                Objects.equals(getEmail(), profile.getEmail()) &&
-                Arrays.equals(getPhoto(), profile.getPhoto()) &&
-                Objects.equals(getRegion(), profile.getRegion()) &&
-                Objects.equals(getJobTitle(), profile.getJobTitle()) &&
-                Objects.equals(getSkills(), profile.getSkills()) &&
-                Objects.equals(getProjekts(), profile.getProjekts());
+        return Objects.equals(firstName, profile.firstName) &&
+                Objects.equals(lastName, profile.lastName) &&
+                Objects.equals(email, profile.email) &&
+                Arrays.equals(photo, profile.photo) &&
+                Objects.equals(isAccepted, profile.isAccepted) &&
+                Objects.equals(region, profile.region) &&
+                Objects.equals(jobTitle, profile.jobTitle) &&
+                Objects.equals(skills, profile.skills) &&
+                Objects.equals(projekts, profile.projekts);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), getFirstName(), getLastName(), getEmail(), getRegion(), getJobTitle(), getSkills(), getProjekts());
-        result = 31 * result + Arrays.hashCode(getPhoto());
+        int result = Objects.hash(super.hashCode(), firstName, lastName, email, isAccepted, region, jobTitle, skills, projekts);
+        result = 31 * result + Arrays.hashCode(photo);
         return result;
     }
 
@@ -153,6 +165,7 @@ public class Profile extends BaseEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", photo=" + Arrays.toString(photo) +
+                ", isAccepted=" + isAccepted +
                 ", region=" + region +
                 ", jobTitle=" + jobTitle +
                 ", skills=" + skills +

@@ -1,5 +1,6 @@
 package user.dao;
 
+
 import user.entities.User;
 
 import javax.ejb.Stateless;
@@ -8,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -90,5 +92,17 @@ public class UserPersistenceManager {
         }
     }
 
+    public Optional<User> getSupervisor(String mail){
+        Optional<User> userOptional = getUserByEmail(mail);
+        if(userOptional.isPresent())
+        {
+            User user = userOptional.get();
+            String supervisorMail =  user.getSupervisorMail();
+            Optional<User> supervisorOptional = getUserByEmail(supervisorMail);
+            if(supervisorOptional.isPresent())
+                return supervisorOptional;
+        }
+        return Optional.empty();
+    }
 
 }

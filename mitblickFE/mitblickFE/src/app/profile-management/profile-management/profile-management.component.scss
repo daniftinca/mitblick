@@ -1,0 +1,16 @@
+.page-contnet {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.profiles {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  .single-profile {
+    width: 46%;
+    text-align: center;
+
+    margin: 20px 0;
+  }
+}

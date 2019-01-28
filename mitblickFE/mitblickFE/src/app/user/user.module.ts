@@ -13,6 +13,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
+  MatSelectModule,
   MatSnackBarModule
 } from "@angular/material";
 import {MatListModule} from '@angular/material/list';
@@ -20,13 +21,15 @@ import {ProfileComponent} from './profile/profile.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptorService} from "./token-interceptor.service";
 import {HttpModule} from "@angular/http";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AddProjectDialogComponent} from './add-project-dialog/add-project-dialog.component';
 import {EditProfileComponent} from './edit-profile/edit-profile.component';
+import {NotificationsComponent} from './notifications/notifications.component';
+import {AddSkillDialogComponent} from './add-skill-dialog/add-skill-dialog.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent],
+  declarations: [LoginComponent, ProfileComponent, AddProjectDialogComponent, EditProfileComponent, NotificationsComponent, AddSkillDialogComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -44,7 +47,9 @@ import {EditProfileComponent} from './edit-profile/edit-profile.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
   exports: [LoginComponent, RouterModule],
   providers: [{
@@ -52,7 +57,7 @@ import {EditProfileComponent} from './edit-profile/edit-profile.component';
     useClass: TokenInterceptorService,
     multi: true,
   }],
-  entryComponents: [AddProjectDialogComponent, EditProfileComponent]
+  entryComponents: [AddProjectDialogComponent, EditProfileComponent, AddSkillDialogComponent]
 })
 export class UserModule {
 }

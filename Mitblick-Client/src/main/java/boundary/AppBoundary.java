@@ -4,11 +4,13 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import filter.AuthenticationFilter;
 import filter.CorsFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import profile.boundary.PdfGeneratorBoundary;
 import profile.boundary.ProfileManagementBoundary;
 import projekt.boundary.ProjektManagementBoundary;
 import skills.boundary.SkillAreaManagementBoundary;
 import skills.boundary.SkillManagementBoundary;
 import user.boundary.AuthenticationBoundary;
+import user.boundary.EmployeeManagementBoundary;
 import user.boundary.PermissionManagementBoundary;
 import user.boundary.UserManagementBoundary;
 
@@ -33,11 +35,14 @@ public class AppBoundary extends Application {
         classes.add(UserManagementBoundary.class);
         classes.add(PermissionManagementBoundary.class);
         classes.add(ProfileManagementBoundary.class);
+        classes.add(PdfGeneratorBoundary.class);
         classes.add(ProjektManagementBoundary.class);
         classes.add(CorsFilter.class);
         classes.add(MultiPartFeature.class);
         classes.add(SkillManagementBoundary.class);
         classes.add(SkillAreaManagementBoundary.class);
+        classes.add(EmployeeManagementBoundary.class);
+
         return classes;
     }
 }

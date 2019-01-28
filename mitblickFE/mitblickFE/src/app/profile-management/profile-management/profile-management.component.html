@@ -1,0 +1,46 @@
+<div class="page-contnet">
+  <!--<div class="filter-controls">-->
+  <!--<form class="filter-form">-->
+  <!--<mat-form-field>-->
+  <!--<input matInput placeholder="First name">-->
+  <!--</mat-form-field>-->
+
+  <!--<mat-form-field>-->
+  <!--<input matInput placeholder="Last Name">-->
+  <!--</mat-form-field>-->
+  <!--</form>-->
+  <!--</div>-->
+
+  <div class="profiles">
+    <div class="single-profile" *ngFor="let profile of profiles ">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar><img *ngIf="profile.photo!=null && profile.photo!=''" mat-card-avatar
+                                    src="{{profile.photo}}">
+            <img mat-card-avatar
+                 src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                 *ngIf="profile.photo===undefined || profile.photo==''">
+          </div>
+          <mat-card-title>{{profile?.firstName+" "+profile?.lastName}}</mat-card-title>
+          <mat-card-subtitle>{{profile?.jobTitle?.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p> Something</p>
+        </mat-card-content>
+        <mat-card-actions>
+
+          <button mat-button>View Profile</button>
+          <button mat-button>Export profile to PDF</button>
+
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <mat-paginator
+    [length]="resultAmount"
+    [pageSize]="4"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="switchPage($event,this.pageIndex,this.pageSize,[],[],[]);"
+  >
+  </mat-paginator>
+</div>

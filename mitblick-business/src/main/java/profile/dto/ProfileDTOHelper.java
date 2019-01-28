@@ -4,6 +4,7 @@ import profile.entities.Profile;
 import projekt.dto.ProjektDTOHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileDTOHelper {
 
@@ -18,13 +19,26 @@ public class ProfileDTOHelper {
         profileDTO.setFirstName(profile.getFirstName());
         profileDTO.setLastName(profile.getLastName());
         profileDTO.setEmail(profile.getEmail());
-        //profileDTO.setPhoto(new String(profile.getPhoto()));
+        if (profile.getPhoto() != null) {
+            profileDTO.setPhoto(new String(profile.getPhoto()));
+        }
         profileDTO.setRegion(profile.getRegion());
         profileDTO.setJobTitle(profile.getJobTitle());
         profileDTO.setSkills(profile.getSkills());
         profileDTO.setProjekts(ProjektDTOHelper.fromEntity(profile.getProjekts()));
 
         return profileDTO;
+    }
+
+    public static List<ProfileDTO> fromEntity(List<Profile> profiles) {
+
+        List<ProfileDTO> profileDTOs = new ArrayList<ProfileDTO>();
+
+        for (Profile profile : profiles) {
+            profileDTOs.add(fromEntity(profile));
+        }
+
+        return profileDTOs;
     }
 
     public static Profile toEntity(ProfileDTO profileDTO) {
@@ -34,7 +48,9 @@ public class ProfileDTOHelper {
         profile.setFirstName(profileDTO.getFirstName());
         profile.setLastName(profileDTO.getLastName());
         profile.setEmail(profileDTO.getEmail());
-        //profile.setPhoto(profileDTO.getPhoto().getBytes());
+        if (profileDTO.getPhoto() != null) {
+            profile.setPhoto(profileDTO.getPhoto().getBytes());
+        }
         profile.setRegion(profileDTO.getRegion());
         profile.setJobTitle(profileDTO.getJobTitle());
         profile.setSkills(profileDTO.getSkills());
@@ -73,10 +89,9 @@ public class ProfileDTOHelper {
     public static ProfileDTO generateGenericProfileDTO(String email) {
         ProfileDTO profileDTO = new ProfileDTO();
 
-        profileDTO.setFirstName("firstName");
-        profileDTO.setLastName("lastName");
+        profileDTO.setFirstName("qwer");
+        profileDTO.setLastName("asdf");
         profileDTO.setEmail(email);
-
         profileDTO.setSkills(new ArrayList<>());
         profileDTO.setProjekts(new ArrayList<>());
         profileDTO.setPhoto("");
