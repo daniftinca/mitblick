@@ -21,7 +21,7 @@ const appRoutes: Routes = [
 
 export function HttpLoaderFactory(http: HttpClient) {
 
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 }
 
@@ -54,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
   providers: [],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {
