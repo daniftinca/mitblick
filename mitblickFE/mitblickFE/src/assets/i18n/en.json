@@ -1,0 +1,10 @@
+{
+  "loginPage": {
+    "login": "Login",
+    "email": "Email",
+    "emailPlaceholder": "Type your email here",
+    "password": "Password",
+    "passwordPlaceholder": "Type your password here",
+    "submit": "Login"
+  }
+}
