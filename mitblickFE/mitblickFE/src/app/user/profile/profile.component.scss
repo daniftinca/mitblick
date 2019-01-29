@@ -23,3 +23,18 @@
   width: 100%;
   justify-content: space-between;
 }
+
+.accepted {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: 20%;
+}
+
+.accepted h5 {
+  margin: 5px 10px 10px 10px;
+}
+
+.mat-list-item {
+  margin: 10px;
+}

@@ -1,0 +1,35 @@
+.accepted {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: 20%;
+}
+
+.accepted h5 {
+  margin: 5px 10px 10px 10px;
+}
+
+.example-header-image {
+
+  background-size: cover;
+}
+
+.mat-card-avatar {
+  width: 200px;
+  height: 200px;
+}
+
+.chip-override {
+  font-size: 10px;
+}
+
+.single-skill {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mat-list-item {
+  margin: 10px;
+}

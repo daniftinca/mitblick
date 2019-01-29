@@ -1,3 +1,99 @@
-<p>
-  profile-dialog works!
-</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div class="example-header-image" mat-card-avatar><img mat-card-avatar
+                                                           src={{profile.photo}}>
+    </div>
+
+    <mat-card-title>{{profile.firstName}} {{profile.lastName}}</mat-card-title>
+    <mat-card-subtitle>{{profile.email}}</mat-card-subtitle>
+    <mat-card-subtitle style="color:#000000">
+      <h4 class="mat-card-content">{{profile?.jobTitle?.name}}</h4>
+      <h4 class="mat-card-content">{{profile?.region?.name}}</h4>
+    </mat-card-subtitle>
+    <div class="accepted">
+      <i *ngIf="profile.accepted" class="material-icons" style="color: green">done</i>
+      <h5 *ngIf="profile.accepted" mat-card>Profile is verified</h5>
+      <i *ngIf="!profile.accepted" class="material-icons" style="color: red">clear</i>
+      <h5 *ngIf="!profile.accepted" mat-card>Profile is not verified</h5>
+    </div>
+  </mat-card-header>
+  <button (click)="editProfileDialog()" color="primary" mat-raised-button>
+    <i class="material-icons">edit</i> Edit Profile
+  </button>
+  <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" width="400px"-->
+  <!--alt="Photo of a Shiba Inu">-->
+  <mat-card-content>
+    <p>
+
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting.
+    </p>
+    <mat-list>
+      <h2 mat-subheader>Skills</h2>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let key of keys()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{key}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-list role="list">
+
+            <mat-list-item *ngFor="let skill of this.skillEntries[key]" role="listitem">
+              <div class="single-skill">
+                <div class="skill-name"> {{skill.name}}
+                  <mat-chip-list>
+                    <mat-chip color="primary" selected>{{skill.rating}}</mat-chip>
+                  </mat-chip-list>
+                </div>
+
+                <button (click)="removeSkill(skill.id, key)" class="delete-skill"
+                        color="warn"
+                        mat-mini-fab
+                ><i class="material-icons">delete</i></button>
+
+              </div>
+            </mat-list-item>
+          </mat-list>
+
+        </mat-expansion-panel>
+
+      </mat-accordion>
+      <mat-list-item>
+        <button (click)="addSkillDialog()" color="primary" mat-raised-button>
+          <i class="material-icons">add</i> Add skill
+        </button>
+      </mat-list-item>
+
+      <mat-divider></mat-divider>
+      <h2 mat-subheader>Projects</h2>
+      <mat-list-item *ngFor="let project of projekts()">
+        <mat-icon mat-list-icon>show_chart</mat-icon>
+        <h3 mat-line><b>{{project.name}} </b></h3>
+        <h4 mat-line>{{project.client}} </h4>
+        <h4 mat-line>{{project.branch}} </h4>
+        <h4 mat-line>{{project.startDate}} </h4>
+        <h4 mat-line>{{project.endDate}} </h4>
+
+        <h5 mat-line>{{project.description}}</h5>
+        <h4>
+          <button (click)="removeProject(project)" color="primary" mat-raised-button>
+            <i class="material-icons">delete</i>
+          </button>
+        </h4>
+
+      </mat-list-item>
+      <mat-list-item>
+        <button (click)="addProjectDialog()" color="primary" mat-raised-button>
+          <i class="material-icons">add</i> Add project
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="activate()" color="primary" mat-raised-button>Activate</button>
+    <button (click)="deactivate()" color="warn" mat-raised-button>Deactivate</button>
+  </mat-card-actions>
+
+</mat-card>

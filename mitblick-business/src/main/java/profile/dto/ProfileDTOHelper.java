@@ -26,6 +26,7 @@ public class ProfileDTOHelper {
         profileDTO.setJobTitle(profile.getJobTitle());
         profileDTO.setSkills(profile.getSkills());
         profileDTO.setProjekts(ProjektDTOHelper.fromEntity(profile.getProjekts()));
+        profileDTO.setAccepted(profile.getAccepted());
 
         return profileDTO;
     }
@@ -55,6 +56,7 @@ public class ProfileDTOHelper {
         profile.setJobTitle(profileDTO.getJobTitle());
         profile.setSkills(profileDTO.getSkills());
         profile.setProjekts(ProjektDTOHelper.toEntity(profileDTO.getProjekts()));
+        profile.setAccepted(profileDTO.getAccepted());
 
         return profile;
     }
@@ -82,6 +84,9 @@ public class ProfileDTOHelper {
         }
         if (profileDTO.getProjekts() != null) {
             profile.setProjekts(ProjektDTOHelper.toEntity(profileDTO.getProjekts()));
+        }
+        if (profileDTO.getAccepted() != null) {
+            profile.setAccepted(profileDTO.getAccepted());
         }
         return profile;
     }

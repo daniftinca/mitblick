@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AddProjectDialogComponent, ProjectDialogData} from "../../user/add-project-dialog/add-project-dialog.component";
 import {EditProfileComponent, ProfileDialogData} from "../../user/edit-profile/edit-profile.component";
 import {ProfileService} from "../../user/profile.service";
-import {MatDialog} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
 import {SkillService} from "../../skill-management/skill.service";
 import {AddSkillDialogComponent} from "../../user/add-skill-dialog/add-skill-dialog.component";
 import {ProfileData} from "../../user/profile/profile.component";
+import {SupervisorViewComponent} from "../supervisor-view/supervisor-view.component";
 
 @Component({
   selector: 'app-profile-dialog',
@@ -23,7 +24,10 @@ export class ProfileDialogComponent implements OnInit {
   private new_profile: ProfileDialogData;
 
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService) {
+  constructor(private profileService: ProfileService, public dialog: MatDialog,
+              private skillManagement: SkillService,
+              @Inject(MAT_DIALOG_DATA) public data: ProfileData,
+              public dialogRef: MatDialogRef<SupervisorViewComponent>) {
     this.profile = {
       firstName: "",
       lastName: "",
@@ -32,20 +36,27 @@ export class ProfileDialogComponent implements OnInit {
       projekts: [],
       skills: [],
       jobTitle: {name: ""},
-      region: {name: ""}
+      region: {name: ""},
+      accepted: 0
     };
   }
 
   ngOnInit() {
-    var email = localStorage.getItem("email");
-    this.profileService.getProfileByEmail(email).subscribe(res => {
-      // @ts-ignore
-      this.profile = res;
-      if (this.profile.photo == "" || this.profile.photo == undefined) {
-        this.profile.photo = "https://material.angular.io/assets/img/examples/shiba1.jpg";
-      }
-      this.getSkillEntries();
-    });
+    this.profile = this.data;
+    if (this.profile.photo == "" || this.profile.photo == undefined) {
+      this.profile.photo = "https://material.angular.io/assets/img/examples/shiba1.jpg";
+    }
+    this.getSkillEntries();
+  }
+
+  activate() {
+    this.data.accepted = 1;
+    this.dialogRef.close(this.data);
+  }
+
+  deactivate(): void {
+    this.data.accepted = 0;
+    this.dialogRef.close(this.data);
   }
 
   addSkillDialog(): void {
@@ -83,7 +94,7 @@ export class ProfileDialogComponent implements OnInit {
       console.log('The dialog was closed');
       this.new_project = result;
       if (this.new_project != undefined) {
-        this.profileService.addProject(this.new_project).subscribe();
+        this.profileService.addProjectToProfile(this.profile.email, this.new_project);
         // @ts-ignore
         this.profile.projekts.push(this.new_project);
       }
@@ -148,7 +159,9 @@ export class ProfileDialogComponent implements OnInit {
 
 
   removeProject(project): void {
-    project.date = new Date(project.date);
+    project.startDate = new Date(project.startDate);
+    project.endDate = new Date(project.endDate);
+
     this.profileService.removeProject(project, this.profile.email).subscribe();
     // @ts-ignore
     this.profile.projekts.pop(project);

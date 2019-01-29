@@ -15,6 +15,7 @@ export interface ProfileData {
   skills: [];
   jobTitle: { name: string };
   region: { name: string };
+  accepted: any;
 }
 @Component({
   selector: 'app-profile',
@@ -42,7 +43,8 @@ export class ProfileComponent implements OnInit {
       projekts: [],
       skills: [],
       jobTitle: {name: ""},
-      region: {name: ""}
+      region: {name: ""},
+      accepted: 0
     };
   }
 
@@ -93,7 +95,7 @@ export class ProfileComponent implements OnInit {
       console.log('The dialog was closed');
       this.new_project = result;
       if (this.new_project != undefined) {
-        this.profileService.addProject(this.new_project).subscribe();
+        this.profileService.addProjectToProfile(this.profile.email, this.new_project);
         // @ts-ignore
         this.profile.projekts.push(this.new_project);
       }
@@ -158,7 +160,9 @@ export class ProfileComponent implements OnInit {
 
 
   removeProject(project): void {
-    project.date = new Date(project.date);
+    project.startDate = new Date(project.startDate);
+    project.endDate = new Date(project.endDate);
+
     this.profileService.removeProject(project, this.profile.email).subscribe();
     // @ts-ignore
     this.profile.projekts.pop(project);

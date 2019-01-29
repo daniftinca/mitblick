@@ -4,7 +4,15 @@
 
     <ng-container matColumnDef="name">
       <th *matHeaderCellDef mat-header-cell>Full name</th>
-      <td *matCellDef="let element" mat-cell> {{element.firstName}} {{element.lastName}}</td>
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.photo!=undefined" class="example-header-image" mat-card-avatar>
+          <img class="image-profile" mat-card-avatar src={{element.photo}}>
+        </div>
+        <div *ngIf="element.photo == undefined" class="example-header-image" mat-card-avatar>
+          <img *ngIf="element.photo == undefined" class="image-profile"
+               src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+        </div>
+        {{element.firstName}} {{element.lastName}}</td>
     </ng-container>
 
 
@@ -23,8 +31,8 @@
     <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell>
-        <i *ngIf="element.isAccepted" class="material-icons" style="color: green">done</i>
-        <i *ngIf="!element.isAccepted" class="material-icons" style="color: red">clear</i>
+        <i *ngIf="element.accepted" class="material-icons" style="color: green">done</i>
+        <i *ngIf="!element.accepted" class="material-icons" style="color: red">clear</i>
 
       </td>
     </ng-container>
@@ -34,10 +42,10 @@
       <td *matCellDef="let element" mat-cell>
         <button (click)="toggleActivation(element)"
                 color="primary"
-                id="toggleButton"
+                id="toggleButton{{element.email}}"
                 mat-raised-button>
 
-          {{getActivationButtonText(element.isAccepted)}}
+          {{getActivationButtonText(element.accepted)}}
         </button>
       </td>
     </ng-container>

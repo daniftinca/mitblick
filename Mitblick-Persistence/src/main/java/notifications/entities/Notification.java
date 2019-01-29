@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-
 import java.util.Objects;
 
 @Entity
@@ -30,7 +29,6 @@ public class Notification extends BaseEntity {
 
     @Column(name = "type")
     private String type;
-
 
 
     public Notification() {

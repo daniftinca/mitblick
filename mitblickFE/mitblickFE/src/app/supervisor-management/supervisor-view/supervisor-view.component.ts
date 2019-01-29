@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SupervisorViewService} from "../supervisor-view.service";
+import {MatDialog} from "@angular/material";
+import {ProfileDialogComponent} from "../profile-dialog/profile-dialog.component";
 
 @Component({
   selector: 'app-supervisor-view',
@@ -18,7 +20,7 @@ export class SupervisorViewComponent implements OnInit {
   private profiles: any;
   private dataSource: any;
 
-  constructor(private supervisorService: SupervisorViewService) {
+  constructor(private supervisorService: SupervisorViewService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -34,23 +36,27 @@ export class SupervisorViewComponent implements OnInit {
   }
 
   toggleActivation(profile) {
-    if (profile.isAccepted) {
-      document.getElementById('toggleButton').style.backgroundColor = "#3f51b5";
+    if (profile.accepted) {
       this.decline(profile);
     } else {
-      document.getElementById('toggleButton').style.backgroundColor = "#f44336";
       this.accept(profile);
     }
   }
 
   accept(profile) {
-    this.supervisorService.acceptProfile(localStorage.getItem("email"), profile.email);
-    profile.isAccepted = 1;
+    this.supervisorService.acceptProfile(localStorage.getItem("email"), profile.email).subscribe(_ => {
+      profile.accepted = 1;
+      this.getProflies();
+    });
+
   }
 
   decline(profile) {
-    this.supervisorService.declineProfile(localStorage.getItem("email"), profile.email);
-    profile.isAccepted = 0;
+    this.supervisorService.declineProfile(localStorage.getItem("email"), profile.email).subscribe(_ => {
+      profile.accepted = 0;
+      this.getProflies();
+    });
+
   }
 
   getActivationButtonText(isActive) {
@@ -66,6 +72,18 @@ export class SupervisorViewComponent implements OnInit {
   }
 
   showProfile(profile: any) {
+    const dialogRef = this.dialog.open(ProfileDialogComponent, {
+      width: '750px',
+      maxHeight: '900px',
+      data: profile
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result.accepted) {
+        this.decline(result);
+      } else {
+        this.accept(result);
+      }
+    });
   }
 }

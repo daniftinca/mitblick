@@ -1,6 +1,5 @@
 package profile.service;
 
-import com.sun.mail.smtp.SMTPTransport;
 import exception.BusinessException;
 import exception.ExceptionCode;
 import notifications.dao.NotificationPersistenceManager;
@@ -24,18 +23,12 @@ import user.entities.User;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.mail.*;
-import javax.mail.internet.*;
-import java.security.Security;
-import java.text.SimpleDateFormat;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.Properties;
 
 
 @Stateless
@@ -116,7 +109,9 @@ public class ProfileManagementService {
             Notification notif = notificationPersistenceManager.create(notification);
             supervisorOptional.get().getNotifications().add(notif);
             String mailBody = "Notification for employee" + profileAfter.getFirstName() + " " + profileAfter.getLastName() + ". " + message;
-            sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
+//            sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
+//            sendMailUsingSSL("no-reply.mitblick@gmail.com", "Profile review", mailBody);
+
         }
 
     }
@@ -464,7 +459,8 @@ public class ProfileManagementService {
             if (user.getSupervisorMail().equals(supervisorMail)) {
                 Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(userMail);
                 if (profileOptional.isPresent()) {
-                    profileOptional.get().setAccepted(true);
+                    Profile profile = profileOptional.get();
+                    profile.setAccepted(true);
                 } else
                     throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
             } else

@@ -71,7 +71,7 @@ public class ProjektManagementBoundary {
     public Response create(final ProjektDTO projektDTO, @Context HttpHeaders headers) {
 
         try {
-            projektManagementService.create(projektDTO, getRequester(headers));
+            projektManagementService.create(projektDTO);
             return Response.status(Response.Status.CREATED).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();

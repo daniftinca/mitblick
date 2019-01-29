@@ -26,7 +26,7 @@
       <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-    <mat-error *ngIf="datesValidation()">End date can not be before start date</mat-error>
+    <mat-error class="mat-body" *ngIf="datesValidation()">End date can not be before start date</mat-error>
     <br>
     <button type="submit" [disabled]="form.invalid || datesValidation()" mat-button>Submit</button>
     <button mat-button (click)="onNoClick()">Cancel</button>

@@ -31,18 +31,11 @@ public class ProjektManagementService {
      * @return
      * @throws BusinessException
      */
-    public ProjektDTO create(ProjektDTO projektDTO, String email) throws BusinessException {
+    public ProjektDTO create(ProjektDTO projektDTO) throws BusinessException {
 
         validateForCreation(projektDTO);
         Projekt projekt = ProjektDTOHelper.toEntity(projektDTO);
-
-        Optional<Profile> profile = profilePersistenceManager.getByEmail(email);
-
-        if (profile.isPresent()) {
-            projektPersistenceManager.create(projekt);
-
-            profile.get().getProjekts().add(projekt);
-        }
+        projektPersistenceManager.create(projekt);
 
         return ProjektDTOHelper.fromEntity(projekt);
 

@@ -4,11 +4,25 @@
     <div mat-card-avatar class="example-header-image"><img mat-card-avatar
                                                            src={{profile.photo}}>
     </div>
+    <!--<div style="float: right">-->
+
+    <!--<i *ngIf="profile.isAccepted" class="material-icons" style="color: green">done</i>-->
+    <!--<i *ngIf="!profile.isAccepted" class="material-icons" style="color: red">clear</i>-->
+    <!--</div>-->
 
     <mat-card-title>{{profile.firstName}} {{profile.lastName}}</mat-card-title>
     <mat-card-subtitle>{{profile.email}}</mat-card-subtitle>
-    <h1 mat-card-subtitle>{{profile?.jobTitle?.name}}</h1>
-    <h4 mat-card-subtitle>{{profile?.region?.name}}</h4>
+    <mat-card-subtitle style="color:#000000">
+
+      <h4 class="mat-card-content">{{profile?.jobTitle?.name}}</h4>
+      <h4 class="mat-card-content">{{profile?.region?.name}}</h4>
+    </mat-card-subtitle>
+    <div class="accepted">
+      <i *ngIf="profile.accepted" class="material-icons" style="color: green">done</i>
+      <h5 *ngIf="profile.accepted" mat-card>Profile is verified</h5>
+      <i *ngIf="!profile.accepted" class="material-icons" style="color: red">clear</i>
+      <h5 *ngIf="!profile.accepted" mat-card>Profile is not verified</h5>
+    </div>
   </mat-card-header>
   <button (click)="editProfileDialog()" color="primary" mat-raised-button>
     <i class="material-icons">edit</i> Edit Profile

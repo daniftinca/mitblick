@@ -16,18 +16,20 @@ export class ProfileService {
   }
 
   addProjectToProfile(email, project) {
-    var response = this.addProject(project).subscribe();
+    this.addProject(project).subscribe(_ => {
+      let body = new URLSearchParams();
+      body.set('email', email);
+      body.set('projektName', project.name);
+      this.http.post(this.baseURL + '/manage-profiles/add-projekt',
+        body.toString(),
+        {
+          headers: new HttpHeaders(
+            {'Content-Type': 'application/x-www-form-urlencoded'}
+          )
+        }).subscribe();
+    });
 
-    let body = new URLSearchParams();
-    body.set('email', email);
-    body.set('projektName', project.name);
-    return this.http.post(this.baseURL + '/manage-profiles/add-projekt',
-      body.toString(),
-      {
-        headers: new HttpHeaders(
-          {'Content-Type': 'application/x-www-form-urlencoded'}
-        )
-      });
+
   }
 
   addProject(project) {
@@ -41,6 +43,10 @@ export class ProfileService {
   }
 
   removeProject(project, email) {
+    let body = new URLSearchParams();
+    // @ts-ignore
+    body.set('projektName', project.name);
+    body.set('email', email);
     return this.http.post(this.baseURL + '/manage-projekts/delete/' + email,
       project,
       {
