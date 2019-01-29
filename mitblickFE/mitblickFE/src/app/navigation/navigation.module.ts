@@ -14,6 +14,9 @@ import {NotificationsComponent} from "../user/notifications/notifications.compon
 import {ProfileManagementComponent} from "../profile-management/profile-management/profile-management.component";
 import {ProfileManagementModule} from "../profile-management/profile-management.module";
 import {TranslationModule} from "../translation/translation.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpLoaderFactory} from "../app.module";
+import {HttpClient} from "@angular/common/http";
 import {SupervisorViewComponent} from "../supervisor-management/supervisor-view/supervisor-view.component";
 import {SupervisorManagementModule} from "../supervisor-management/supervisor-management.module";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
