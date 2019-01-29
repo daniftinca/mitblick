@@ -50,10 +50,14 @@ public class ProfileManagementServiceTest {
     @Mock
     private NotificationPersistenceManager notificationPersistenceManager;
 
+    /**
+     * Halo. Create nu mai merge pentru ca a aparut sendMail() in sendNotificationul vietii().
+     */
     @Test
     public void create_Success() {
         User user = new User();
         user.setNotifications(new ArrayList<>());
+        user.setEmail("admin@mitblick.com");
         Notification notification = new Notification();
         when(profilePersistenceManager.getByEmail(any(String.class)))
                 .thenReturn(Optional.empty());
