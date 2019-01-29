@@ -1,6 +1,16 @@
 .page-contnet {
   width: 90%;
   margin: 0 auto;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  .filter-controls {
+    width: 30%;
+
+  }
+  .profiles {
+    width: 65%;
+  }
 }
 
 .profiles {

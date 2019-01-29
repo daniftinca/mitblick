@@ -52,6 +52,7 @@ public class ProfileManagementServiceTest {
 
     /**
      * Halo. Create nu mai merge pentru ca a aparut sendMail() in sendNotificationul vietii().
+     * Se pare ca merge :D
      */
     @Test
     public void create_Success() {

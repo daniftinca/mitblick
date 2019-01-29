@@ -3,13 +3,19 @@
     <h2>Filter</h2>
     <form class="filter-form">
       <mat-form-field>
-        <input matInput placeholder="First name">
+        <input type="text" matInput placeholder="First name">
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input matInput placeholder="Last Name">
+        <input type="text" matInput placeholder="Last Name">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input type="email" matInput placeholder="Email">
       </mat-form-field>
     </form>
+
+    <button mat-button>Filter</button>
   </div>
 
   <div class="profiles">
@@ -42,12 +48,13 @@
         </mat-card-actions>
       </mat-card>
     </div>
+
+    <mat-paginator
+      [length]="resultAmount"
+      [pageSize]="4"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="switchPage($event,this.pageIndex,this.pageSize,[],[],[]);"
+    >
+    </mat-paginator>
   </div>
-  <mat-paginator
-    [length]="resultAmount"
-    [pageSize]="4"
-    [pageSizeOptions]="pageSizeOptions"
-    (page)="switchPage($event,this.pageIndex,this.pageSize,[],[],[]);"
-  >
-  </mat-paginator>
 </div>
