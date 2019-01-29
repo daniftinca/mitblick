@@ -14,6 +14,9 @@ import {NotificationsComponent} from "../user/notifications/notifications.compon
 import {ProfileManagementComponent} from "../profile-management/profile-management/profile-management.component";
 import {ProfileManagementModule} from "../profile-management/profile-management.module";
 import {TranslationModule} from "../translation/translation.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpLoaderFactory} from "../app.module";
+import {HttpClient} from "@angular/common/http";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -37,19 +40,19 @@ const loginRoutes: Routes = [
     UserManagementModule
   ],
   imports: [
-    // TranslateModule.forChild({
-    //
-    //   loader: {
-    //
-    //     provide: TranslateLoader,
-    //
-    //     useFactory: HttpLoaderFactory,
-    //
-    //     deps: [HttpClient]
-    //
-    //   }
-    //
-    // }),
+    TranslateModule.forChild({
+
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+
+    }),
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
