@@ -10,6 +10,9 @@
           routerLink='/superior-view'>Superior Profile View
   </button>
   <div class="align-right">
+    <div class="language">
+    <app-translate-content></app-translate-content>
+    </div>
     <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_REVIEW')"
             routerLinkActive="active"
             routerLink='/notifications'
@@ -21,4 +24,5 @@
 
     <button (click)="logout()" *ngIf="isLoggedIn()" mat-button>Log out</button>
   </div>
+
 </mat-toolbar>
