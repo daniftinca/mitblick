@@ -1,0 +1,22 @@
+.page-content {
+  width: 80%;
+  max-width: 1200px;
+  margin: 30px auto;
+
+  table {
+    width: 100%;
+  }
+}
+
+.profiles {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  .single-profile {
+    width: 46%;
+    text-align: center;
+
+    margin: 20px 0;
+  }
+}

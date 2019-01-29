@@ -13,6 +13,8 @@ import {SkillManagementModule} from "../skill-management/skill-management.module
 import {NotificationsComponent} from "../user/notifications/notifications.component";
 import {ProfileManagementComponent} from "../profile-management/profile-management/profile-management.component";
 import {ProfileManagementModule} from "../profile-management/profile-management.module";
+import {SupervisorViewComponent} from "../supervisor-management/supervisor-view/supervisor-view.component";
+import {SupervisorManagementModule} from "../supervisor-management/supervisor-management.module";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -21,6 +23,7 @@ const loginRoutes: Routes = [
   {path: 'manage-skills', component: SkillManagementViewComponent},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'superior-view', component: ProfileManagementComponent},
+  {path: 'supervisor-view', component: SupervisorViewComponent}
 
 ];
 @NgModule({
@@ -44,7 +47,8 @@ const loginRoutes: Routes = [
     UserModule,
     UserManagementModule,
     SkillManagementModule,
-    ProfileManagementModule
+    ProfileManagementModule,
+    SupervisorManagementModule
   ]
 })
 export class NavigationModule {

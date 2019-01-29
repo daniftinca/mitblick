@@ -9,6 +9,9 @@
   <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_HANDLING')" routerLinkActive="active"
           routerLink='/superior-view'>Superior Profile View
   </button>
+  <button *ngIf="isLoggedIn()&&hasPermission('PROFILE_REVIEW')" mat-button routerLink='/supervisor-view'
+          routerLinkActive="active">Supervisor Profile View
+  </button>
   <div class="align-right">
     <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_REVIEW')"
             routerLinkActive="active"

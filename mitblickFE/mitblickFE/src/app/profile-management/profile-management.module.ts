@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ProfileManagementComponent} from './profile-management/profile-management.component';
-import {MatCardModule, MatFormFieldModule, MatPaginatorModule} from "@angular/material";
+import {MatButtonModule, MatCardModule, MatFormFieldModule, MatPaginatorModule} from "@angular/material";
 
 @NgModule({
   declarations: [ProfileManagementComponent],
@@ -9,7 +9,8 @@ import {MatCardModule, MatFormFieldModule, MatPaginatorModule} from "@angular/ma
     CommonModule,
     MatPaginatorModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonModule
   ]
 })
 export class ProfileManagementModule {

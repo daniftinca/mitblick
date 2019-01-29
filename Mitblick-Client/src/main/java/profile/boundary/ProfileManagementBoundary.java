@@ -348,5 +348,18 @@ public class ProfileManagementBoundary {
 //        }
 //    }
 
+    @GET
+    @Path("/filter-by-supervisor")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String filterSupervisor(@QueryParam("email") String email) {
+        try {
+            FilterDTO filterDTO = profileManagementService.filterSupervisor(email);
+            return new ObjectMapper().writeValueAsString(filterDTO);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "not working because json exception";
+        }
+    }
+
 
 }

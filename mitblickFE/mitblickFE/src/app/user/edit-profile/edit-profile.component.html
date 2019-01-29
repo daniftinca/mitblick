@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>Project data</h1>
 <div mat-dialog-content style="overflow: inherit">
   <mat-form-field>
-    <input matInput [(ngModel)]="data.firstname" placeholder="First Name">
+    <input matInput [(ngModel)]="data.firstName" placeholder="First Name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.lastname" placeholder="Last Name">
+    <input matInput [(ngModel)]="data.lastName" placeholder="Last Name">
   </mat-form-field>
   <button mat-button type="button" md-button (click)="imgFileInput.click()">Add a photo</button>
   <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>

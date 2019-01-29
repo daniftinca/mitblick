@@ -1,0 +1,59 @@
+<div class="page-content">
+
+  <table [dataSource]="this.profiles" class="mat-elevation-z8" mat-table>
+
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell>Full name</th>
+      <td *matCellDef="let element" mat-cell> {{element.firstName}} {{element.lastName}}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="view">
+      <th *matHeaderCellDef mat-header-cell> Profile</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="showProfile(element)"
+                color="primary"
+                id="viewProfile"
+                mat-raised-button>View Profile
+        </button>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="status">
+      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <td *matCellDef="let element" mat-cell>
+        <i *ngIf="element.isAccepted" class="material-icons" style="color: green">done</i>
+        <i *ngIf="!element.isAccepted" class="material-icons" style="color: red">clear</i>
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th *matHeaderCellDef mat-header-cell> Action</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="toggleActivation(element)"
+                color="primary"
+                id="toggleButton"
+                mat-raised-button>
+
+          {{getActivationButtonText(element.isAccepted)}}
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="export">
+      <th *matHeaderCellDef mat-header-cell>Export</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="exportPdf(element)"
+
+                color="primary"
+                mat-raised-button>Export Profile as PDF
+        </button>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+</div>

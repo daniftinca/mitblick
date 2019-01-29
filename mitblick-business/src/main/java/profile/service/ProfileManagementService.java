@@ -28,6 +28,10 @@ import javax.mail.internet.*;
 import java.security.Security;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -145,6 +149,24 @@ public class ProfileManagementService {
                 .collect(Collectors.toList());
     }
 
+    public FilterDTO filterSupervisor(String supervisorEmail) {
+        Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorEmail);
+        FilterDTO filterDTO = new FilterDTO();
+        List<Profile> profiles = new ArrayList<Profile>();
+
+        if (supervisor.isPresent()) {
+            for (User emp : supervisor.get().getEmployees()) {
+                Optional<Profile> empProfile = profilePersistenceManager.getByEmail(emp.getEmail());
+                if (empProfile.isPresent()) {
+                    profiles.add(empProfile.get());
+                }
+            }
+        }
+
+        filterDTO.setAmount(4);
+        filterDTO.setProfiles(ProfileDTOHelper.fromEntity(profiles));
+        return filterDTO;
+    }
 
     public FilterDTO filter(int index, int amount, List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) throws BusinessException {
 

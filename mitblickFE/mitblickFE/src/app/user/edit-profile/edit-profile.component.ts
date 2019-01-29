@@ -3,10 +3,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ProfileComponent} from "../profile/profile.component";
 
 export interface ProfileDialogData {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   photo: any;
   email: string;
+  jobTitle
 }
 
 @Component({
