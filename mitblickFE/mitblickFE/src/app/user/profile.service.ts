@@ -92,4 +92,12 @@ export class ProfileService {
         )
       });
   }
+
+  getAllJobTitles() {
+    return this.http.get(this.baseURL + '/manage-profiles/get-all-jobTitles');
+  }
+
+  getAllRegions() {
+    return this.http.get(this.baseURL + '/manage-profiles/get-all-regions');
+  }
 }

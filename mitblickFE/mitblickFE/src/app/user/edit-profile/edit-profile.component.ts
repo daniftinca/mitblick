@@ -1,13 +1,15 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ProfileComponent} from "../profile/profile.component";
+import {ProfileService} from "../profile.service";
 
 export interface ProfileDialogData {
   firstName: string;
   lastName: string;
   photo: any;
   email: string;
-  jobTitle
+  jobTitle: { name: string };
+  region: { name: string };
 }
 
 @Component({
@@ -17,8 +19,10 @@ export interface ProfileDialogData {
 })
 export class EditProfileComponent implements OnInit {
 
+  private jobTitles: any;
+  private regions: any;
   constructor(
-    public dialogRef: MatDialogRef<ProfileComponent>,
+    public dialogRef: MatDialogRef<ProfileComponent>, private profileService: ProfileService,
     @Inject(MAT_DIALOG_DATA) public data: ProfileDialogData) {
   }
 
@@ -27,6 +31,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getJobTitles();
+    this.getRegions();
   }
 
   previewImage(event) {
@@ -49,4 +55,11 @@ export class EditProfileComponent implements OnInit {
 
   }
 
+  getJobTitles() {
+    this.profileService.getAllJobTitles().subscribe(res => this.jobTitles = res);
+  }
+
+  getRegions() {
+    this.profileService.getAllRegions().subscribe(res => this.regions = res);
+  }
 }

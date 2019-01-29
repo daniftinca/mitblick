@@ -10,7 +10,18 @@
   <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>
 
   <mat-form-field>
-
+    <mat-select placeholder="Job Title" [(ngModel)]="data.jobTitle">
+      <mat-option *ngFor="let title of jobTitles" [value]="title">
+        {{title.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Region" [(ngModel)]="data.region">
+      <mat-option *ngFor="let region of regions" [value]="region">
+        {{region.name}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   <div id="chosen_image" width="100px" style="float:right">
 

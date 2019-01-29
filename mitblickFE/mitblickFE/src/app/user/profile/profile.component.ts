@@ -125,6 +125,14 @@ export class ProfileComponent implements OnInit {
             this.new_profile.photo = this.profile.photo;
           }
         }
+
+        if (this.new_profile.jobTitle == undefined || this.new_profile.jobTitle.name == undefined) {
+          this.new_profile.jobTitle = this.profile.jobTitle;
+        }
+
+        if (this.new_profile.region == undefined || this.new_profile.region.name == undefined) {
+          this.new_profile.region = this.profile.region;
+        }
         // @ts-ignore
         this.profileService.updateProfile(this.new_profile).subscribe(res => this.profile = res);
       }

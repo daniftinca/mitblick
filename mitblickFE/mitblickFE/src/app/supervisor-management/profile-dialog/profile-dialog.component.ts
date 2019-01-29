@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AddProjectDialogComponent, ProjectDialogData} from "../../user/add-project-dialog/add-project-dialog.component";
 import {EditProfileComponent, ProfileDialogData} from "../../user/edit-profile/edit-profile.component";
 import {ProfileService} from "../../user/profile.service";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material";
+import {MatDialog} from "@angular/material";
 import {SkillService} from "../../skill-management/skill.service";
 import {AddSkillDialogComponent} from "../../user/add-skill-dialog/add-skill-dialog.component";
-import {ProfileComponent, ProfileData} from "../../user/profile/profile.component";
+import {ProfileData} from "../../user/profile/profile.component";
 
 @Component({
   selector: 'app-profile-dialog',
@@ -14,21 +14,21 @@ import {ProfileComponent, ProfileData} from "../../user/profile/profile.componen
 })
 export class ProfileDialogComponent implements OnInit {
 
-  private profile: any;
+  private profile: ProfileData;
   private skillEntries: {};
+
 
 
   private new_project: ProjectDialogData;
   private new_profile: ProfileDialogData;
 
 
-  constructor(public dialogRef: MatDialogRef<ProfileComponent>,
-              private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService,
-              @Inject(MAT_DIALOG_DATA) public data: ProfileData) {
+  constructor(private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService) {
     this.profile = {
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       photo: "",
+      email: localStorage.getItem("email"),
       projekts: [],
       skills: [],
       jobTitle: {name: ""},
@@ -37,16 +37,15 @@ export class ProfileDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profile = this.data;
-    this.getSkillEntries();
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  alertUser() {
-    alert("First name: " + this.profile.firstName);
+    var email = localStorage.getItem("email");
+    this.profileService.getProfileByEmail(email).subscribe(res => {
+      // @ts-ignore
+      this.profile = res;
+      if (this.profile.photo == "" || this.profile.photo == undefined) {
+        this.profile.photo = "https://material.angular.io/assets/img/examples/shiba1.jpg";
+      }
+      this.getSkillEntries();
+    });
   }
 
   addSkillDialog(): void {
@@ -62,8 +61,11 @@ export class ProfileDialogComponent implements OnInit {
       var skillRating = result.skillRating;
       var email = this.profile.email;
       this.profile.skills.push({
+        // @ts-ignore
         skillAreaName: skillAreaName,
+        // @ts-ignore
         rating: skillRating,
+        // @ts-ignore
         skill: {name: result.skillName, id: result.skillid}
       });
       this.getSkillEntries();
@@ -82,6 +84,7 @@ export class ProfileDialogComponent implements OnInit {
       this.new_project = result;
       if (this.new_project != undefined) {
         this.profileService.addProject(this.new_project).subscribe();
+        // @ts-ignore
         this.profile.projekts.push(this.new_project);
       }
     });
@@ -98,11 +101,11 @@ export class ProfileDialogComponent implements OnInit {
       this.new_profile = result;
       if (this.new_profile != undefined) {
         this.new_profile.email = this.profile.email;
-        if (this.new_profile.firstname == "" || this.new_profile.firstname == undefined) {
-          this.new_profile.firstname = this.profile.firstname;
+        if (this.new_profile.firstName == "" || this.new_profile.firstName == undefined) {
+          this.new_profile.firstName = this.profile.firstName;
         }
-        if (this.new_profile.lastname == "" || this.new_profile.lastname == undefined) {
-          this.new_profile.lastname = this.profile.lastname;
+        if (this.new_profile.lastName == "" || this.new_profile.lastName == undefined) {
+          this.new_profile.lastName = this.profile.lastName;
         }
 
         if (this.new_profile.photo == "" || this.new_profile.photo == undefined) {
@@ -113,6 +116,14 @@ export class ProfileDialogComponent implements OnInit {
           }
         }
 
+        if (this.new_profile.jobTitle == undefined || this.new_profile.jobTitle.name == undefined) {
+          this.new_profile.jobTitle = this.profile.jobTitle;
+        }
+
+        if (this.new_profile.region == undefined || this.new_profile.region.name == undefined) {
+          this.new_profile.region = this.profile.region;
+        }
+        // @ts-ignore
         this.profileService.updateProfile(this.new_profile).subscribe(res => this.profile = res);
       }
     });
@@ -120,6 +131,7 @@ export class ProfileDialogComponent implements OnInit {
 
   removeSkill(skillid: number, skillarea: string) {
     this.profileService.removeSkillFromProfile(skillid, this.profile.email).subscribe(res => {
+      // @ts-ignore
       this.profile = res;
       this.getSkillEntries();
     });
@@ -138,18 +150,20 @@ export class ProfileDialogComponent implements OnInit {
   removeProject(project): void {
     project.date = new Date(project.date);
     this.profileService.removeProject(project, this.profile.email).subscribe();
+    // @ts-ignore
     this.profile.projekts.pop(project);
-    // this.profileService.getProfileByEmail(this.profile.email).subscribe(res => this.profile = res);
   }
 
   getSkillEntries() {
     this.skillEntries = {};
     for (var id in this.profile.skills) {
       var skillentry = this.profile.skills[id];
+      // @ts-ignore
       var sa_name = skillentry.skillAreaName;
       if (this.skillEntries == undefined || !(sa_name in this.skillEntries)) {
         this.skillEntries[sa_name] = [];
       }
+      // @ts-ignore
       var skill = {name: skillentry.skill.name, rating: skillentry.rating, id: skillentry.skill.id};
       this.skillEntries[sa_name].push(skill);
     }
