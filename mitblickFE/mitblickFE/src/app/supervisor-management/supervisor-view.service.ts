@@ -44,4 +44,11 @@ export class SupervisorViewService {
         )
       });
   }
+
+  getPdfByEmail(email) {
+    return this.http.get(this.baseURL + '/pdf/profile-by-email/' + email, {
+      observe: 'response',
+      responseType: 'blob' as 'json'
+    });
+  }
 }

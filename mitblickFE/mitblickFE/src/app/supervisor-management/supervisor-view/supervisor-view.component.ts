@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SupervisorViewService} from "../supervisor-view.service";
 import {MatDialog} from "@angular/material";
 import {ProfileDialogComponent} from "../profile-dialog/profile-dialog.component";
+import * as FileSaver from "file-saver";
 
 @Component({
   selector: 'app-supervisor-view',
@@ -84,6 +85,15 @@ export class SupervisorViewComponent implements OnInit {
       } else {
         this.accept(result);
       }
+    });
+  }
+
+  exportPdf(email) {
+    var file: any;
+    this.supervisorService.getPdfByEmail(email).subscribe(res => {
+      console.log(res.headers.get('content-disposition'));
+      file = res.body;
+      FileSaver.saveAs(res.body, "profile_" + email + ".pdf");
     });
   }
 }

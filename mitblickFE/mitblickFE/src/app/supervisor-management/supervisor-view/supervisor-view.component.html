@@ -53,7 +53,7 @@
     <ng-container matColumnDef="export">
       <th *matHeaderCellDef mat-header-cell>Export</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="exportPdf(element)"
+        <button (click)="exportPdf(element.email)"
 
                 color="primary"
                 mat-raised-button>Export Profile as PDF

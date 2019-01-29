@@ -64,14 +64,14 @@ public class PdfGeneratorBoundary {
     /**
      * Export a profile, identified by an id, into a pdf file.
      *
-     * @param id Profile id.
+     * @param email Profile email.
      * @return Response with a pdf | INTERNAL_SERVER_ERROR
      */
     @GET
-    @Path("/profile-by-id/{id}")
+    @Path("/profile-by-email/{email}")
     // @Secured(PROFILE_EXPORT_PDF) ?
     @Produces("application/pdf")
-    public Response getFileById(@PathParam("id") long id) {
+    public Response getFileById(@PathParam("email") String email) {
         File file;
         FileOutputStream fileOutputStream;
         String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
@@ -81,10 +81,10 @@ public class PdfGeneratorBoundary {
             Document document = new Document();
             fileOutputStream = new FileOutputStream(file);
             PdfWriter.getInstance(document, fileOutputStream);
-            pdfExportService.createSinglePdf(profileManagementService.getById(id), document);
+            pdfExportService.createSinglePdf(profileManagementService.getByEmail(email), document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=profile" + id + ".pdf");
+            response.header("Content-Disposition", "attachment; filename=profile_" + email.split("@")[0] + ".pdf");
             file.deleteOnExit();
             return response.entity(file).build();
 
