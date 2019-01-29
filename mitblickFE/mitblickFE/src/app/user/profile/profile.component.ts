@@ -68,20 +68,23 @@ export class ProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      var skillid = result.skillid;
-      var skillAreaName = result.skillAreaName;
-      var skillRating = result.skillRating;
-      var email = this.profile.email;
-      this.profile.skills.push({
-        // @ts-ignore
-        skillAreaName: skillAreaName,
-        // @ts-ignore
-        rating: skillRating,
-        // @ts-ignore
-        skill: {name: result.skillName, id: result.skillid}
-      });
-      this.getSkillEntries();
-      this.profileService.addSkillToProfile(skillid, skillAreaName, skillRating, email).subscribe();
+      if (result != undefined) {
+        var skillid = result.skillid;
+        var skillAreaName = result.skillAreaName;
+        var skillRating = result.skillRating;
+        var email = this.profile.email;
+        this.profile.skills.push({
+          // @ts-ignore
+          skillAreaName: skillAreaName,
+          // @ts-ignore
+          rating: skillRating,
+          // @ts-ignore
+          skill: {name: result.skillName, id: result.skillid}
+        });
+        this.getSkillEntries();
+        this.profileService.addSkillToProfile(skillid, skillAreaName, skillRating, email).subscribe();
+      }
+
     });
   }
 

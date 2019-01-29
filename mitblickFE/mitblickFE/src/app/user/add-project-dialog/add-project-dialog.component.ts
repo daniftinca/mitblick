@@ -40,6 +40,7 @@ export class AddProjectDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
+    this.data = undefined;
     this.dialogRef.close();
   }
 

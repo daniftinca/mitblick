@@ -39,6 +39,7 @@ export class AddSkillDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
+    this.data = undefined;
     this.dialogRef.close();
   }
 
