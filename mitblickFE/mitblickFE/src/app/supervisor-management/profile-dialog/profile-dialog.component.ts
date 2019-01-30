@@ -49,6 +49,10 @@ export class ProfileDialogComponent implements OnInit {
     this.getSkillEntries();
   }
 
+  onNoClick() {
+    this.dialogRef.close();
+  }
+
   activate() {
     this.data.accepted = 1;
     this.dialogRef.close(this.data);

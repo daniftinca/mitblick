@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ProfileManagementService} from "../profile-management.service";
-import {PageEvent} from "@angular/material";
+import {MatDialog, PageEvent} from "@angular/material";
+import {ProfileDialogComponent} from "../../supervisor-management/profile-dialog/profile-dialog.component";
+import {SupervisorViewService} from "../../supervisor-management/supervisor-view.service";
+import * as FileSaver from "file-saver";
+
 
 @Component({
   selector: 'app-profile-management',
@@ -22,7 +26,8 @@ export class ProfileManagementComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor(private profileManagementService: ProfileManagementService) {
+  constructor(private profileManagementService: ProfileManagementService, public dialog: MatDialog,
+              private supervisorService: SupervisorViewService) {
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -61,4 +66,20 @@ export class ProfileManagementComponent implements OnInit {
     this.getProfiles(0, 4, [], [], []);
   }
 
+  showProfile(profile: any) {
+    const dialogRef = this.dialog.open(ProfileDialogComponent, {
+      width: '750px',
+      maxHeight: '950px',
+      data: profile
+    });
+  }
+
+  exportPdf(email) {
+    var file: any;
+    this.supervisorService.getPdfByEmail(email).subscribe(res => {
+      console.log(res.headers.get('content-disposition'));
+      file = res.body;
+      FileSaver.saveAs(res.body, "profile_" + email + ".pdf");
+    });
+  }
 }

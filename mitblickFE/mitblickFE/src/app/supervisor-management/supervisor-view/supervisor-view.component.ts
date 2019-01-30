@@ -75,7 +75,7 @@ export class SupervisorViewComponent implements OnInit {
   showProfile(profile: any) {
     const dialogRef = this.dialog.open(ProfileDialogComponent, {
       width: '750px',
-      maxHeight: '900px',
+      maxHeight: '950px',
       data: profile
     });
 
