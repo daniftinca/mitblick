@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProfileManagementService} from "../profile-management.service";
 import {PageEvent} from "@angular/material";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile-management',
@@ -22,7 +23,8 @@ export class ProfileManagementComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor(private profileManagementService: ProfileManagementService) {
+  constructor(private translate: TranslateService,
+              private profileManagementService: ProfileManagementService) {
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {

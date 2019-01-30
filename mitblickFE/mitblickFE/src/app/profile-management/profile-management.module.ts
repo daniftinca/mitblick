@@ -9,6 +9,9 @@ import {
   MatPaginatorModule
 } from "@angular/material";
 import {FormsModule} from "@angular/forms";
+import {HttpLoaderFactory} from "../app.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
 
 @NgModule({
   declarations: [ProfileManagementComponent],
@@ -19,7 +22,19 @@ import {FormsModule} from "@angular/forms";
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule.forChild({
+
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+    })
   ]
 })
 export class ProfileManagementModule {
