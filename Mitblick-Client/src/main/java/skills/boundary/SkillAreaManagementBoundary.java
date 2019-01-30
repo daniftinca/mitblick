@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -142,8 +143,11 @@ public class SkillAreaManagementBoundary {
     public Response getAllSkillAreas() {
         try {
             Optional<List<SkillArea>> skillAreas = skillAreaManagementService.getAllSkillAreas();
-            String allSkillAreasJson = new Gson().toJson(skillAreas.get());
-            return Response.ok(allSkillAreasJson).build();
+            if (skillAreas.isPresent()) {
+                String allSkillAreasJson = new Gson().toJson(skillAreas.get());
+                return Response.ok(allSkillAreasJson).build();
+            }
+            return Response.ok(new ArrayList<SkillArea>()).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }

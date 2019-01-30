@@ -39,7 +39,7 @@ public class SkillManagementService {
     private Optional<SkillArea> validateSkillForCreation(SkillDTO skillDTO, String skillAreaName) throws BusinessException {
 
         Optional<SkillArea> skillAreaOptional = skillAreaPersistenceManager.getByName(skillAreaName);
-        if (skillDTO.getName()=="") {
+        if (skillDTO.getName().equals("") || skillDTO.getName() == null) {
             throw new BusinessException(ExceptionCode.SKILL_VALIDATION_EXCEPTION);
         }
         if(!(skillAreaOptional.isPresent()))
