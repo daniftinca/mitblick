@@ -66,6 +66,12 @@
     "addSkillArea": "Adaugare Domenii de Competenta",
     "addSkill": "Domeniu de Competenta",
     "deleteSkillArea": "Stergere Domeniu de Competenta"
+  },
+  "skillAreaComponent": {
+    "addSkillArea": "Adaugare Domeniu Competenta",
+    "skillAreaNamePlaceholder": "Nume Domeniu",
+    "descriptionPlaceholder": "Descriere",
+    "submit": "Trimite"
   }
 
 }

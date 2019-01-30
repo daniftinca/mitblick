@@ -66,6 +66,12 @@
     "addSkillArea": "Add Skill Area",
     "addSkill": "Add Skill",
     "deleteSkillArea": "Delete Skill Area"
+  },
+  "skillAreaComponent": {
+    "addSkillArea": "Add Skill Area",
+    "skillAreaNamePlaceholder": "Skill Area Name",
+    "descriptionPlaceholder": "Description",
+    "submit": "Submit"
   }
 
 

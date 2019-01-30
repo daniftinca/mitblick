@@ -4,7 +4,7 @@
     #registerForm="ngForm"
     #formElement
   >
-    <h3>Add Skill Area</h3> <br>
+    <h3>{{'skillAreaComponent.addSkillArea' | translate}}</h3> <br>
     <mat-form-field>
       <input
         type="text"
@@ -14,7 +14,7 @@
         matInput
         [(ngModel)]="data.name"
         required
-        placeholder="Skill Area Name">
+        placeholder="{{'skillAreaComponent.skillAreaNamePlaceholder' | translate}}">
     </mat-form-field>
     <br>
     <br>
@@ -26,12 +26,12 @@
         matInput
         [(ngModel)]="data.description"
         required
-        placeholder="Description"></textarea>
+        placeholder="{{'skillAreaComponent.descriptionPlaceholder' | translate}}"></textarea>
 
     </mat-form-field>
     <br>
 
 
-    <button type="submit" mat-button>Submit</button>
+    <button type="submit" mat-button>{{'skillAreaComponent.submit' | translate}}</button>
   </form>
 </div>
