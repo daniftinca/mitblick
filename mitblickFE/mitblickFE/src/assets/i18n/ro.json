@@ -52,5 +52,15 @@
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Parola",
     "submit": "Trimite"
+  },
+  "updateUser": {
+    "update": "Actualizare",
+    "updateUserInfo": "Actualizare Informatii Utilizator",
+    "submit": "Trimite",
+    "password": "Parola",
+    "editRoles": "Editare Rol",
+    "addRole": "Adaugare Rol",
+    "revokeRole": "Revocare Rol"
+
   }
 }
