@@ -14,6 +14,10 @@ export class UsermanagementService {
     return this.http.get(this.baseURL + '/manage-users/get-all-users');
   }
 
+  getAllSupervisors() {
+    return this.http.get(this.baseURL + '/manage-users/get-all-supervisors');
+  }
+
   activateUser(email){
     const body = new URLSearchParams();
     body.set('email', email);
@@ -81,6 +85,18 @@ export class UsermanagementService {
     body.set('email', email);
     body.set('roleType', roleType);
     return this.http.post(this.baseURL + '/manage-permissions/revoke-role-from-user', body.toString(),
+      {
+        headers: new HttpHeaders(
+          {'Content-Type': 'application/x-www-form-urlencoded'}
+        )
+      });
+  }
+
+  addEmployeeToSupervisor(email: any, supervisor: any) {
+    const body = new URLSearchParams();
+    body.set('employeeEmail', email);
+    body.set('supervisorEmail', supervisor);
+    return this.http.post(this.baseURL + '/manage-employees/add-employee-to-supervisor', body.toString(),
       {
         headers: new HttpHeaders(
           {'Content-Type': 'application/x-www-form-urlencoded'}

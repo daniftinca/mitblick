@@ -41,6 +41,25 @@ public class UserManagementBoundary {
     }
 
     /**
+     * Returns all users with supervisor role.
+     *
+     * @param securityContext
+     * @return
+     */
+    @GET
+    //@Secured("USER_MANAGEMENT")
+    @Path("/get-all-supervisors")
+    public Response getAllSupervisors(@Context SecurityContext securityContext) {
+        try {
+            List<UserDTO> allUsers = userManagementService.getAllSupervisors();
+            String allUsersJson = new Gson().toJson(allUsers);
+            return Response.ok(allUsersJson).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    /**
      * Activates a user.
      *
      * @param email

@@ -13,6 +13,7 @@ public class UserDTOHelper {
         UserDTO userDTO = new UserDTO();
         userDTO.setEmail(user.getEmail());
         userDTO.setActive(user.getActive());
+        userDTO.setSupervisorEmail(user.getSupervisorMail());
         return userDTO;
     }
 
@@ -21,6 +22,7 @@ public class UserDTOHelper {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setActive(userDTO.getActive());
+        user.setSupervisorMail(userDTO.getSupervisorEmail());
         return user;
 
     }
@@ -33,6 +35,9 @@ public class UserDTOHelper {
         }
         if (userDTO.getPassword() != null) {
             user.setPassword(Encryptor.encrypt(userDTO.getPassword()));
+        }
+        if (userDTO.getSupervisorEmail() != null) {
+            user.setSupervisorMail(userDTO.getSupervisorEmail());
         }
         return user;
     }

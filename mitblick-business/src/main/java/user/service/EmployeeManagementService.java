@@ -34,6 +34,9 @@ public class EmployeeManagementService {
             User supervisor = supervisorOptional.get();
             User employee = employeeOptional.get();
             validateSupervisor(supervisor);
+            if (employee.getSupervisorMail() != null) {
+                removeEmployeeFromSupervisor(employee.getSupervisorMail(), employee.getEmail());
+            }
             supervisor.getEmployees().add(employee);
             employee.setSupervisorMail(supervisorEmail);
 

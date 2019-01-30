@@ -42,6 +42,7 @@ export class ManageAllUsersComponent implements OnInit {
       data: {
         active: user.isActive,
         email: user.email,
+        supervisorEmail: user.supervisorEmail,
         password: user.password,
 
       }
