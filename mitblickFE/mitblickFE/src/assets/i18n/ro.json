@@ -39,5 +39,14 @@
     "ratingplaceholder": "Evaluare",
     "submit": "Trimitere",
     "cancel": "Anulare"
+  },
+  "manageAllUsers": {
+    "addUser": "Adauga Utilizator",
+    "email": "Email",
+    "activation": "Activare",
+    "edit": "Editare",
+    "editUser": "Editare Utilizator"
+
+
   }
 }

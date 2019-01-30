@@ -39,6 +39,15 @@
     "ratingPlaceholder": "Rating",
     "submit": "Submit",
     "cancel": "Cancel"
+  },
+  "manageAllUsers": {
+    "addUser": "Add User",
+    "email": "Email",
+    "activation": "Activation",
+    "edit": "Edit",
+    "editUser": "Edit User"
+
+
   }
 }
 
