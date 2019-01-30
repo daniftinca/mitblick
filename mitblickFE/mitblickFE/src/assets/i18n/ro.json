@@ -1,0 +1,10 @@
+{
+  "loginPage": {
+    "login": "Logare",
+    "email": "Email",
+    "emailPlaceholder": "Introduceti emailul",
+    "password": "Parola",
+    "passwordPlaceholder": "Intrpduceti parola",
+    "submit": "Logare"
+  }
+}
