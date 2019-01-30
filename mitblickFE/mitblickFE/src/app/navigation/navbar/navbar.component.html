@@ -1,13 +1,19 @@
 <mat-toolbar class="menu" color="primary">
   <span style="margin-right: 20px">MB</span>
-  <button mat-button *ngIf="!isLoggedIn()" routerLinkActive="active" routerLink='/login'>Login</button>
-  <button mat-button *ngIf="isLoggedIn()" routerLinkActive="active" routerLink='/profile'>Profile</button>
-  <button mat-button *ngIf="isLoggedIn()&&hasPermission('USER_MANAGEMENT')" routerLinkActive="active" routerLink='/manage-all-users'>Manage All Users</button>
+  <button mat-button *ngIf="!isLoggedIn()" routerLinkActive="active" routerLink='/login'>{{'navbar.login' |
+    translate}}
+  </button>
+  <button mat-button *ngIf="isLoggedIn()" routerLinkActive="active" routerLink='/profile'>{{'navbar.profile' |
+    translate}}
+  </button>
+  <button mat-button *ngIf="isLoggedIn()&&hasPermission('USER_MANAGEMENT')" routerLinkActive="active"
+          routerLink='/manage-all-users'>{{'navbar.manageAllUsers' | translate}}
+  </button>
   <button mat-button *ngIf="isLoggedIn()&&hasPermission('SKILL_MANAGEMENT')" routerLinkActive="active"
-          routerLink='/manage-skills'>Manage Skills
+          routerLink='/manage-skills'>{{'navbar.manageSkills' | translate}}
   </button>
   <button mat-button *ngIf="isLoggedIn()&&hasPermission('PROFILE_HANDLING')" routerLinkActive="active"
-          routerLink='/superior-view'>Superior Profile View
+          routerLink='/superior-view'>{{'navbar.superiorProfileView' | translate}}
   </button>
   <div class="align-right">
     <div class="language">
@@ -22,7 +28,7 @@
     </button>
 
 
-    <button (click)="logout()" *ngIf="isLoggedIn()" mat-button>Log out</button>
+    <button (click)="logout()" *ngIf="isLoggedIn()" mat-button>{{'navbar.logout' | translate}}</button>
   </div>
 
 </mat-toolbar>
