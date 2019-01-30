@@ -4,9 +4,6 @@ install: true
 addons:
   sonarcloud:
     organization: "daniftinca"
-    branches:
-      - master
-      - develop
 notifications:
   email: true
   on_success: never
