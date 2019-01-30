@@ -2,7 +2,7 @@ package exception;
 
 public class BusinessException extends Exception {
 
-    ExceptionCode exceptionCode;
+    private ExceptionCode exceptionCode;
 
     public BusinessException() {
         this.exceptionCode = ExceptionCode.UNKNOWN_EXCEPTION;

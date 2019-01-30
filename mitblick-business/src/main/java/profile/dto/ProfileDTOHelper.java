@@ -33,7 +33,7 @@ public class ProfileDTOHelper {
 
     public static List<ProfileDTO> fromEntity(List<Profile> profiles) {
 
-        List<ProfileDTO> profileDTOs = new ArrayList<ProfileDTO>();
+        List<ProfileDTO> profileDTOs = new ArrayList<>();
 
         for (Profile profile : profiles) {
             profileDTOs.add(fromEntity(profile));
