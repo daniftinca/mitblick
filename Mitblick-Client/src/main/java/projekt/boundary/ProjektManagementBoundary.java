@@ -1,6 +1,5 @@
 package projekt.boundary;
 
-import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import projekt.dto.ProjektDTO;
@@ -76,19 +75,6 @@ public class ProjektManagementBoundary {
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
-    }
-
-    /**
-     * Get the user (email) that gave a request.
-     *
-     * @param headers
-     * @return User email
-     */
-    private String getRequester(@Context HttpHeaders headers) {
-        String authorizationHeader = headers.getRequestHeader("authorization").get(0);
-        String token = authorizationHeader.substring("Bearer".length()).trim();
-        return JWT.decode(token).getClaim("email").asString();
-
     }
 
     /**

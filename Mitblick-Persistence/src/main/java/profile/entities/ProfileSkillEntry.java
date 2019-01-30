@@ -1,7 +1,6 @@
 package profile.entities;
 
 import skills.entities.Skill;
-import skills.entities.SkillArea;
 import user.entities.BaseEntity;
 
 import javax.persistence.*;
@@ -15,7 +14,6 @@ public class ProfileSkillEntry extends BaseEntity {
     @JoinColumn(name="Skill_ID")
     private Skill skill;
 
-    // inca in dezbatere daca sa pun doar numele sau tot obiectul
     @Column
     private String skillAreaName;
 

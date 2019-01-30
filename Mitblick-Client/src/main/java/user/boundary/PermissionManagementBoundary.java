@@ -1,6 +1,5 @@
 package user.boundary;
 
-import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import user.service.PermissionManagementService;
@@ -53,13 +52,6 @@ public class PermissionManagementBoundary {
         permissionManagementController.revokePermissionFromRole(roleType, permissionType);
         return Response.ok().build();
 
-
-    }
-
-    private String getRequester(@Context HttpHeaders headers) {
-        String authorizationHeader = headers.getRequestHeader("authorization").get(0);
-        String token = authorizationHeader.substring("Bearer".length()).trim();
-        return JWT.decode(token).getClaim("email").asString();
 
     }
 

@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Stateless
@@ -25,9 +24,9 @@ public class NotificationPersistenceManager {
         em.remove(notification);
     }
 
-    public Optional<Notification> getById(Long Id){
+    public Optional<Notification> getById(Long id) {
         TypedQuery<Notification> q = em.createNamedQuery(Notification.GET_NOTIFICATION_BY_ID, Notification.class)
-                .setParameter("id", Id);
+                .setParameter("id", id);
         try {
             return Optional.of(q.getSingleResult());
         } catch (NoResultException ex) {

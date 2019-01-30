@@ -1,6 +1,5 @@
 package skills.dao;
 
-import skills.entities.Skill;
 import skills.entities.SkillArea;
 
 import javax.ejb.Stateless;
@@ -8,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,8 +43,7 @@ public class SkillAreaPersistenceManager {
     public Optional<List<SkillArea>> getAll() {
         TypedQuery<SkillArea> q = em.createNamedQuery(SkillArea.GET_ALL_SKILLAREAS, SkillArea.class);
         try {
-            Optional<List<SkillArea>> skillAreas = Optional.of(q.getResultList());
-            return skillAreas;
+            return Optional.of(q.getResultList());
         } catch (NoResultException ex) {
             return Optional.empty();
         }

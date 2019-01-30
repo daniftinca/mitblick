@@ -29,7 +29,7 @@ public class SkillArea extends BaseEntity {
             orphanRemoval = true
     )
     @JoinColumn(name = "skillArea")
-    private List<Skill> skills = new ArrayList<>();;
+    private List<Skill> skills = new ArrayList<>();
 
     public String getDescription() {
         return description;

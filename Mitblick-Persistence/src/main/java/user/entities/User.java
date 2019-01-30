@@ -13,7 +13,6 @@ import java.util.Objects;
                 @NamedQuery(name = User.GET_ALL_USERS, query = "SELECT u FROM User u"),
                 @NamedQuery(name = User.GET_USER_BY_EMAIL, query = "SELECT u from User u where u.email = :email "),
                 @NamedQuery(name = User.GET_USER_BY_ID, query = "SELECT u from User u where u.id=:id"),
-                //@NamedQuery(name = User.GET_NOTIFICATIONS_BY_USERID, query = "SELECT u.notifications from User u where u.id=:id"),
         }
 )
 public class User extends BaseEntity {
@@ -76,24 +75,11 @@ public class User extends BaseEntity {
     @Column
     private String supervisorMail;
 
-    //    @OneToOne(cascade = CascadeType.ALL)
-//    private Profile profile;
-
-
     public User() {
 
         // THIS IS EMPTY FOR A REASON !!!
         //Empty constructor needed for Entity
     }
-
-//
-//    public Profile getProfile() {
-//        return profile;
-//    }
-//
-//    public void setProfile(Profile profile) {
-//        this.profile = profile;
-//    }
 
     public Boolean getActive() {
         return isActive;

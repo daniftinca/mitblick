@@ -1,6 +1,5 @@
 package user.boundary;
 
-import com.auth0.jwt.JWT;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import profile.service.ProfileManagementService;
@@ -115,14 +114,6 @@ public class UserManagementBoundary {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
     }
-
-    private String getRequester(@Context HttpHeaders headers) {
-        String authorizationHeader = headers.getRequestHeader("authorization").get(0);
-        String token = authorizationHeader.substring("Bearer".length()).trim();
-        return JWT.decode(token).getClaim("email").asString();
-
-    }
-
 
     /**
      * Registers a user with the given JSON
