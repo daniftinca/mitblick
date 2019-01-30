@@ -3,6 +3,7 @@ import {SkillService} from "../skill.service";
 import {MatDialog} from "@angular/material";
 import {AddSkillAreaComponent} from "../add-skill-area/add-skill-area.component";
 import {AddSkillComponent} from "../add-skill/add-skill.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-skill-management-view',
@@ -13,7 +14,8 @@ export class SkillManagementViewComponent implements OnInit {
 
   private skillAreas: any;
 
-  constructor(private skillManagement: SkillService,
+  constructor(private translate: TranslateService,
+              private skillManagement: SkillService,
               public dialog: MatDialog) {
 
 

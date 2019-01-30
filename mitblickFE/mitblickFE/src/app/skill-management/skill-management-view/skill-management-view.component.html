@@ -5,7 +5,7 @@
           style="margin:30px 0"
           (click)="openAddSkillAreaDialog()"
   >
-    <i class="material-icons">add_box</i> Add Skill Area
+    <i class="material-icons">add_box</i> {{'skillManagementView.addSkillArea' | translate}}
 
   </button>
   <mat-accordion>
@@ -35,7 +35,7 @@
               style="margin:30px 0"
               (click)="openAddSkillDialog(skillarea.name)"
       >
-        <i class="material-icons">add_box</i> Add Skill
+        <i class="material-icons">add_box</i> {{'skillManagementView.addSkill' | translate}}
       </button>
       <button color="warn"
               class="delete-area-button"
@@ -43,7 +43,7 @@
               style="margin:30px 0"
               (click)="deleteSkillArea(skillarea.name, skillarea.description)"
       >
-        <i class="material-icons">delete</i> Delete SkillArea
+        <i class="material-icons">delete</i> {{'skillManagementView.deleteSkillArea' | translate}}
       </button>
     </mat-expansion-panel>
 
