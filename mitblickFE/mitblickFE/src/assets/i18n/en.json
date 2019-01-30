@@ -52,6 +52,16 @@
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
     "submit": "Submit"
+  },
+  "updateUser": {
+    "update": "Update",
+    "updateUserInfo": "Update User Info",
+    "submit": "Submit",
+    "password": "Password",
+    "editRoles": "Edit Roles",
+    "addRole": "Add Role",
+    "revokeRole": "Revoke Role"
+
   }
 }
 
