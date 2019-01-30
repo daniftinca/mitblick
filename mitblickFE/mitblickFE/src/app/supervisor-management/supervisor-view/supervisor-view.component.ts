@@ -82,10 +82,14 @@ export class SupervisorViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result.isAccepted) {
-        this.decline(result);
-      } else {
-        this.accept(result);
+
+      if (result !== undefined && result !== null) {
+
+        if (!result.isAccepted) {
+          this.decline(result);
+        } else {
+          this.accept(result);
+        }
       }
     });
   }
