@@ -18,10 +18,10 @@
       <h4 class="mat-card-content">{{profile?.region?.name}}</h4>
     </mat-card-subtitle>
     <div class="accepted">
-      <i *ngIf="profile.accepted" class="material-icons" style="color: green">done</i>
-      <h5 *ngIf="profile.accepted" mat-card>Profile is verified</h5>
-      <i *ngIf="!profile.accepted" class="material-icons" style="color: red">clear</i>
-      <h5 *ngIf="!profile.accepted" mat-card>Profile is not verified</h5>
+      <i *ngIf="profile.isAccepted" class="material-icons" style="color: green">done</i>
+      <h5 *ngIf="profile.isAccepted" mat-card>Profile is verified</h5>
+      <i *ngIf="!profile.isAccepted" class="material-icons" style="color: red">clear</i>
+      <h5 *ngIf="!profile.isAccepted" mat-card>Profile is not verified</h5>
     </div>
   </mat-card-header>
   <button (click)="editProfileDialog()" color="primary" mat-raised-button>

@@ -17,7 +17,7 @@
             routerLinkActive="active"
             routerLink='/notifications'
     >
-      <mat-icon matBadge="{{this.unread}}" [matBadgeHidden]="this.unread<=0" matBadgeColor="warn">notifications
+      <mat-icon [matBadgeHidden]="getUnread()<=0" matBadge="{{getUnread()}}" matBadgeColor="warn">notifications
       </mat-icon>
     </button>
 

@@ -9,7 +9,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,7 +85,9 @@ public class UserPersistenceManager {
         TypedQuery<User> q = em.createNamedQuery(User.GET_USER_BY_EMAIL, User.class)
                 .setParameter("email", email);
         try {
-            return Optional.of(q.getSingleResult());
+            User user = q.getSingleResult();
+            em.refresh(user);
+            return Optional.of(user);
         } catch (NoResultException ex) {
             return Optional.empty();
         }

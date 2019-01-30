@@ -70,7 +70,9 @@ export class ProfileManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(ProfileDialogComponent, {
       width: '750px',
       maxHeight: '950px',
-      data: profile
+      data: profile,
+      panelClass: 'edit-hide'
+
     });
   }
 

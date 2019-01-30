@@ -1,7 +1,5 @@
 package profile.boundary;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import exception.BusinessException;
 import profile.dto.FilterDTO;
@@ -166,8 +164,9 @@ public class ProfileManagementBoundary {
                              @FormParam("email") String email,
                              @Context HttpHeaders headers) {
         try {
-            profileManagementService.addSkill(skillId, skillAreaName, skillRating, email);
-            return Response.ok().build();
+            ProfileDTO profile = profileManagementService.addSkill(skillId, skillAreaName, skillRating, email);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
@@ -189,8 +188,9 @@ public class ProfileManagementBoundary {
                                @FormParam("email") String email,
                                @Context HttpHeaders headers) {
         try {
-            profileManagementService.addProjekt(projektName, email);
-            return Response.ok().build();
+            ProfileDTO profile = profileManagementService.addProjekt(projektName, email);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
@@ -236,8 +236,9 @@ public class ProfileManagementBoundary {
                                   @FormParam("email") String email,
                                   @Context HttpHeaders headers) {
         try {
-            profileManagementService.removeProjekt(projektName, email);
-            return Response.ok().build();
+            ProfileDTO profile = profileManagementService.removeProjekt(projektName, email);
+            String profileStr = new Gson().toJson(profile);
+            return Response.ok(profileStr).build();
         } catch (BusinessException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
         }
@@ -284,10 +285,7 @@ public class ProfileManagementBoundary {
 
         try {
             FilterDTO filterDTO = profileManagementService.filter(index, amount, criteriaNames, criteriaValues, skillIDs);
-            return new ObjectMapper().writeValueAsString(filterDTO);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "not working because json exception";
+            return new Gson().toJson(filterDTO);
         } catch (BusinessException e) {
             e.printStackTrace();
             return "not working because business exception";
@@ -354,8 +352,8 @@ public class ProfileManagementBoundary {
     public String filterSupervisor(@QueryParam("email") String email) {
         try {
             FilterDTO filterDTO = profileManagementService.filterSupervisor(email);
-            return new ObjectMapper().writeValueAsString(filterDTO);
-        } catch (JsonProcessingException e) {
+            return new Gson().toJson(filterDTO);
+        } catch (Exception e) {
             e.printStackTrace();
             return "not working because json exception";
         }

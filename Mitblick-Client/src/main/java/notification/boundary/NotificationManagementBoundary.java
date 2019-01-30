@@ -77,6 +77,26 @@ public class NotificationManagementBoundary {
     }
 
     /**
+     * Mark a notification as unread.
+     *
+     * @param notificationId The id of the notification.
+     * @return OK | BAD_REQUEST
+     */
+    @POST
+    @Path("/mark-notification-as-unread")
+    @Consumes({"application/x-www-form-urlencoded"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response markNotificationAsUnread(@FormParam("notificationId") Long notificationId) {
+
+        try {
+            notificationManagementService.markNotificationAsUnread(notificationId);
+            return Response.status(Response.Status.OK).build();
+        } catch (BusinessException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getExceptionCode()).build();
+        }
+    }
+
+    /**
      * Mark all notifications as read.
      *
      * @param userMail Email of the user whose notifications should be marked.
@@ -107,7 +127,7 @@ public class NotificationManagementBoundary {
     @Path("/get-notifications-by-user")
     @Consumes({"application/x-www-form-urlencoded"})
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNotificationsForUser(@FormParam("mail") String mail) {
+    public Response getNotificationsForUser(@QueryParam("email") String mail) {
         try {
             List<Notification> notifications = notificationManagementService.getByUserMail(mail);
             String allNotificationsJson = new Gson().toJson(notifications);
@@ -126,7 +146,7 @@ public class NotificationManagementBoundary {
     @GET
     @Path("/get-amount-of-notifications")
     @Consumes({"application/x-www-form-urlencoded"})
-    public Response getAmountOfUnreadByUser(@FormParam("mail") String mail) {
+    public Response getAmountOfUnreadByUser(@QueryParam("email") String mail) {
         try {
             int amount = notificationManagementService.getAmountOfUnreadNotificationsByMail(mail);
             return Response.ok(amount).build();

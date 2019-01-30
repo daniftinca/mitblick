@@ -100,6 +100,11 @@ public class ProfileManagementService {
     private void sendNotifications(Profile profileAfter, String message, String type) {
         Optional<User> supervisorOptional = userPersistenceMAnager.getSupervisor(profileAfter.getEmail());
         if (supervisorOptional.isPresent()) {
+            for (Notification not : supervisorOptional.get().getNotifications()) {
+                if (not.getUserMail().equals(profileAfter.getEmail()) && type.equals(not.getType())) {
+                    return;
+                }
+            }
             Notification notification = new Notification();
             notification.setTitle("Profile Review");
             notification.setMessage(message);
@@ -410,6 +415,11 @@ public class ProfileManagementService {
                             .filter(profileSkillEntry -> !profileSkillEntry.getSkill().getId().equals(skill.getId()))
                             .collect(Collectors.toList())
             );
+            if (profile.getAccepted()) {
+                profile.setAccepted(false);
+                sendNotifications(profile, "Skills in profile updated. Please review changes.", "SKILL");
+            }
+
 
             return ProfileDTOHelper.fromEntity(profile);
         } else {
@@ -435,6 +445,12 @@ public class ProfileManagementService {
 
             if (profile.getProjekts().indexOf(projekt) != -1) {
                 profile.getProjekts().remove(projekt);
+                projektPersistenceManager.delete(projekt);
+                if (profile.getAccepted()) {
+                    profile.setAccepted(false);
+                    sendNotifications(profile, "Projects in profile updated. Please review changes.", "PROJECT");
+                }
+
             } else {
                 throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
             }
@@ -461,6 +477,15 @@ public class ProfileManagementService {
                 if (profileOptional.isPresent()) {
                     Profile profile = profileOptional.get();
                     profile.setAccepted(true);
+
+                    Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorMail);
+                    if (supervisor.isPresent()) {
+                        for (Notification notif : supervisor.get().getNotifications()) {
+                            if (notif.getUserMail().equals(userMail)) {
+                                notificationPersistenceManager.delete(notif);
+                            }
+                        }
+                    }
                 } else
                     throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
             } else
@@ -485,6 +510,14 @@ public class ProfileManagementService {
                 if (profileOptional.isPresent()) {
                     if(profileOptional.get().getAccepted() == true)
                         profileOptional.get().setAccepted(false);
+                    Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorMail);
+                    if (supervisor.isPresent()) {
+                        for (Notification notif : supervisor.get().getNotifications()) {
+                            if (notif.getUserMail().equals(userMail)) {
+                                notificationPersistenceManager.delete(notif);
+                            }
+                        }
+                    }
                 } else
                     throw new BusinessException(ExceptionCode.PROJEKT_VALIDATION_EXCEPTION);
             } else

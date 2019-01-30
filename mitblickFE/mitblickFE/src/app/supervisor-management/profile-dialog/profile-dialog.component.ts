@@ -37,7 +37,7 @@ export class ProfileDialogComponent implements OnInit {
       skills: [],
       jobTitle: {name: ""},
       region: {name: ""},
-      accepted: 0
+      isAccepted: 0
     };
   }
 
@@ -54,12 +54,12 @@ export class ProfileDialogComponent implements OnInit {
   }
 
   activate() {
-    this.data.accepted = 1;
+    this.data.isAccepted = 1;
     this.dialogRef.close(this.data);
   }
 
   deactivate(): void {
-    this.data.accepted = 0;
+    this.data.isAccepted = 0;
     this.dialogRef.close(this.data);
   }
 
@@ -76,16 +76,12 @@ export class ProfileDialogComponent implements OnInit {
         var skillAreaName = result.skillAreaName;
         var skillRating = result.skillRating;
         var email = this.profile.email;
-        this.profile.skills.push({
+
+        this.profileService.addSkillToProfile(skillid, skillAreaName, skillRating, email).subscribe(res => {
           // @ts-ignore
-          skillAreaName: skillAreaName,
-          // @ts-ignore
-          rating: skillRating,
-          // @ts-ignore
-          skill: {name: result.skillName, id: result.skillid}
+          this.profile = res;
+          this.getSkillEntries();
         });
-        this.getSkillEntries();
-        this.profileService.addSkillToProfile(skillid, skillAreaName, skillRating, email).subscribe();
       }
 
     });
@@ -101,9 +97,10 @@ export class ProfileDialogComponent implements OnInit {
       console.log('The dialog was closed');
       this.new_project = result;
       if (this.new_project != undefined) {
-        this.profileService.addProjectToProfile(this.profile.email, this.new_project);
-        // @ts-ignore
-        this.profile.projekts.push(this.new_project);
+        this.profileService.addProject(this.new_project).subscribe(_ => {
+          // @ts-ignore
+          this.profileService.addProjectToProfile(this.profile.email, this.new_project).subscribe(res => this.profile = res);
+        });
       }
     });
   }
@@ -153,15 +150,6 @@ export class ProfileDialogComponent implements OnInit {
       this.profile = res;
       this.getSkillEntries();
     });
-    // for(var idx in this.skillEntries[skillarea]){
-    //   // @ts-ignore
-    //   if(this.skillEntries[idx].id == skillid){
-    //     this.skillEntries[skillarea].pop(this.skillEntries[idx]);
-    //     if(this.skillEntries[skillarea].length == 0){
-    //       delete this.skillEntries[skillarea];
-    //     }
-    //   }
-    // }
   }
 
 
@@ -169,9 +157,9 @@ export class ProfileDialogComponent implements OnInit {
     project.startDate = new Date(project.startDate);
     project.endDate = new Date(project.endDate);
 
-    this.profileService.removeProject(project, this.profile.email).subscribe();
     // @ts-ignore
-    this.profile.projekts.pop(project);
+    this.profileService.removeProject(project, this.profile.email).subscribe(res => this.profile = res);
+
   }
 
   getSkillEntries() {

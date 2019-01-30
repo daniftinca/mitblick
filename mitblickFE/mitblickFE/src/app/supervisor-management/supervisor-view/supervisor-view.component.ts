@@ -37,7 +37,7 @@ export class SupervisorViewComponent implements OnInit {
   }
 
   toggleActivation(profile) {
-    if (profile.accepted) {
+    if (profile.isAccepted) {
       this.decline(profile);
     } else {
       this.accept(profile);
@@ -46,7 +46,7 @@ export class SupervisorViewComponent implements OnInit {
 
   accept(profile) {
     this.supervisorService.acceptProfile(localStorage.getItem("email"), profile.email).subscribe(_ => {
-      profile.accepted = 1;
+      profile.isAccepted = 1;
       this.getProflies();
     });
 
@@ -54,7 +54,7 @@ export class SupervisorViewComponent implements OnInit {
 
   decline(profile) {
     this.supervisorService.declineProfile(localStorage.getItem("email"), profile.email).subscribe(_ => {
-      profile.accepted = 0;
+      profile.isAccepted = 0;
       this.getProflies();
     });
 
@@ -80,7 +80,7 @@ export class SupervisorViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result.accepted) {
+      if (!result.isAccepted) {
         this.decline(result);
       } else {
         this.accept(result);

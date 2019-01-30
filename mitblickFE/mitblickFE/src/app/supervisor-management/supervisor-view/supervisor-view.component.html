@@ -31,8 +31,8 @@
     <ng-container matColumnDef="status">
       <th *matHeaderCellDef mat-header-cell>Status</th>
       <td *matCellDef="let element" mat-cell>
-        <i *ngIf="element.accepted" class="material-icons" style="color: green">done</i>
-        <i *ngIf="!element.accepted" class="material-icons" style="color: red">clear</i>
+        <i *ngIf="element.isAccepted" class="material-icons" style="color: green">done</i>
+        <i *ngIf="!element.isAccepted" class="material-icons" style="color: red">clear</i>
 
       </td>
     </ng-container>
@@ -45,7 +45,7 @@
                 id="toggleButton{{element.email}}"
                 mat-raised-button>
 
-          {{getActivationButtonText(element.accepted)}}
+          {{getActivationButtonText(element.isAccepted)}}
         </button>
       </td>
     </ng-container>

@@ -9,7 +9,6 @@ import user.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -52,6 +51,15 @@ public class NotificationManagementService {
             throw new BusinessException(ExceptionCode.NOTIFICATION_VALIDATION_EXCEPTION);
     }
 
+    public void markNotificationAsUnread(Long notificationId) throws BusinessException {
+        Optional<Notification> notificationOptional = notificationPersistenceManager.getById(notificationId);
+        if (notificationOptional.isPresent()) {
+            Notification notification = notificationOptional.get();
+            notification.setRead(false);
+        } else
+            throw new BusinessException(ExceptionCode.NOTIFICATION_VALIDATION_EXCEPTION);
+    }
+
     public List<Notification> getByUserMail(String userMail) throws BusinessException{
         Optional<User> userOptional = userPersistenceManager.getUserByEmail(userMail);
         if(userOptional.isPresent()){
@@ -88,4 +96,6 @@ public class NotificationManagementService {
         else
             throw  new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);
     }
+
+
 }

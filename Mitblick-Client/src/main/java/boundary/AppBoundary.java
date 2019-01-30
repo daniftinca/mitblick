@@ -3,6 +3,7 @@ package boundary;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import filter.AuthenticationFilter;
 import filter.CorsFilter;
+import notification.boundary.NotificationManagementBoundary;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import profile.boundary.PdfGeneratorBoundary;
 import profile.boundary.ProfileManagementBoundary;
@@ -42,6 +43,7 @@ public class AppBoundary extends Application {
         classes.add(SkillManagementBoundary.class);
         classes.add(SkillAreaManagementBoundary.class);
         classes.add(EmployeeManagementBoundary.class);
+        classes.add(NotificationManagementBoundary.class);
 
         return classes;
     }

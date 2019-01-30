@@ -1,22 +1,24 @@
 <div class="notification-content">
 
-  <mat-card *ngFor="let notification of notificationData" [class.unread]="!notification.read" class="example-card">
+  <mat-card *ngFor="let notification of notificationData" [class.unread]="!notification.isRead" class="example-card">
     <mat-card-header>
       <!--<div mat-card-avatar class="example-header-image"></div>-->
-      <mat-card-title>{{notification.notificationTitle}}</mat-card-title>
-      <mat-card-subtitle>{{notification.notificationDate}}</mat-card-subtitle>
+      <button (click)="markNotification(notification)" mat-button>
+        <i *ngIf="!notification.isRead" class="material-icons" style="color:#3f51b5">error</i>
+        <mat-card-content *ngIf="!notification.isRead">Unread</mat-card-content>
+        <i *ngIf="notification.isRead" class="material-icons" style="color:green">done</i>
+        <mat-card-content *ngIf="notification.isRead">Read</mat-card-content>
+      </button>
+      <mat-card-title>{{notification.title}}</mat-card-title>
+      <mat-card-subtitle>{{notification.message}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        {{notification.profileName}}'s profile is up for review!
-
-      </p>
-      <p>Email: {{notification.profileEmail}}</p>
+      <p>Email: {{notification.userMail}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>REVIEW</button>
-      <button mat-button>ACCEPT</button>
-      <button mat-button>REJECT</button>
+      <button (click)="showProfile(notification)" mat-button>Review</button>
+      <button (click)="accept(notification)" mat-button>Accept</button>
+      <button (click)="decline(notification)" mat-button>Decline</button>
     </mat-card-actions>
   </mat-card>
 

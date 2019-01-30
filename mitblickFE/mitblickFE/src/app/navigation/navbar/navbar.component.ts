@@ -10,15 +10,24 @@ import {NotificationsService} from "../../user/notifications.service";
 })
 export class NavbarComponent implements OnInit {
 
-  unread = 2;
+  public static unread = 2;
 
   constructor(private authService: AuthenticationService,
               private router: Router,
               private notifService: NotificationsService) {
   }
 
+  static update(service) {
+    service.getAmountOfNotifs(localStorage.getItem("email")).subscribe(res => NavbarComponent.unread = res);
+  }
+
+  getUnread() {
+    return NavbarComponent.unread;
+  }
+
   amountOfUnread() {
-    this.unread = this.notifService.getAmountOfNotifs();
+    // @ts-ignore
+    this.notifService.getAmountOfNotifs(localStorage.getItem("email")).subscribe(res => this.unread = res);
   }
 
   isLoggedIn(){
@@ -30,7 +39,14 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.amountOfUnread();
+    if (localStorage.getItem("email")) {
+      this.amountOfUnread();
+      var service = this.notifService;
+      setInterval(function () {
+          NavbarComponent.update(service);
+        }
+        , 3000);
+    }
   }
 
   logout() {
