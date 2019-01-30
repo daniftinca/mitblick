@@ -97,6 +97,31 @@ export class ProfileManagementComponent implements OnInit {
 
   }
 
+  exportAll() {
+    this.profileManagementService.getProfiles(
+      0,
+      this.resultAmount,
+      this.filterCriteriaNames,
+      this.filterCriteriaValues,
+      this.skillIds)
+      .subscribe(data => {
+        console.log(data);
+        var list = [];
+        // @ts-ignore
+        for (var i in data.profiles) {
+          // @ts-ignore
+          list[i] = data.profiles[i].email;
+        }
+        this.profileManagementService.exportPdfProfiles(list).subscribe(res => {
+          // @ts-ignore
+          var file = res.body;
+          // @ts-ignore
+          FileSaver.saveAs(res.body, "filtered_profiles" + ".pdf");
+        });
+
+      });
+  }
+
   switchPage(event) {
     this.pageEvent = event;
     console.log(event);

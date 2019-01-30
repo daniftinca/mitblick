@@ -108,17 +108,17 @@ public class PdfExportService {
 
         if (!profileDTO.getProjekts().isEmpty()) {
             table.addCell(getCell("Projects", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
-            table.addCell(getCell(profileDTO.getProjekts().get(0).getName() + "\n" +
-                    profileDTO.getProjekts().get(0).getBranch() + "\n" +
-                    profileDTO.getProjekts().get(0).getClient() + "\n" +
+            table.addCell(getCell(profileDTO.getProjekts().get(0).getName() + "\t" +
+                    profileDTO.getProjekts().get(0).getBranch() + "\t" +
+                    profileDTO.getProjekts().get(0).getClient() + "\t" +
                     profileDTO.getProjekts().get(0).getDescription(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
 
 
             for (int i = 1; i < profileDTO.getProjekts().size(); i++) {
                 table.addCell(getCell("", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
-                table.addCell(getCell(profileDTO.getProjekts().get(i).getName() + "\n" +
-                        profileDTO.getProjekts().get(i).getBranch() + "\n" +
-                        profileDTO.getProjekts().get(i).getClient() + "\n" +
+                table.addCell(getCell(profileDTO.getProjekts().get(i).getName() + "\t" +
+                        profileDTO.getProjekts().get(i).getBranch() + "\t" +
+                        profileDTO.getProjekts().get(i).getClient() + "\t" +
                         profileDTO.getProjekts().get(i).getDescription(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
 
             }

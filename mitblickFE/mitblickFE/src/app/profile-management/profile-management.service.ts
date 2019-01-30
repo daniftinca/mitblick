@@ -35,6 +35,16 @@ export class ProfileManagementService {
 
   }
 
+  exportPdfProfiles(emailList) {
+    let params = new HttpParams();
+    for (let i = 0; i < emailList.length; i++) {
+      params = params.append('emailList', emailList[i]);
+    }
+
+    return this.http.get(this.baseURL + 'pdf/profiles-by-email', {params: params});
+
+  }
+
 
   getUserProfile(email) {
 
