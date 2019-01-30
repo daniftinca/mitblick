@@ -61,7 +61,13 @@
     "editRoles": "Edit Roles",
     "addRole": "Add Role",
     "revokeRole": "Revoke Role"
-
+  },
+  "skillManagementView": {
+    "addSkillArea": "Add Skill Area",
+    "addSkill": "Add Skill",
+    "deleteSkillArea": "Delete Skill Area"
   }
+
+
 }
 

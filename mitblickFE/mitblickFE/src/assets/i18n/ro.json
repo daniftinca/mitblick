@@ -61,6 +61,11 @@
     "editRoles": "Editare Rol",
     "addRole": "Adaugare Rol",
     "revokeRole": "Revocare Rol"
-
+  },
+  "skillManagementView": {
+    "addSkillArea": "Adaugare Domenii de Competenta",
+    "addSkill": "Domeniu de Competenta",
+    "deleteSkillArea": "Stergere Domeniu de Competenta"
   }
+
 }

@@ -12,6 +12,9 @@ import {
 import {AddSkillAreaComponent} from './add-skill-area/add-skill-area.component';
 import {AddSkillComponent} from './add-skill/add-skill.component';
 import {FormsModule} from "@angular/forms";
+import {HttpLoaderFactory} from "../app.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
 
 @NgModule({
   declarations: [SkillManagementViewComponent, AddSkillAreaComponent, AddSkillComponent],
@@ -24,7 +27,18 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    TranslateModule.forChild({
 
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+    })
   ],
   exports: [
     SkillManagementViewComponent
