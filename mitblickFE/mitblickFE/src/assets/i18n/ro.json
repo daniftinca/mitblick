@@ -29,24 +29,28 @@
     "firstNamePlaceholder": "Prenume",
     "lastNamePlaceholder": "Nume",
     "addPhoto": "Adauga o fotografie",
-    "submit": "Trimitere",
-    "cancel": "Anulare"
+    "submit": "Trimite",
+    "cancel": "Anuleaza"
   },
   "addSkillDialog": {
     "addSkills": "Adauga Competente",
     "skillAreaPlaceholder": "Domeniu",
     "skillPlaceholder": "Competenta",
     "ratingplaceholder": "Evaluare",
-    "submit": "Trimitere",
-    "cancel": "Anulare"
+    "submit": "Trimite",
+    "cancel": "Anuleaza"
   },
   "manageAllUsers": {
-    "addUser": "Adauga Utilizator",
+    "addUser": "Adaugare Utilizator",
     "email": "Email",
     "activation": "Activare",
     "edit": "Editare",
     "editUser": "Editare Utilizator"
-
-
+  },
+  "registerUser": {
+    "register": "Inregistreaza Utilizator",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Parola",
+    "submit": "Trimite"
   }
 }

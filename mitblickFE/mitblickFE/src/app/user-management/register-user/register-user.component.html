@@ -9,7 +9,7 @@
     #registerForm = "ngForm"
     #formElement
   >
-    <h3>Register User</h3> <br>
+    <h3>{{'registerUser.register' | translate}}</h3> <br>
     <mat-form-field>
       <input
         autocomplete="off"
@@ -20,7 +20,7 @@
         required
         [formControl]="emailFormControl"
         [errorStateMatcher]="matcher"
-        placeholder="Email">
+        placeholder="{{'registerUser.emailPlaceholder' | translate}}">
       <mat-error *ngIf="emailFormControl.invalid">{{getEmailErrorMessages()}}</mat-error>
     </mat-form-field>
     <br>
@@ -35,14 +35,14 @@
              required
              [formControl]="passwordFormControl"
              [errorStateMatcher]="matcher"
-             placeholder="Password">
+             placeholder="{{'registerUser.passwordPlaceholder' | translate}}">
 
       <mat-error *ngIf="passwordFormControl.hasError('passwordInvalid')">{{getPasswordErrorMessage()}}</mat-error>
     </mat-form-field>
     <br>
 
 
-    <button type="submit" mat-button >Submit</button>
+    <button type="submit" mat-button>{{'registerUser.submit' | translate}}</button>
   </form>
   <!--<div class="form-info">-->
 
