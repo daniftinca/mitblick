@@ -287,7 +287,6 @@ public class ProfileManagementBoundary {
             FilterDTO filterDTO = profileManagementService.filter(index, amount, criteriaNames, criteriaValues, skillIDs);
             return new Gson().toJson(filterDTO);
         } catch (BusinessException e) {
-            e.printStackTrace();
             return "not working because business exception";
         }
 
@@ -354,7 +353,6 @@ public class ProfileManagementBoundary {
             FilterDTO filterDTO = profileManagementService.filterSupervisor(email);
             return new Gson().toJson(filterDTO);
         } catch (Exception e) {
-            e.printStackTrace();
             return "not working because json exception";
         }
     }

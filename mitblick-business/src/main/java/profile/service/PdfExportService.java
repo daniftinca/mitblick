@@ -80,12 +80,9 @@ public class PdfExportService {
                 Image image = Image.getInstance(bytes);
                 image.scaleAbsolute(202f, 200f);
                 cell = new PdfPCell(image);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (BadElementException e) {
-                e.printStackTrace();
+            } catch (IOException | BadElementException e) {
+                throw new BusinessException(ExceptionCode.PROFILE_NOT_EXPORTED);
             }
-
             table.addCell(getCell("Photo", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
             table.addCell(cell);
         }

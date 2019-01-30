@@ -562,6 +562,7 @@ public class ProfileManagementService {
                 "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.checkserveridentity", true);
         sendEMail(properties, username, password, from, to,
                 subject, text);
     }
