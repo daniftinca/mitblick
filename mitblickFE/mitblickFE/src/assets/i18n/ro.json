@@ -64,13 +64,18 @@
   },
   "skillManagementView": {
     "addSkillArea": "Adaugare Domenii de Competenta",
-    "addSkill": "Domeniu de Competenta",
+    "addSkill": "Adaugare Competenta",
     "deleteSkillArea": "Stergere Domeniu de Competenta"
   },
   "skillAreaComponent": {
     "addSkillArea": "Adaugare Domeniu Competenta",
     "skillAreaNamePlaceholder": "Nume Domeniu",
     "descriptionPlaceholder": "Descriere",
+    "submit": "Trimite"
+  },
+  "addSkill": {
+    "add": "Adaugare Competenta",
+    "skillNamePlaceholder": "Nume Competenta",
     "submit": "Trimite"
   }
 
