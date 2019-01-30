@@ -213,7 +213,7 @@
     </build>
 
     <profiles>
-        <!-- The normal build - active by default -->
+        <!-- The normal new comment build - active by default -->
         <profile>
             <id>normal-build</id>
             <activation>
