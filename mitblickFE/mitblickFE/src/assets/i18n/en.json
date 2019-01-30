@@ -72,6 +72,11 @@
     "skillAreaNamePlaceholder": "Skill Area Name",
     "descriptionPlaceholder": "Description",
     "submit": "Submit"
+  },
+  "addSkill": {
+    "add": "Add Skill",
+    "skillNamePlaceholder": "Skill Name",
+    "submit": "Submit"
   }
 
 
