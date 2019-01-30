@@ -382,6 +382,4 @@ public class ProfileManagementServiceTest {
         }
 
     }
-
-
 }
