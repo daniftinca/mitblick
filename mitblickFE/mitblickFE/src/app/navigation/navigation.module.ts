@@ -19,9 +19,6 @@ import {HttpLoaderFactory} from "../app.module";
 import {HttpClient} from "@angular/common/http";
 import {SupervisorViewComponent} from "../supervisor-management/supervisor-view/supervisor-view.component";
 import {SupervisorManagementModule} from "../supervisor-management/supervisor-management.module";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-import {HttpLoaderFactory} from "../app.module";
-import {HttpClient} from "@angular/common/http";
 
 const loginRoutes: Routes = [
   {path: 'login', component: LoginComponent},
