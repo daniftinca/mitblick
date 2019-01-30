@@ -5,11 +5,11 @@
   flex-flow: row;
   justify-content: space-between;
   .filter-controls {
-    width: 30%;
+    width: 20%;
 
   }
   .profiles {
-    width: 65%;
+    width: 75%;
   }
 }
 
@@ -22,7 +22,19 @@
   .single-profile {
     width: 46%;
     text-align: center;
+    .mat-card {
+      height: 200px;
+
+    }
 
     margin: 20px 0;
   }
+}
+
+.mat-paginator {
+  width: 100%;
+}
+
+.filter-skill {
+  width: 180px;
 }

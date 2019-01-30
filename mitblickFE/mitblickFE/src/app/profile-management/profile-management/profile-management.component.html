@@ -19,13 +19,14 @@
                placeholder="Email"
                type="email">
       </mat-form-field>
+      <br>
       <mat-form-field>
         <input (ngModelChange)="filterChanged('jobTitle', jobTitleControl.value)" [formControl]="jobTitleControl"
                matInput placeholder="Job Title"
                type="jobTitle">
       </mat-form-field>
 
-      <mat-expansion-panel *ngFor="let key of keys()">
+      <mat-expansion-panel *ngFor="let key of keys()" class="filter-skill">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{key}}

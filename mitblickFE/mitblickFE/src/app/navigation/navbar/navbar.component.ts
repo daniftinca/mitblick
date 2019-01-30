@@ -12,7 +12,7 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class NavbarComponent implements OnInit {
 
-  public static unread = 2;
+  public static unread = 0;
 
   constructor(private authService: AuthenticationService,
               private router: Router,
@@ -43,10 +43,10 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (localStorage.getItem("email")) {
+    if (localStorage.getItem("email") && this.authService.isLoggedIn()) {
       this.amountOfUnread();
       var service = this.notifService;
-      if (this.hasPermission("PROFILE_REVIEW")) {
+      if (this.hasPermission("PROFILE_REVIEW") && this.authService.isLoggedIn()) {
         setInterval(function () {
             NavbarComponent.update(service);
           }

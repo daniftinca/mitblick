@@ -1,4 +1,7 @@
 <div class="notification-content">
+  <div *ngIf="notificationData.length===0" class="no-notif font-apply">
+    You have no new notifications! :)
+  </div>
 
   <mat-card *ngFor="let notification of notificationData" [class.unread]="!notification.isRead" class="example-card">
     <mat-card-header>
