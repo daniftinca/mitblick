@@ -42,7 +42,7 @@ public class ProjektDTOHelper {
     }
 
     public static List<ProjektDTO> fromEntity(List<Projekt> projekts) {
-        List<ProjektDTO> projektDTOs = new ArrayList<ProjektDTO>();
+        List<ProjektDTO> projektDTOs = new ArrayList<>();
         for (Projekt projekt : projekts) {
             projektDTOs.add(fromEntity(projekt));
         }
@@ -50,7 +50,7 @@ public class ProjektDTOHelper {
     }
 
     public static List<Projekt> toEntity(List<ProjektDTO> projektDTOs) {
-        List<Projekt> projekts = new ArrayList<Projekt>();
+        List<Projekt> projekts = new ArrayList<>();
         for (ProjektDTO projekt : projektDTOs) {
             projekts.add(toEntity(projekt));
         }

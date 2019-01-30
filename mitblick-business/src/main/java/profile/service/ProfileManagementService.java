@@ -15,7 +15,6 @@ import profile.entities.Region;
 import projekt.dao.ProjektPersistenceManager;
 import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
-import skills.dto.SkillDTO;
 import skills.entities.Skill;
 import user.dao.UserPersistenceManager;
 import user.entities.User;
@@ -81,7 +80,7 @@ public class ProfileManagementService {
             Profile profileAfter = ProfileDTOHelper.updateEntityWithDTO(profileBefore, profileDTO);
 
             profilePersistenceManager.update(profileAfter);
-            if (profileAfter.getAccepted() == true) {
+            if (profileAfter.getAccepted()) {
                 profileAfter.setAccepted(false);
                 sendNotifications(profileAfter, "Profile updated. Please review changes.", "UPDATE");
             }
@@ -152,7 +151,7 @@ public class ProfileManagementService {
     public FilterDTO filterSupervisor(String supervisorEmail) {
         Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorEmail);
         FilterDTO filterDTO = new FilterDTO();
-        List<Profile> profiles = new ArrayList<Profile>();
+        List<Profile> profiles = new ArrayList<>();
 
         if (supervisor.isPresent()) {
             for (User emp : supervisor.get().getEmployees()) {
@@ -304,16 +303,6 @@ public class ProfileManagementService {
     }
 
     /**
-     * Checks if the list of skills is valid.
-     *
-     * @param skills
-     * @return
-     */
-    private boolean isValidSkills(List<SkillDTO> skills) {
-        return false;
-    }
-
-    /**
      * Validates Profile for Update
      *
      * @param profileDTO
@@ -349,7 +338,7 @@ public class ProfileManagementService {
             skillEntry.setSkillAreaName(skillAreaName);
             if (profile.getSkills().indexOf(skillEntry) < 0) {
                 profile.getSkills().add(skillEntry);
-                if (profile.getAccepted() == true) {
+                if (profile.getAccepted()) {
                     profile.setAccepted(false);
                     sendNotifications(profile, "Skills in profile updated. Please review changes.", "SKILL");
                 }
@@ -381,7 +370,7 @@ public class ProfileManagementService {
 
             if (profile.getProjekts().indexOf(projekt) < 0) {
                 profile.getProjekts().add(projekt);
-                if (profile.getAccepted() == true) {
+                if (profile.getAccepted()) {
                     profile.setAccepted(false);
                     sendNotifications(profile, "Projects in profile updated. Please review changes.", "PROJECT");
                 }
@@ -508,7 +497,7 @@ public class ProfileManagementService {
             if (user.getSupervisorMail().equals(supervisorMail)) {
                 Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(userMail);
                 if (profileOptional.isPresent()) {
-                    if(profileOptional.get().getAccepted() == true)
+                    if (profileOptional.get().getAccepted())
                         profileOptional.get().setAccepted(false);
                     Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorMail);
                     if (supervisor.isPresent()) {
