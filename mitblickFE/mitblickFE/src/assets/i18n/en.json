@@ -6,5 +6,16 @@
     "password": "Password",
     "passwordPlaceholder": "Type your password here",
     "submit": "Login"
+  },
+  "navbar": {
+    "login": "Login",
+    "profile": "Profile",
+    "manageAllUsers": "Manage All Users",
+    "manageSkills": "Manage Skills",
+    "superiorProfileView": "Manage Profiles",
+    "supervisorProfileView": "Manage Your Employees",
+    "logout": "Log Out",
+    "language": "Language"
+
   }
 }
