@@ -110,6 +110,7 @@ public class PdfExportService {
             table.addCell(getCell("Projects", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
             table.addCell(getCell(profileDTO.getProjekts().get(0).getName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
 
+
             for (int i = 1; i < profileDTO.getProjekts().size(); i++) {
                 table.addCell(getCell("", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
                 table.addCell(getCell(profileDTO.getProjekts().get(i).getName() + "\t" +
