@@ -131,5 +131,37 @@ public class PdfGeneratorBoundary {
         }
     }
 
+    @GET
+    @Path("/profiles-by-emails/{emailList}")
+    // @Secured(PROFILE_EXPORT_PDF) ?
+    @Produces("application/pdf")
+    public Response getFileByEmailList(@PathParam("emailList") List<String> emailList) {
+        File file;
+        FileOutputStream fileOutputStream;
+        String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
+        try {
+
+            file = new File(localDir);
+            Document document = new Document();
+            fileOutputStream = new FileOutputStream(file);
+            PdfWriter.getInstance(document, fileOutputStream);
+
+            List<ProfileDTO> profileDTOList = new ArrayList<>();
+            for (String email : emailList) {
+                profileDTOList.add(profileManagementService.getByEmail(email));
+            }
+
+            pdfExportService.createPdf(profileDTOList, document);
+
+            Response.ResponseBuilder response = Response.ok(file);
+            response.header("Content-Disposition", "attachment; filename=profileList.pdf");
+            file.deleteOnExit();
+            return response.entity(file).build();
+
+        } catch (DocumentException | BusinessException | IOException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
+    }
+
 
 }
