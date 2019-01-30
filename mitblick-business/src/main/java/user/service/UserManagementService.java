@@ -14,6 +14,7 @@ import utils.Encryptor;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -233,5 +234,17 @@ public class UserManagementService {
         if (!validateFields(userDTO)) {
             throw new BusinessException(ExceptionCode.USER_VALIDATION_EXCEPTION);
         }
+    }
+
+    public List<UserDTO> getAllSupervisors() {
+        List<UserDTO> users = new ArrayList<UserDTO>();
+        for (User user : userPersistenceManager.getAllUsers()) {
+            for (Role role : user.getRoles()) {
+                if (role.getType().equals("SUPERVISOR")) {
+                    users.add(UserDTOHelper.fromEntity(user));
+                }
+            }
+        }
+        return users;
     }
 }

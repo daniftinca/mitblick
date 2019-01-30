@@ -1,4 +1,4 @@
-<h3>{{'updateUser.update' | translate}}</h3>
+<h3 class="mat-form-field">{{'updateUser.update' | translate}}</h3>
 <mat-tab-group>
   <mat-tab label="{{'updateUser.updateUserInfo' | translate}}">
     <div class="update-user-form">
@@ -74,5 +74,19 @@
     >{{'updateUser.revokeRole' | translate}}
     </button>
 
+  </mat-tab>
+  <mat-tab label="Edit Supervisor">
+    <form (ngSubmit)="setSupervisor()">
+      <mat-form-field>
+        <mat-select placeholder="{{data.supervisorEmail}}" [formControl]="supervisorControl"
+                    [(ngModel)]="data.supervisor">
+          <mat-option *ngFor="let user of supervisors " [value]="user.email">
+            {{user.email}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <button type="submit" mat-button>Set Supervisor</button>
+    </form>
   </mat-tab>
 </mat-tab-group>

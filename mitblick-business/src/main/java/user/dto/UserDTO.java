@@ -8,6 +8,7 @@ public class UserDTO {
     private String password;
     private String email;
     private Boolean isActive;
+    private String supervisorEmail;
 
     public List<Notification> getNotifications() {
         return notifications;
@@ -52,8 +53,17 @@ public class UserDTO {
                 "password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", isActive=" + isActive +
+                ", supervisorEmail='" + supervisorEmail + '\'' +
                 ", notifications=" + notifications +
                 '}';
+    }
+
+    public String getSupervisorEmail() {
+        return supervisorEmail;
+    }
+
+    public void setSupervisorEmail(String supervisorEmail) {
+        this.supervisorEmail = supervisorEmail;
     }
 }
 

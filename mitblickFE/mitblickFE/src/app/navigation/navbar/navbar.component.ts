@@ -46,10 +46,12 @@ export class NavbarComponent implements OnInit {
     if (localStorage.getItem("email")) {
       this.amountOfUnread();
       var service = this.notifService;
-      setInterval(function () {
-          NavbarComponent.update(service);
-        }
-        , 3000);
+      if (this.hasPermission("PROFILE_REVIEW")) {
+        setInterval(function () {
+            NavbarComponent.update(service);
+          }
+          , 5000);
+      }
     }
   }
 

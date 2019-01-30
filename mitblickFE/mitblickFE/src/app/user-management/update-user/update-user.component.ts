@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ErrorStateMatcher, MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ManageAllUsersComponent} from "../manage-all-users/manage-all-users.component";
 import {UsermanagementService} from "../usermanagement.service";
-import {FormControl, FormGroupDirective, NgForm, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
 import {PermissionmanagementService} from "../permissionmanagement.service";
 
 
@@ -25,6 +25,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class UpdateUserComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
+
+  supervisors;
+  private supervisorControl = new FormControl();
 
   constructor(
 
@@ -89,6 +92,8 @@ export class UpdateUserComponent implements OnInit {
 
   }
 
+  private form = new FormGroup({supervisor: this.supervisorControl});
+
 
   passwordErrorMessage: string;
   emailErrorMessage: string;
@@ -119,6 +124,10 @@ export class UpdateUserComponent implements OnInit {
   allRoles;
   selectedrole;
 
+  setSupervisor() {
+    this.usermgmt.addEmployeeToSupervisor(this.data.email, this.data.supervisor).subscribe(_ => this.dialogRef.close());
+  }
+
   getUserRoles() {
     console.log(this.data);
     this.usermgmt.getRolesOfUser(this.data.email)
@@ -133,6 +142,10 @@ export class UpdateUserComponent implements OnInit {
         this.allRoles = roles;
 
       });
+  }
+
+  getSupervisors() {
+    this.usermgmt.getAllSupervisors().subscribe(res => this.supervisors = res)
   }
 
   addRoleToUser() {
@@ -153,6 +166,7 @@ export class UpdateUserComponent implements OnInit {
   ngOnInit() {
      this.getUserRoles();
      this.getAllRoles();
+    this.getSupervisors();
   }
 
 }
