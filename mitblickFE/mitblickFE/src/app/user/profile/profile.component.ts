@@ -5,6 +5,7 @@ import {AddProjectDialogComponent, ProjectDialogData} from "../add-project-dialo
 import {EditProfileComponent, ProfileDialogData} from "../edit-profile/edit-profile.component";
 import {SkillService} from "../../skill-management/skill.service";
 import {AddSkillDialogComponent} from "../add-skill-dialog/add-skill-dialog.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,10 @@ export class ProfileComponent implements OnInit {
   private new_profile: ProfileDialogData;
 
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService) {
+  constructor(private profileService: ProfileService,
+              public dialog: MatDialog,
+              private skillManagement: SkillService,
+              private translate: TranslateService) {
     this.profile = {
       firstname: "",
       lastname: "",

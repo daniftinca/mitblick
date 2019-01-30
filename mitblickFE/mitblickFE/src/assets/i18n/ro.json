@@ -16,6 +16,16 @@
     "supervisorProfileView": "Gestionare Subalterni",
     "logout": "Delogare",
     "language": "Limba"
+  },
+  "profile": {
+    "edit": "Editare Profil",
+    "skills": "Abilitati",
+    "addSkills": "Adaugare Abilitati",
+    "projects": "Proiecte",
+    "addProject": "Adaugare Proiecte"
+  },
+  "editPr": {
+    "projectData": "Project Data"
 
   }
 }

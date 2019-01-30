@@ -16,6 +16,16 @@
     "supervisorProfileView": "Manage Your Employees",
     "logout": "Log Out",
     "language": "Language"
-
+  },
+  "profile": {
+    "edit": "Edit Profile",
+    "skills": "Skills",
+    "addSkills": "Add Skills",
+    "projects": "Projects",
+    "addProject": "Add Project"
+  },
+  "editProfile": {
+    "projectData": "Project Data"
   }
 }
+
