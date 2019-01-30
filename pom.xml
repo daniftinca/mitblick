@@ -221,10 +221,10 @@
             </activation>
 
             <modules>
-                <module>mitblick-persistence</module>
+                <module>Mitblick-Persistence</module>
                 <module>mitblick-business</module>
-                <module>mitblick-client</module>
-                <module>mitblick-ear</module>
+                <module>Mitblick-Client</module>
+                <module>Mitblick-EAR</module>
             </modules>
 
             <build>
