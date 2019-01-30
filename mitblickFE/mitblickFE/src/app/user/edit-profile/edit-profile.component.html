@@ -1,12 +1,13 @@
-<h1 mat-dialog-title>Project data</h1>
+<h1 mat-dialog-title>{{'editProfile.projectData' | translate}}</h1>
 <div mat-dialog-content style="overflow: inherit">
   <mat-form-field>
-    <input matInput [(ngModel)]="data.firstName" placeholder="First Name">
+    <input matInput [(ngModel)]="data.firstname" placeholder="{{'editProfile.firstNamePlaceholder' | translate}}">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.lastName" placeholder="Last Name">
+    <input matInput [(ngModel)]="data.lastname" placeholder="{{'editProfile.lastNamePlaceholder' | translate}}">
   </mat-form-field>
-  <button mat-button type="button" md-button (click)="imgFileInput.click()">Add a photo</button>
+  <button mat-button type="button" md-button (click)="imgFileInput.click()">{{'editProfile.addPhoto' | translate}}
+  </button>
   <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>
 
   <mat-form-field>
@@ -27,7 +28,7 @@
 
   </div>
   <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>{{'editProfile.submit' | translate}}</button>
+    <button mat-button (click)="onNoClick()">{{'editProfile.cancel' | translate}}</button>
   </div>
 </div>

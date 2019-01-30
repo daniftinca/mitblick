@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ProfileComponent} from "../profile/profile.component";
+import {TranslateService} from "@ngx-translate/core";
 import {ProfileService} from "../profile.service";
 
 export interface ProfileDialogData {
@@ -22,7 +23,9 @@ export class EditProfileComponent implements OnInit {
   private jobTitles: any;
   private regions: any;
   constructor(
-    public dialogRef: MatDialogRef<ProfileComponent>, private profileService: ProfileService,
+    private translate: TranslateService,
+    public dialogRef: MatDialogRef<ProfileComponent>,
+    private profileService: ProfileService,
     @Inject(MAT_DIALOG_DATA) public data: ProfileDialogData) {
   }
 

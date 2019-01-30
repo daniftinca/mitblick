@@ -25,7 +25,14 @@
     "addProject": "Add Project"
   },
   "editProfile": {
-    "projectData": "Project Data"
-  }
+    "projectData": "Project Data",
+    "firstNamePlaceholder": "First Name",
+    "lastNamePlaceholder": "Last Name",
+    "addPhoto": "Add a photo",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "addSkills": "Add Skill",
+  "skillAreaPlaceholder": "Skill Area"
 }
 

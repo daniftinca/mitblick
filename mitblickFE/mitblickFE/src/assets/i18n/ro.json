@@ -24,8 +24,12 @@
     "projects": "Proiecte",
     "addProject": "Adaugare Proiecte"
   },
-  "editPr": {
-    "projectData": "Project Data"
-
+  "editProfile": {
+    "projectData": "Date Proiect",
+    "firstNamePlaceholder": "Prenume",
+    "lastNamePlaceholder": "Nume",
+    "addPhoto": "Adauga o fotografie",
+    "submit": "Trimitere",
+    "cancel": "Anulare"
   }
 }

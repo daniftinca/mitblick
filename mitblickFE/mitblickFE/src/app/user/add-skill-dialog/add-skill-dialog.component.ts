@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ProfileComponent} from "../profile/profile.component";
 import {SkillService} from "../../skill-management/skill.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {TranslateService} from "@ngx-translate/core";
 
 export interface SkillDialogData {
   skillid: number;
@@ -29,6 +30,7 @@ export class AddSkillDialogComponent implements OnInit {
 
 
   constructor(
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: SkillDialogData,
     private skillService: SkillService) {
