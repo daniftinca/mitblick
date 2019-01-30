@@ -29,6 +29,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.toIntExact;
+
 
 @Stateless
 public class ProfileManagementService {
@@ -167,7 +169,16 @@ public class ProfileManagementService {
         return filterDTO;
     }
 
-    public FilterDTO filter(int index, int amount, List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) throws BusinessException {
+    public FilterDTO filter(int index,
+                            int amount,
+                            List<String> filterCriteriaNames,
+                            List<String> filterCriteriaValues,
+                            List<Long> skillIds) throws BusinessException {
+
+
+        String jobTitle = handleAdditionalFilterParams(filterCriteriaNames, filterCriteriaValues, "jobTitle");
+        String region = handleAdditionalFilterParams(filterCriteriaNames, filterCriteriaValues, "region");
+
 
         List<Profile> profiles = this.profilePersistenceManager.filter(index, amount, filterCriteriaNames, filterCriteriaValues);
         Integer filterAmount = this.profilePersistenceManager.filterAmount(filterCriteriaNames, filterCriteriaValues);
@@ -194,11 +205,61 @@ public class ProfileManagementService {
             }
         }
 
+        if (!region.equals("")) {
+            filterAmount = getFilterAmountAdditionalParams(region, profiles, false);
+            profiles = getFilterListAdditionalParams(region, profiles, false);
+        }
+        if (!jobTitle.equals("")) {
+            filterAmount = getFilterAmountAdditionalParams(jobTitle, profiles, true);
+            profiles = getFilterListAdditionalParams(jobTitle, profiles, true);
+        }
+
+
         FilterDTO filterDTO = new FilterDTO();
         filterDTO.setAmount(filterAmount);
         filterDTO.setProfiles(ProfileDTOHelper.fromEntity(profiles));
         return filterDTO;
 
+    }
+
+    private int getFilterAmountAdditionalParams(String paramValue, List<Profile> profiles, boolean isJobTitle) {
+        return toIntExact(profiles.stream()
+                .filter(profile -> checkForRegionOrJobTitle(paramValue, profile, isJobTitle))
+                .count());
+    }
+
+    private List<Profile> getFilterListAdditionalParams(String paramValue, List<Profile> profiles, boolean isJobTitle) {
+        return profiles.stream()
+                .filter(profile -> checkForRegionOrJobTitle(paramValue, profile, isJobTitle))
+                .collect(Collectors.toList());
+    }
+
+    private boolean checkForRegionOrJobTitle(String paramValue, Profile profile, boolean isJobTitle) {
+        if (isJobTitle) {
+            if (profile.getJobTitle() != null) {
+                return profile.getJobTitle().getName().equals(paramValue);
+            } else {
+                return false;
+            }
+        } else {
+            if (profile.getRegion() != null) {
+                return profile.getRegion().getName().equals(paramValue);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private String handleAdditionalFilterParams(List<String> filterCriteriaNames, List<String> filterCriteriaValues, String paramName) {
+        String paramVal = "";
+        if (filterCriteriaNames.contains(paramName)) {
+            paramVal = filterCriteriaValues.get(
+                    filterCriteriaNames.indexOf(paramName)
+            );
+            filterCriteriaNames.remove(paramName);
+            filterCriteriaValues.remove(paramVal);
+        }
+        return paramVal;
     }
 
     /**
