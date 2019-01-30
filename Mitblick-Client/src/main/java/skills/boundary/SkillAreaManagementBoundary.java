@@ -153,6 +153,7 @@ public class SkillAreaManagementBoundary {
         }
     }
 
+
     /**
      * Get all skills from a skill area.
      *
