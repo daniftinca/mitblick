@@ -5,10 +5,10 @@
     #formElement
     class="login-form"
         >
-    <h1>Login</h1>
+    <h1>{{'loginPage.login' | translate}}</h1>
     <mat-form-field appearance="outline" class="username form-field">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Type your email here"
+      <mat-label>{{'loginPage.email' | translate}}</mat-label>
+      <input matInput placeholder="{{'loginPage.emailPlaceholder' | translate}}"
               #emailControl = "ngModel"
               #emailElement
              required
@@ -19,10 +19,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="password form-field">
-      <mat-label>Password</mat-label>
+      <mat-label>{{'loginPage.password' | translate}}</mat-label>
       <input type="password"
              matInput
-             placeholder="Type your password here"
+             placeholder="{{'loginPage.passwordPlaceholder' | translate}}"
              #passwordControl = "ngModel"
              #passwordElement
              required
@@ -31,6 +31,6 @@
       <mat-icon matSuffix color="primary">security</mat-icon>
     </mat-form-field>
 
-    <button type="submit" mat-raised-button color="primary">Login</button>
+    <button type="submit" mat-raised-button color="primary">{{'loginPage.submit' | translate}}</button>
   </form>
 </mat-card>

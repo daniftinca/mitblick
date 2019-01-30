@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../user/authentication.service";
 import {Router} from "@angular/router";
 import {NotificationsService} from "../../user/notifications.service";
+import {TranslateService} from "@ngx-translate/core";
+
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +16,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(private authService: AuthenticationService,
               private router: Router,
-              private notifService: NotificationsService) {
+              private notifService: NotificationsService,
+              private translate: TranslateService) {
   }
+
 
   static update(service) {
     service.getAmountOfNotifs(localStorage.getItem("email")).subscribe(res => NavbarComponent.unread = res);

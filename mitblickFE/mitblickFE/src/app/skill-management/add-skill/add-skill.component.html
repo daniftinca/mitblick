@@ -4,7 +4,7 @@
     #registerForm="ngForm"
     #formElement
   >
-    <h3>Add Skill</h3> <br>
+    <h3>{{'addSkill.add' | translate}}</h3> <br>
     <mat-form-field>
       <input
         type="text"
@@ -14,13 +14,13 @@
         matInput
         [(ngModel)]="formData.name"
         required
-        placeholder="Skill Name">
+        placeholder="{{'addSkill.skillNamePlaceholder' | translate}}">
     </mat-form-field>
     <br>
 
     <br>
 
 
-    <button type="submit" mat-button>Submit</button>
+    <button type="submit" mat-button>{{'addSkill.submit' | translate}}</button>
   </form>
 </div>

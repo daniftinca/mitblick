@@ -5,6 +5,7 @@ import {AddProjectDialogComponent, ProjectDialogData} from "../add-project-dialo
 import {EditProfileComponent, ProfileDialogData} from "../edit-profile/edit-profile.component";
 import {SkillService} from "../../skill-management/skill.service";
 import {AddSkillDialogComponent} from "../add-skill-dialog/add-skill-dialog.component";
+import {TranslateService} from "@ngx-translate/core";
 
 export interface ProfileData {
   firstName: string;
@@ -34,7 +35,10 @@ export class ProfileComponent implements OnInit {
   private new_profile: ProfileDialogData;
 
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog, private skillManagement: SkillService) {
+  constructor(private profileService: ProfileService,
+              public dialog: MatDialog,
+              private skillManagement: SkillService,
+              private translate: TranslateService) {
     this.profile = {
       firstName: "",
       lastName: "",
@@ -55,7 +59,7 @@ export class ProfileComponent implements OnInit {
       this.profile = res;
 
       if (this.profile.photo == "" || this.profile.photo == undefined) {
-        this.profile.photo = "https://material.angular.io/assets/img/examples/shiba1.jpg";
+        this.profile.photo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcwR4f0cd-y_fwtSP9XPyYMKhlWeJ3QYVxl4LH6JpLomIMgF1w";
       }
       this.getSkillEntries();
     });

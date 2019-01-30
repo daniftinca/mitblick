@@ -130,7 +130,7 @@ public class ProjektManagementService {
         }
     }
 
-    private boolean isValidForCreation(ProjektDTO projektDTO) throws BusinessException {
+    private boolean isValidForCreation(ProjektDTO projektDTO) {
         return validateFields(projektDTO);
     }
 

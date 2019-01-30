@@ -5,12 +5,13 @@
     <ng-container matColumnDef="name">
       <th *matHeaderCellDef mat-header-cell>Full name</th>
       <td *matCellDef="let element" mat-cell>
-        <div *ngIf="element.photo!=undefined" class="example-header-image" mat-card-avatar>
+        <div *ngIf='element.photo!=undefined && element.photo!=""' class="example-header-image" mat-card-avatar>
           <img class="image-profile" mat-card-avatar src={{element.photo}}>
         </div>
-        <div *ngIf="element.photo == undefined" class="example-header-image" mat-card-avatar>
-          <img *ngIf="element.photo == undefined" class="image-profile"
-               src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+        <div *ngIf='element.photo==undefined || element.photo==""' class="example-header-image" mat-card-avatar>
+
+          <img class="image-profile"
+               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcwR4f0cd-y_fwtSP9XPyYMKhlWeJ3QYVxl4LH6JpLomIMgF1w">
         </div>
         {{element.firstName}} {{element.lastName}}</td>
     </ng-container>

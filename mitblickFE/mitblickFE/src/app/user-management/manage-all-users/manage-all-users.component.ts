@@ -4,6 +4,7 @@ import {MatDialog} from "@angular/material";
 import {DeactivationPopupComponent} from "../deactivation-popup/deactivation-popup.component";
 import {RegisterUserComponent} from "../register-user/register-user.component";
 import {UpdateUserComponent} from "../update-user/update-user.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-manage-all-users',
@@ -16,7 +17,8 @@ export class ManageAllUsersComponent implements OnInit {
   button: string;
   dataSource: any;
 
-  constructor(private usrMgmtService: UsermanagementService,
+  constructor(private translate: TranslateService,
+              private usrMgmtService: UsermanagementService,
               public dialog: MatDialog) {
 
   }

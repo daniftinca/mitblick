@@ -7,6 +7,7 @@ import * as FileSaver from "file-saver";
 import {FormControl, FormGroup} from "@angular/forms";
 import {SkillService} from "../../skill-management/skill.service";
 
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile-management',
@@ -37,7 +38,9 @@ export class ProfileManagementComponent implements OnInit {
   private skillEntries: any;
 
   constructor(private profileManagementService: ProfileManagementService, public dialog: MatDialog,
-              private supervisorService: SupervisorViewService, private skillService: SkillService) {
+              private supervisorService: SupervisorViewService,
+              private skillService: SkillService,
+              private translate: TranslateService) {
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {

@@ -76,7 +76,7 @@ public class NotificationManagementService {
             User user = userOptional.get();
             List<Notification> notificationList = new ArrayList<>();
             user.getNotifications().forEach(notification -> {
-                if(notification.getRead() == false)
+                if (!notification.getRead())
                     notificationList.add(notification);
             });
             return notificationList.size();
@@ -89,9 +89,7 @@ public class NotificationManagementService {
         Optional<User> userOptional = userPersistenceManager.getUserByEmail(userMail);
         if(userOptional.isPresent()){
             User user = userOptional.get();
-            user.getNotifications().forEach(notification -> {
-                    notification.setRead(true);
-            });
+            user.getNotifications().forEach(notification -> notification.setRead(true));
         }
         else
             throw  new BusinessException(ExceptionCode.EMAIL_NOT_FOUND);

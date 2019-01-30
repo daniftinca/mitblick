@@ -1,6 +1,6 @@
-<h3 class="mat-form-field">Update</h3>
+<h3 class="mat-form-field">{{'updateUser.update' | translate}}</h3>
 <mat-tab-group>
-  <mat-tab label="Update user Info">
+  <mat-tab label="{{'updateUser.updateUserInfo' | translate}}">
     <div class="update-user-form">
 
 
@@ -16,13 +16,13 @@
                  [(ngModel)]="data.password"
                  [formControl]="passwordFormControl"
                  [errorStateMatcher]="matcher"
-                 placeholder="Password">
+                 placeholder="{{'updateUser.password' | translate}}">
 
           <mat-error *ngIf="passwordFormControl.hasError('passwordInvalid')">{{getPasswordErrorMessage()}}</mat-error>
         </mat-form-field>
 
         <br>
-        <button type="submit" mat-button>Submit</button>
+        <button type="submit" mat-button>{{'updateUser.submit' | translate}}</button>
 
       </form>
       <!--<div class="form-info">
@@ -39,7 +39,7 @@
       </div>-->
     </div>
   </mat-tab>
-  <mat-tab label="Edit Roles">
+  <mat-tab label="{{'updateUser.editRoles' | translate}}">
 
     <mat-list *ngFor="let element of this.userRoles">
       <mat-list-item>{{element.type}}</mat-list-item>
@@ -65,13 +65,13 @@
             style="margin:0 10px;"
             (click)="addRoleToUser()
 "
-    >Add Role
+    >{{'updateUser.addRole' | translate}}
     </button>
     <button mat-raised-button
             color="warn"
             style="margin:0 10px;"
             (click)="removeRoleFromUser()"
-    >Revoke Role
+    >{{'updateUser.revokeRole' | translate}}
     </button>
 
   </mat-tab>

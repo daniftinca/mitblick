@@ -1,0 +1,84 @@
+{
+  "loginPage": {
+    "login": "Login",
+    "email": "Email",
+    "emailPlaceholder": "Type your email here",
+    "password": "Password",
+    "passwordPlaceholder": "Type your password here",
+    "submit": "Login"
+  },
+  "navbar": {
+    "login": "Login",
+    "profile": "Profile",
+    "manageAllUsers": "Manage All Users",
+    "manageSkills": "Manage Skills",
+    "superiorProfileView": "Manage Profiles",
+    "supervisorProfileView": "Manage Your Employees",
+    "logout": "Log Out",
+    "language": "Language"
+  },
+  "profile": {
+    "edit": "Edit Profile",
+    "skills": "Skills",
+    "addSkills": "Add Skills",
+    "projects": "Projects",
+    "addProject": "Add Project"
+  },
+  "editProfile": {
+    "projectData": "Project Data",
+    "firstNamePlaceholder": "First Name",
+    "lastNamePlaceholder": "Last Name",
+    "addPhoto": "Add a photo",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "addSkillDialog": {
+    "addSkills": "Add Skills",
+    "skillAreaPlaceholder": "Skill Area",
+    "skillPlaceholder": "Skill",
+    "ratingPlaceholder": "Rating",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "manageAllUsers": {
+    "addUser": "Add User",
+    "email": "Email",
+    "activation": "Activation",
+    "edit": "Edit",
+    "editUser": "Edit User"
+  },
+  "registerUser": {
+    "register": "Register User",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "submit": "Submit"
+  },
+  "updateUser": {
+    "update": "Update",
+    "updateUserInfo": "Update User Info",
+    "submit": "Submit",
+    "password": "Password",
+    "editRoles": "Edit Roles",
+    "addRole": "Add Role",
+    "revokeRole": "Revoke Role"
+  },
+  "skillManagementView": {
+    "addSkillArea": "Add Skill Area",
+    "addSkill": "Add Skill",
+    "deleteSkillArea": "Delete Skill Area"
+  },
+  "skillAreaComponent": {
+    "addSkillArea": "Add Skill Area",
+    "skillAreaNamePlaceholder": "Skill Area Name",
+    "descriptionPlaceholder": "Description",
+    "submit": "Submit"
+  },
+  "addSkill": {
+    "add": "Add Skill",
+    "skillNamePlaceholder": "Skill Name",
+    "submit": "Submit"
+  }
+
+
+}
+

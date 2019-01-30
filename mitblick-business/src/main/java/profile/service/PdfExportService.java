@@ -80,12 +80,9 @@ public class PdfExportService {
                 Image image = Image.getInstance(bytes);
                 image.scaleAbsolute(202f, 200f);
                 cell = new PdfPCell(image);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (BadElementException e) {
-                e.printStackTrace();
+            } catch (IOException | BadElementException e) {
+                throw new BusinessException(ExceptionCode.PROFILE_NOT_EXPORTED);
             }
-
             table.addCell(getCell("Photo", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
             table.addCell(cell);
         }
@@ -99,7 +96,7 @@ public class PdfExportService {
             table.addCell(getCell(profileDTO.getJobTitle().getName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
         }
 
-        if (profileDTO.getSkills().size() > 0) {
+        if (!profileDTO.getSkills().isEmpty()) {
             table.addCell(getCell("Skills", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
             table.addCell(getCell(profileDTO.skillEntryToString(0), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
 
@@ -109,7 +106,7 @@ public class PdfExportService {
             }
         }
 
-        if (profileDTO.getProjekts().size() > 0) {
+        if (!profileDTO.getProjekts().isEmpty()) {
             table.addCell(getCell("Projects", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
             table.addCell(getCell(profileDTO.getProjekts().get(0).getName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
 

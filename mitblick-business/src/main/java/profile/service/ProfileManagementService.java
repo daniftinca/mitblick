@@ -15,7 +15,6 @@ import profile.entities.Region;
 import projekt.dao.ProjektPersistenceManager;
 import projekt.entities.Projekt;
 import skills.dao.SkillPersistenceManager;
-import skills.dto.SkillDTO;
 import skills.entities.Skill;
 import user.dao.UserPersistenceManager;
 import user.entities.User;
@@ -29,6 +28,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.toIntExact;
 
 
 @Stateless
@@ -81,7 +82,7 @@ public class ProfileManagementService {
             Profile profileAfter = ProfileDTOHelper.updateEntityWithDTO(profileBefore, profileDTO);
 
             profilePersistenceManager.update(profileAfter);
-            if (profileAfter.getAccepted() == true) {
+            if (profileAfter.getAccepted()) {
                 profileAfter.setAccepted(false);
                 sendNotifications(profileAfter, "Profile updated. Please review changes.", "UPDATE");
             }
@@ -152,7 +153,7 @@ public class ProfileManagementService {
     public FilterDTO filterSupervisor(String supervisorEmail) {
         Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorEmail);
         FilterDTO filterDTO = new FilterDTO();
-        List<Profile> profiles = new ArrayList<Profile>();
+        List<Profile> profiles = new ArrayList<>();
 
         if (supervisor.isPresent()) {
             for (User emp : supervisor.get().getEmployees()) {
@@ -168,7 +169,16 @@ public class ProfileManagementService {
         return filterDTO;
     }
 
-    public FilterDTO filter(int index, int amount, List<String> filterCriteriaNames, List<String> filterCriteriaValues, List<Long> skillIds) throws BusinessException {
+    public FilterDTO filter(int index,
+                            int amount,
+                            List<String> filterCriteriaNames,
+                            List<String> filterCriteriaValues,
+                            List<Long> skillIds) throws BusinessException {
+
+
+        String jobTitle = handleAdditionalFilterParams(filterCriteriaNames, filterCriteriaValues, "jobTitle");
+        String region = handleAdditionalFilterParams(filterCriteriaNames, filterCriteriaValues, "region");
+
 
         List<Profile> profiles = this.profilePersistenceManager.filter(index, amount, filterCriteriaNames, filterCriteriaValues);
         Integer filterAmount = this.profilePersistenceManager.filterAmount(filterCriteriaNames, filterCriteriaValues);
@@ -195,11 +205,61 @@ public class ProfileManagementService {
             }
         }
 
+        if (!region.equals("")) {
+            filterAmount = getFilterAmountAdditionalParams(region, profiles, false);
+            profiles = getFilterListAdditionalParams(region, profiles, false);
+        }
+        if (!jobTitle.equals("")) {
+            filterAmount = getFilterAmountAdditionalParams(jobTitle, profiles, true);
+            profiles = getFilterListAdditionalParams(jobTitle, profiles, true);
+        }
+
+
         FilterDTO filterDTO = new FilterDTO();
         filterDTO.setAmount(filterAmount);
         filterDTO.setProfiles(ProfileDTOHelper.fromEntity(profiles));
         return filterDTO;
 
+    }
+
+    private int getFilterAmountAdditionalParams(String paramValue, List<Profile> profiles, boolean isJobTitle) {
+        return toIntExact(profiles.stream()
+                .filter(profile -> checkForRegionOrJobTitle(paramValue, profile, isJobTitle))
+                .count());
+    }
+
+    private List<Profile> getFilterListAdditionalParams(String paramValue, List<Profile> profiles, boolean isJobTitle) {
+        return profiles.stream()
+                .filter(profile -> checkForRegionOrJobTitle(paramValue, profile, isJobTitle))
+                .collect(Collectors.toList());
+    }
+
+    private boolean checkForRegionOrJobTitle(String paramValue, Profile profile, boolean isJobTitle) {
+        if (isJobTitle) {
+            if (profile.getJobTitle() != null) {
+                return profile.getJobTitle().getName().equals(paramValue);
+            } else {
+                return false;
+            }
+        } else {
+            if (profile.getRegion() != null) {
+                return profile.getRegion().getName().equals(paramValue);
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private String handleAdditionalFilterParams(List<String> filterCriteriaNames, List<String> filterCriteriaValues, String paramName) {
+        String paramVal = "";
+        if (filterCriteriaNames.contains(paramName)) {
+            paramVal = filterCriteriaValues.get(
+                    filterCriteriaNames.indexOf(paramName)
+            );
+            filterCriteriaNames.remove(paramName);
+            filterCriteriaValues.remove(paramVal);
+        }
+        return paramVal;
     }
 
     /**
@@ -304,16 +364,6 @@ public class ProfileManagementService {
     }
 
     /**
-     * Checks if the list of skills is valid.
-     *
-     * @param skills
-     * @return
-     */
-    private boolean isValidSkills(List<SkillDTO> skills) {
-        return false;
-    }
-
-    /**
      * Validates Profile for Update
      *
      * @param profileDTO
@@ -349,7 +399,7 @@ public class ProfileManagementService {
             skillEntry.setSkillAreaName(skillAreaName);
             if (profile.getSkills().indexOf(skillEntry) < 0) {
                 profile.getSkills().add(skillEntry);
-                if (profile.getAccepted() == true) {
+                if (profile.getAccepted()) {
                     profile.setAccepted(false);
                     sendNotifications(profile, "Skills in profile updated. Please review changes.", "SKILL");
                 }
@@ -381,7 +431,7 @@ public class ProfileManagementService {
 
             if (profile.getProjekts().indexOf(projekt) < 0) {
                 profile.getProjekts().add(projekt);
-                if (profile.getAccepted() == true) {
+                if (profile.getAccepted()) {
                     profile.setAccepted(false);
                     sendNotifications(profile, "Projects in profile updated. Please review changes.", "PROJECT");
                 }
@@ -508,7 +558,7 @@ public class ProfileManagementService {
             if (user.getSupervisorMail().equals(supervisorMail)) {
                 Optional<Profile> profileOptional = profilePersistenceManager.getByEmail(userMail);
                 if (profileOptional.isPresent()) {
-                    if(profileOptional.get().getAccepted() == true)
+                    if (profileOptional.get().getAccepted())
                         profileOptional.get().setAccepted(false);
                     Optional<User> supervisor = userPersistenceMAnager.getUserByEmail(supervisorMail);
                     if (supervisor.isPresent()) {
@@ -562,6 +612,7 @@ public class ProfileManagementService {
                 "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.checkserveridentity", true);
         sendEMail(properties, username, password, from, to,
                 subject, text);
     }

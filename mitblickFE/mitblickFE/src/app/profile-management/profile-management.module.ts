@@ -12,6 +12,9 @@ import {
   MatPaginatorModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpLoaderFactory} from "../app.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
 
 @NgModule({
   declarations: [ProfileManagementComponent],
@@ -19,15 +22,28 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     CommonModule,
     MatPaginatorModule,
     MatCardModule,
-    FormsModule,
     MatFormFieldModule,
+    FormsModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatExpansionModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatButtonModule,
+    TranslateModule.forChild({
+
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+    })
   ]
 })
 export class ProfileManagementModule {

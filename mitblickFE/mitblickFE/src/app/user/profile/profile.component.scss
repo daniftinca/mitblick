@@ -1,11 +1,12 @@
 .example-card {
   max-width: 800px;
-  left: 25%;
+  margin: 50px auto;
 }
 
 .example-header-image {
 
   background-size: cover;
+  margin: 10px 20px;
 }
 
 .mat-card-avatar {
@@ -22,6 +23,17 @@
   flex-flow: row;
   width: 100%;
   justify-content: space-between;
+  .skill-name {
+    font-size: 25px;
+    line-height: 40px;
+  }
+  .delete-skill {
+    margin-left: auto;
+  }
+  .rating {
+    margin-left: 50px;
+    padding: 4px 0;
+  }
 }
 
 .accepted {

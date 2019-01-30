@@ -1,0 +1,82 @@
+{
+  "loginPage": {
+    "login": "Logare",
+    "email": "Email",
+    "emailPlaceholder": "Introduceti emailul",
+    "password": "Parola",
+    "passwordPlaceholder": "Intrpduceti parola",
+    "submit": "Logare"
+  },
+  "navbar": {
+    "login": "Logare",
+    "profile": "Profil",
+    "manageAllUsers": "Gestionare Utilizatori",
+    "manageSkills": "Gestionare Competente",
+    "superiorProfileView": "Gestionare Profile",
+    "supervisorProfileView": "Gestionare Subalterni",
+    "logout": "Delogare",
+    "language": "Limba"
+  },
+  "profile": {
+    "edit": "Editare Profil",
+    "skills": "Competente",
+    "addSkills": "Adaugare Competente",
+    "projects": "Proiecte",
+    "addProject": "Adaugare Proiecte"
+  },
+  "editProfile": {
+    "projectData": "Date Proiect",
+    "firstNamePlaceholder": "Prenume",
+    "lastNamePlaceholder": "Nume",
+    "addPhoto": "Adauga o fotografie",
+    "submit": "Trimite",
+    "cancel": "Anuleaza"
+  },
+  "addSkillDialog": {
+    "addSkills": "Adauga Competente",
+    "skillAreaPlaceholder": "Domeniu",
+    "skillPlaceholder": "Competenta",
+    "ratingplaceholder": "Evaluare",
+    "submit": "Trimite",
+    "cancel": "Anuleaza"
+  },
+  "manageAllUsers": {
+    "addUser": "Adaugare Utilizator",
+    "email": "Email",
+    "activation": "Activare",
+    "edit": "Editare",
+    "editUser": "Editare Utilizator"
+  },
+  "registerUser": {
+    "register": "Inregistreaza Utilizator",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Parola",
+    "submit": "Trimite"
+  },
+  "updateUser": {
+    "update": "Actualizare",
+    "updateUserInfo": "Actualizare Informatii Utilizator",
+    "submit": "Trimite",
+    "password": "Parola",
+    "editRoles": "Editare Rol",
+    "addRole": "Adaugare Rol",
+    "revokeRole": "Revocare Rol"
+  },
+  "skillManagementView": {
+    "addSkillArea": "Adaugare Domenii de Competenta",
+    "addSkill": "Adaugare Competenta",
+    "deleteSkillArea": "Stergere Domeniu de Competenta"
+  },
+  "skillAreaComponent": {
+    "addSkillArea": "Adaugare Domeniu Competenta",
+    "skillAreaNamePlaceholder": "Nume Domeniu",
+    "descriptionPlaceholder": "Descriere",
+    "submit": "Trimite"
+  },
+  "addSkill": {
+    "add": "Adaugare Competenta",
+    "skillNamePlaceholder": "Nume Competenta",
+    "submit": "Trimite"
+  }
+
+}

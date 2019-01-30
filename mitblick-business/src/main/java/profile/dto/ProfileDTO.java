@@ -32,7 +32,7 @@ public class ProfileDTO {
     private List<ProjektDTO> projekts;
 
     public ProfileDTO() {
-
+        //must be empty
     }
 
     public String getFirstName() {

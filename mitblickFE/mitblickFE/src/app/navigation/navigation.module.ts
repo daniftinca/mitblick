@@ -13,6 +13,10 @@ import {SkillManagementModule} from "../skill-management/skill-management.module
 import {NotificationsComponent} from "../user/notifications/notifications.component";
 import {ProfileManagementComponent} from "../profile-management/profile-management/profile-management.component";
 import {ProfileManagementModule} from "../profile-management/profile-management.module";
+import {TranslationModule} from "../translation/translation.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpLoaderFactory} from "../app.module";
+import {HttpClient} from "@angular/common/http";
 import {SupervisorViewComponent} from "../supervisor-management/supervisor-view/supervisor-view.component";
 import {SupervisorManagementModule} from "../supervisor-management/supervisor-management.module";
 
@@ -26,6 +30,8 @@ const loginRoutes: Routes = [
   {path: 'supervisor-view', component: SupervisorViewComponent}
 
 ];
+
+
 @NgModule({
   declarations: [NavbarComponent],
   exports: [
@@ -37,6 +43,19 @@ const loginRoutes: Routes = [
     UserManagementModule
   ],
   imports: [
+    TranslateModule.forChild({
+
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+
+    }),
     CommonModule,
     MatToolbarModule,
     MatButtonModule,
@@ -48,7 +67,8 @@ const loginRoutes: Routes = [
     UserManagementModule,
     SkillManagementModule,
     ProfileManagementModule,
-    SupervisorManagementModule
+    SupervisorManagementModule,
+    TranslationModule,
   ]
 })
 export class NavigationModule {
