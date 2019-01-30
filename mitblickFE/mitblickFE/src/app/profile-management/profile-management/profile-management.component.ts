@@ -5,6 +5,8 @@ import {ProfileDialogComponent} from "../../supervisor-management/profile-dialog
 import {SupervisorViewService} from "../../supervisor-management/supervisor-view.service";
 import * as FileSaver from "file-saver";
 
+import {PageEvent} from "@angular/material";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile-management',
@@ -26,8 +28,10 @@ export class ProfileManagementComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor(private profileManagementService: ProfileManagementService, public dialog: MatDialog,
-              private supervisorService: SupervisorViewService) {
+  constructor(private profileManagementService: ProfileManagementService,
+              public dialog: MatDialog,
+              private supervisorService: SupervisorViewService,
+              private translate: TranslateService) {
   }
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {

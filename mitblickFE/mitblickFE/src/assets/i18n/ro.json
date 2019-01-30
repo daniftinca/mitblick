@@ -11,7 +11,7 @@
     "login": "Logare",
     "profile": "Profil",
     "manageAllUsers": "Gestionare Utilizatori",
-    "manageSkills": "Gestionare Abilitati",
+    "manageSkills": "Gestionare Competente",
     "superiorProfileView": "Gestionare Profile",
     "supervisorProfileView": "Gestionare Subalterni",
     "logout": "Delogare",
@@ -19,8 +19,8 @@
   },
   "profile": {
     "edit": "Editare Profil",
-    "skills": "Abilitati",
-    "addSkills": "Adaugare Abilitati",
+    "skills": "Competente",
+    "addSkills": "Adaugare Competente",
     "projects": "Proiecte",
     "addProject": "Adaugare Proiecte"
   },
