@@ -4,8 +4,6 @@ import {MatDialog, PageEvent} from "@angular/material";
 import {ProfileDialogComponent} from "../../supervisor-management/profile-dialog/profile-dialog.component";
 import {SupervisorViewService} from "../../supervisor-management/supervisor-view.service";
 import * as FileSaver from "file-saver";
-
-import {PageEvent} from "@angular/material";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({

@@ -33,6 +33,8 @@ export class SupervisorViewComponent implements OnInit {
       .subscribe(res => {
         // @ts-ignore
         this.profiles = res.profiles;
+
+        console.log(this.profiles);
       });
   }
 
