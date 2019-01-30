@@ -46,8 +46,12 @@
     "activation": "Activation",
     "edit": "Edit",
     "editUser": "Edit User"
-
-
+  },
+  "registerUser": {
+    "register": "Register User",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "submit": "Submit"
   }
 }
 
