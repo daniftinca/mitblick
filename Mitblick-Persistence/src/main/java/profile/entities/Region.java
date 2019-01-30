@@ -21,6 +21,7 @@ public class Region extends BaseEntity {
     private String name;
 
     public Region() {
+        //must be empty
     }
 
     public String getName() {

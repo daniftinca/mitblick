@@ -26,7 +26,7 @@ public class SkillDTOHelper {
     }
 
     public static List<SkillDTO> fromEntity(List<Skill> skills) {
-        List<SkillDTO> skillDTOs = new ArrayList<SkillDTO>();
+        List<SkillDTO> skillDTOs = new ArrayList<>();
         for (Skill skill : skills) {
             skillDTOs.add(fromEntity(skill));
         }
@@ -34,7 +34,7 @@ public class SkillDTOHelper {
     }
 
     public static List<Skill> toEntity(List<SkillDTO> skillDTOs) {
-        List<Skill> skills = new ArrayList<Skill>();
+        List<Skill> skills = new ArrayList<>();
         for (SkillDTO skill : skillDTOs) {
             skills.add(toEntity(skill));
         }

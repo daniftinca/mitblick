@@ -1,7 +1,5 @@
 package skills.dao;
 
-
-//import org.graalvm.compiler.nodes.calc.IntegerDivRemNode;
 import skills.entities.Skill;
 
 import javax.ejb.Stateless;
@@ -11,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
+
 @Stateless
 public class SkillPersistenceManager {
 

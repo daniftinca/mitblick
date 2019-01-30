@@ -26,8 +26,6 @@ public class AuthenticationBoundary {
     @EJB
     private UserManagementService userManagement;
 
-    // static Logger log = LogManager.getLogger(AuthenticationManagementController.class.getName());
-
     /**
      * Authenticates a user and creates a JWT token for him and returns it.
      *
@@ -79,8 +77,6 @@ public class AuthenticationBoundary {
                     .sign(algorithm);
 
         } catch (JWTCreationException exception) {
-            //Invalid Signing configuration / Couldn't convert Claims.
-            //log.catching(exception);
             return "";
         }
 

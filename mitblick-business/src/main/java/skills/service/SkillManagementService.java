@@ -47,24 +47,6 @@ public class SkillManagementService {
         return skillAreaOptional;
     }
 
-//    public SkillDTO updateSkill(String oldName, String newName) throws BusinessException {
-//
-//        Optional<Skill> skillBeforeOptional = skillPersistenceManager.getByName(oldName);
-//
-//        if (skillBeforeOptional.isPresent()) {
-//            Skill skillBefore = skillBeforeOptional.get();
-//            SkillDTO skillDTO = new SkillDTO();
-//            skillDTO.setName(newName);
-//            Skill skillAfter = SkillDTOHelper.updateEntityWithDTO(skillBefore, skillDTO);
-//
-//            skillPersistenceManager.update(skillAfter);
-//
-//            return skillDTO;
-//        } else {
-//            throw new BusinessException(ExceptionCode.SKILL_NOT_FOUND);
-//        }
-//    }
-
     /**
      * Deletes skill given by ID.
      * @param skillID

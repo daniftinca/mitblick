@@ -11,7 +11,6 @@ import skills.entities.SkillArea;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +27,6 @@ public class SkillAreaManagementService {
 
     private void validateSkillAreaForUpdate(SkillAreaDTO skillAreaDTO) throws BusinessException {
         if (skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent())
-            throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
-    }
-
-    private void validateSkillAreaForDelete(SkillAreaDTO skillAreaDTO) throws BusinessException {
-        if (!(skillAreaPersistenceManager.getByName(skillAreaDTO.getName()).isPresent()))
             throw new BusinessException(ExceptionCode.SKILLAREA_VALIDATION_EXCEPTION);
     }
 

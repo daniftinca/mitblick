@@ -25,7 +25,7 @@ public class Encryptor {
             byte[] encrypted = cipher.doFinal(toEncrypt.getBytes());
             encryptedString = new String(encrypted);
         } catch (Exception e) {
-            //log.catching(e);
+            System.out.println("well..");
         }
         return encryptedString;
     }

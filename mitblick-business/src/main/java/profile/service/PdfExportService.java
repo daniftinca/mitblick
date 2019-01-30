@@ -72,10 +72,10 @@ public class PdfExportService {
         table.addCell(getCell(profileDTO.getLastName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
 
         if (profileDTO.getPhoto() != null && !profileDTO.getPhoto().equals("")) {
-            String base64String = new String(profileDTO.getPhoto());
+            String base64String = profileDTO.getPhoto();
             base64String = base64String.replaceFirst("data.*,", "");
             byte[] bytes = Base64.decode(base64String);
-            PdfPCell cell = null;
+            PdfPCell cell;
             try {
                 Image image = Image.getInstance(bytes);
                 image.scaleAbsolute(202f, 200f);
@@ -112,7 +112,11 @@ public class PdfExportService {
 
             for (int i = 1; i < profileDTO.getProjekts().size(); i++) {
                 table.addCell(getCell("", PdfPCell.ALIGN_CENTER, new BaseColor(0, 102, 204)));
-                table.addCell(getCell(profileDTO.getProjekts().get(i).getName(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
+                table.addCell(getCell(profileDTO.getProjekts().get(i).getName() + "\t" +
+                        profileDTO.getProjekts().get(i).getBranch() + "\t" +
+                        profileDTO.getProjekts().get(i).getClient() + "\t" +
+                        profileDTO.getProjekts().get(i).getDescription(), PdfPCell.ALIGN_LEFT, BaseColor.WHITE));
+
             }
         }
 

@@ -60,6 +60,7 @@ public class Profile extends BaseEntity {
     private List<Projekt> projekts = new ArrayList<>();
 
     public Profile() {
+        //must be empty
     }
 
     public String getFirstName() {

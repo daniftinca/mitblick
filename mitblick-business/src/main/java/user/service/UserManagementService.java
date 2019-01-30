@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @Stateless
 public class UserManagementService {
     public static final int MIN_USERNAME_LENGTH = 6;
-    private static final int MIN_LAST_NAME_LENGTH = 5;
     private static final int MAX_FAILED_LOGN_ATTEMPTS = 5;
 
 
@@ -237,7 +236,7 @@ public class UserManagementService {
     }
 
     public List<UserDTO> getAllSupervisors() {
-        List<UserDTO> users = new ArrayList<UserDTO>();
+        List<UserDTO> users = new ArrayList<>();
         for (User user : userPersistenceManager.getAllUsers()) {
             for (Role role : user.getRoles()) {
                 if (role.getType().equals("SUPERVISOR")) {

@@ -46,12 +46,11 @@ public class EmployeeManagementService {
 
     private void validateSupervisor(User supervisor) throws BusinessException{
         AtomicBoolean ok = new AtomicBoolean(false);
-        supervisor.getRoles().forEach(role -> {
+        supervisor.getRoles().forEach(role ->
             role.getPermissions().forEach(permission -> {
                 if(permission.getType().equals("PROFILE_REVIEW") )
                     ok.set(true);
-            });
-        });
+            }));
         if(!ok.get())
             throw new BusinessException(ExceptionCode.USER_PERMISSION_VALIDATION);
     }
@@ -100,12 +99,11 @@ public class EmployeeManagementService {
     public List<User> getAllSupervisors(){
         List<User> users = userPersistenceManager.getAllUsers();
         List<User> supervisors = new ArrayList<>();
-        users.forEach(user -> {
+        users.forEach(user ->
             user.getRoles().forEach(role -> {
                 if(role.getType().equals("SUPERVISOR"))
                     supervisors.add(user);
-            });
-        });
+            }));
         return supervisors;
     }
 
