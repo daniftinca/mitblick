@@ -4,11 +4,14 @@ import {ProfileManagementComponent} from './profile-management/profile-managemen
 import {
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
+  MatListModule,
   MatPaginatorModule
 } from "@angular/material";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [ProfileManagementComponent],
@@ -19,7 +22,12 @@ import {FormsModule} from "@angular/forms";
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatListModule,
+    MatCheckboxModule
   ]
 })
 export class ProfileManagementModule {

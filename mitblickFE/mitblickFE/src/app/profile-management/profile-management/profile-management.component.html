@@ -1,21 +1,50 @@
 <div class="page-contnet">
   <div class="filter-controls">
     <h2 class="mat-form-field">Filter</h2>
-    <form class="filter-form">
+    <form [formGroup]="form" class="filter-form">
       <mat-form-field>
-        <input type="text" matInput placeholder="First name">
+        <input (ngModelChange)="filterChanged('firstName', firstNameControl.value)" [formControl]="firstNameControl"
+               matInput placeholder="First name"
+               type="text">
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input type="text" matInput placeholder="Last Name">
+        <input (ngModelChange)="filterChanged('lastName', lastNameControl.value)" [formControl]="lastNameControl"
+               matInput placeholder="Last Name"
+               type="text">
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input type="email" matInput placeholder="Email">
+        <input (ngModelChange)="filterChanged('email', emailControl.value)" [formControl]="emailControl" matInput
+               placeholder="Email"
+               type="email">
       </mat-form-field>
-    </form>
+      <mat-form-field>
+        <input (ngModelChange)="filterChanged('jobTitle', jobTitleControl.value)" [formControl]="jobTitleControl"
+               matInput placeholder="Job Title"
+               type="jobTitle">
+      </mat-form-field>
 
-    <button mat-button>Filter</button>
+      <mat-expansion-panel *ngFor="let key of keys()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{key}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+
+          <mat-list-item *ngFor="let skill of this.skillEntries[key]" role="listitem">
+            <div class="single-skill">
+              <div class="skill-name">
+                <mat-checkbox (change)="skillFilterChanged(skill.id)" color="primary">{{skill.name}}</mat-checkbox>
+              </div>
+
+            </div>
+          </mat-list-item>
+        </mat-list>
+
+      </mat-expansion-panel>
+    </form>
   </div>
 
   <div class="profiles">
@@ -36,7 +65,7 @@
         <mat-card-content>
           <p>
             <mat-card-content>
-              Some content
+              {{profile?.email}}
             </mat-card-content>
           </p>
         </mat-card-content>
