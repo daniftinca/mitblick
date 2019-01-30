@@ -31,5 +31,13 @@
     "addPhoto": "Adauga o fotografie",
     "submit": "Trimitere",
     "cancel": "Anulare"
+  },
+  "addSkillDialog": {
+    "addSkills": "Adauga Competente",
+    "skillAreaPlaceholder": "Domeniu",
+    "skillPlaceholder": "Competenta",
+    "ratingplaceholder": "Evaluare",
+    "submit": "Trimitere",
+    "cancel": "Anulare"
   }
 }

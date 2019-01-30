@@ -32,7 +32,13 @@
     "submit": "Submit",
     "cancel": "Cancel"
   },
-  "addSkills": "Add Skill",
-  "skillAreaPlaceholder": "Skill Area"
+  "addSkillDialog": {
+    "addSkills": "Add Skills",
+    "skillAreaPlaceholder": "Skill Area",
+    "skillPlaceholder": "Skill",
+    "ratingPlaceholder": "Rating",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  }
 }
 

@@ -1,15 +1,17 @@
-<h1 mat-dialog-title>Add Skill</h1>
+<h1 mat-dialog-title>{{'addSkillDialog.addSkills' | translate}}</h1>
 <div mat-dialog-content>
   <form (ngSubmit)="sendResponse()" [formGroup]="form">
     <mat-form-field>
-      <mat-select placeholder="Skill Area" [formControl]="skillarea" [(ngModel)]="data.skillAreaName" required>
+      <mat-select placeholder="{{'addSkillDialog.skillAreaPlaceholder' | translate}}" [formControl]="skillarea"
+                  [(ngModel)]="data.skillAreaName" required>
         <mat-option *ngFor="let skillentry of skillEntries" [value]="skillentry.name">
           {{skillentry.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Skill" [(ngModel)]="data.skillid" [formControl]="skill"
+      <mat-select placeholder="{{'addSkillDialog.skillPlaceholder' | translate}}" [(ngModel)]="data.skillid"
+                  [formControl]="skill"
                   (ngModelChange)="setSkillName(data.skillid)" required>
         <mat-option *ngFor="let skill of getSkills(data.skillAreaName)" [value]="skill.id">
           {{skill.name}}
@@ -17,14 +19,15 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Rating" [(ngModel)]="data.skillRating" [formControl]="rating" required>
+      <mat-select placeholder="{{'addSkillDialog.ratingPlaceholder' | translate}}" [(ngModel)]="data.skillRating"
+                  [formControl]="rating" required>
         <mat-option *ngFor="let i of numbers" [value]="i">
           {{i}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <br>
-    <button type="submit" [disabled]="form.invalid" mat-button>Submit</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button type="submit" [disabled]="form.invalid" mat-button>{{'addSkillDialog.submit' | translate}}</button>
+    <button mat-button (click)="onNoClick()">{{'addSkillDialog.cancel' | translate}}</button>
   </form>
 </div>
