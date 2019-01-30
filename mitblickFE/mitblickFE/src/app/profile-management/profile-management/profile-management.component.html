@@ -21,9 +21,29 @@
       </mat-form-field>
       <br>
       <mat-form-field>
-        <input (ngModelChange)="filterChanged('jobTitle', jobTitleControl.value)" [formControl]="jobTitleControl"
-               matInput placeholder="Job Title"
-               type="jobTitle">
+        <mat-select (ngModelChange)="filterChanged('jobTitle', jobTitleControl.value)" [formControl]="jobTitleControl"
+                    placeholder="Job Title">
+          <mat-option [value]="false">
+            None
+          </mat-option>
+          <mat-option *ngFor="let title of jobTitles" [value]="title.name">
+            {{title.name}}
+          </mat-option>
+
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-select (change)="filterChanged('region', regionControl.value)" [formControl]="regionControl"
+                    placeholder="Region">
+          <mat-option [value]="false">
+            None
+          </mat-option>
+          <mat-option *ngFor="let region of regions" value="region.name">
+
+            {{region.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-expansion-panel *ngFor="let key of keys()" class="filter-skill">

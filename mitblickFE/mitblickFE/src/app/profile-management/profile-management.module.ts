@@ -9,7 +9,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSelectModule
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpLoaderFactory} from "../app.module";
@@ -32,6 +33,7 @@ import {HttpClient} from "@angular/common/http";
     MatListModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatSelectModule,
     TranslateModule.forChild({
 
       loader: {

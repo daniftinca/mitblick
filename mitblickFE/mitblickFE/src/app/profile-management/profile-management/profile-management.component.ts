@@ -8,6 +8,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {SkillService} from "../../skill-management/skill.service";
 
 import {TranslateService} from "@ngx-translate/core";
+import {ProfileService} from "../../user/profile.service";
 
 @Component({
   selector: 'app-profile-management',
@@ -25,21 +26,25 @@ export class ProfileManagementComponent implements OnInit {
   //pageIndex = 0;
   filterCriteriaValues = [];
   skillIds = [];
+  jobTitles;
+  regions;
   pageSizeOptions: number[] = [4, 8, 10];
   // MatPaginator Output
   pageEvent: PageEvent;
   lastNameControl = new FormControl();
   emailControl = new FormControl();
   jobTitleControl = new FormControl();
+  regionControl = new FormControl();
+
   form = new FormGroup({
     firstName: this.firstNameControl, lastName: this.lastNameControl, email: this.emailControl,
-    jobTitle: this.jobTitleControl
+    jobTitle: this.jobTitleControl, region: this.regionControl
   });
   private skillEntries: any;
 
   constructor(private profileManagementService: ProfileManagementService, public dialog: MatDialog,
               private supervisorService: SupervisorViewService,
-              private skillService: SkillService,
+              private skillService: SkillService, private profileService: ProfileService,
               private translate: TranslateService) {
   }
 
@@ -52,7 +57,14 @@ export class ProfileManagementComponent implements OnInit {
       var found = false;
       for (var key in this.filterCriteriaNames) {
         if (this.filterCriteriaNames[key] == name) {
-          this.filterCriteriaValues[key] = value;
+          if (value == false) {
+            // @ts-ignore
+            this.filterCriteriaValues.splice(key, 1);
+            // @ts-ignore
+            this.filterCriteriaNames.splice(key, 1);
+          } else {
+            this.filterCriteriaValues[key] = value;
+          }
           found = true;
         }
       }
@@ -116,7 +128,8 @@ export class ProfileManagementComponent implements OnInit {
     console.log(this.pageEvent);
     this.getProfiles(0, 4, [], [], []);
     this.skillService.getAllSkillAreas().subscribe(res => this.getSkillEntries(res));
-
+    this.getJobTitles();
+    this.getRegions();
   }
 
   showProfile(profile: any) {
@@ -154,6 +167,14 @@ export class ProfileManagementComponent implements OnInit {
       // @ts-ignore
 
     }
+  }
+
+  getJobTitles() {
+    this.profileService.getAllJobTitles().subscribe(res => this.jobTitles = res);
+  }
+
+  getRegions() {
+    this.profileService.getAllRegions().subscribe(res => this.regions = res);
   }
 
   keys() {
