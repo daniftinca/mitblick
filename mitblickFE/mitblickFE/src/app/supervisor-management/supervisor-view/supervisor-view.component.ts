@@ -90,7 +90,9 @@ export class SupervisorViewComponent implements OnInit {
         } else {
           this.accept(result);
         }
+
       }
+      this.getProflies();
     });
   }
 

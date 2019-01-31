@@ -1,10 +1,10 @@
 <h1 mat-dialog-title>{{'editProfile.projectData' | translate}}</h1>
 <div mat-dialog-content style="overflow: inherit">
   <mat-form-field>
-    <input matInput [(ngModel)]="data.firstname" placeholder="{{'editProfile.firstNamePlaceholder' | translate}}">
+    <input matInput [(ngModel)]="data.firstName" placeholder="{{'editProfile.firstNamePlaceholder' | translate}}">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.lastname" placeholder="{{'editProfile.lastNamePlaceholder' | translate}}">
+    <input matInput [(ngModel)]="data.lastName" placeholder="{{'editProfile.lastNamePlaceholder' | translate}}">
   </mat-form-field>
   <button mat-button type="button" md-button (click)="imgFileInput.click()">{{'editProfile.addPhoto' | translate}}
   </button>
