@@ -5,6 +5,7 @@ import {NotificationsService} from "../../user/notifications.service";
 import {TranslateService} from "@ngx-translate/core";
 
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -28,6 +29,7 @@ export class NavbarComponent implements OnInit {
   getUnread() {
     return NavbarComponent.unread;
   }
+
 
   amountOfUnread() {
     // @ts-ignore
