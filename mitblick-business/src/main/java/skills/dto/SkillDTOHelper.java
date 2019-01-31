@@ -7,6 +7,10 @@ import java.util.List;
 
 public class SkillDTOHelper {
 
+    private SkillDTOHelper() {
+        //empty private constructor to hide the public implicit one
+    }
+
 
     public static SkillDTO fromEntity(Skill skill) {
         SkillDTO skillDTO = new SkillDTO();
