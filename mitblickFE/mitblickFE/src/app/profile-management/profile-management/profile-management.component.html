@@ -1,28 +1,28 @@
 <div class="page-contnet">
   <div class="filter-controls">
-    <h2 class="mat-form-field">Filter</h2>
+    <h2 class="mat-form-field">{{'profileManagementComponent.filter' | translate}}</h2>
     <form [formGroup]="form" class="filter-form">
       <mat-form-field>
         <input (ngModelChange)="filterChanged('firstName', firstNameControl.value)" [formControl]="firstNameControl"
-               matInput placeholder="First name"
+               matInput placeholder="{{'profileManagementComponent.firstnamePlaceholder' | translate}}"
                type="text">
       </mat-form-field>
       <br>
       <mat-form-field>
         <input (ngModelChange)="filterChanged('lastName', lastNameControl.value)" [formControl]="lastNameControl"
-               matInput placeholder="Last Name"
+               matInput placeholder="{{'profileManagementComponent.lastnamePlaceholder' | translate}}"
                type="text">
       </mat-form-field>
       <br>
       <mat-form-field>
         <input (ngModelChange)="filterChanged('email', emailControl.value)" [formControl]="emailControl" matInput
-               placeholder="Email"
+               placeholder="{{'profileManagementComponent.emailPlaceholder' | translate}}"
                type="email">
       </mat-form-field>
       <br>
       <mat-form-field>
         <mat-select (ngModelChange)="filterChanged('jobTitle', jobTitleControl.value)" [formControl]="jobTitleControl"
-                    placeholder="Job Title">
+                    placeholder="{{'profileManagementComponent.jobTitlePlaceholder' | translate}}">
           <mat-option [value]="false">
             None
           </mat-option>
@@ -35,12 +35,11 @@
       <br>
       <mat-form-field>
         <mat-select (ngModelChange)="filterChanged('region', regionControl.value)" [formControl]="regionControl"
-                    placeholder="Region">
+                    placeholder="{{'profileManagementComponent.regionPlaceholder' | translate}}">
           <mat-option [value]="false">
             None
           </mat-option>
           <mat-option *ngFor="let region of regions" [value]="region.name">
-
             {{region.name}}
           </mat-option>
         </mat-select>
@@ -65,8 +64,9 @@
         </mat-list>
 
       </mat-expansion-panel>
+      <br>
       <button (click)="exportAll()" color="primary" mat-raised-button>
-        Export All Filtered
+        {{'profileManagementComponent.exportAllFiltered' | translate}}
       </button>
     </form>
   </div>
@@ -95,8 +95,12 @@
         </mat-card-content>
         <mat-card-actions>
 
-          <button (click)="showProfile(profile)" color="primary" mat-raised-button>View Profile</button>
-          <button (click)="exportPdf(profile?.email)" color="primary" mat-raised-button>Export profile to PDF</button>
+          <button (click)="showProfile(profile)" color="primary" mat-raised-button>
+            {{'profileManagementComponent.viewProfile' | translate}}
+          </button>
+          <button (click)="exportPdf(profile?.email)" color="primary" mat-raised-button>
+            {{'profileManagementComponent.exportProfileToPDF' | translate}}
+          </button>
 
         </mat-card-actions>
       </mat-card>

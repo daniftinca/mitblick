@@ -3,27 +3,32 @@
   <mat-form-field>
     <input matInput [(ngModel)]="data.firstName" placeholder="{{'editProfile.firstNamePlaceholder' | translate}}">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <input matInput [(ngModel)]="data.lastName" placeholder="{{'editProfile.lastNamePlaceholder' | translate}}">
   </mat-form-field>
+  <br>
   <button mat-button type="button" md-button (click)="imgFileInput.click()">{{'editProfile.addPhoto' | translate}}
   </button>
-  <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>
 
+  <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>
+  <br>
   <mat-form-field>
-    <mat-select placeholder="Job Title" [(ngModel)]="data.jobTitle">
+    <mat-select placeholder="{{'editProfile.jobTitlePlaceholder' | translate}}" [(ngModel)]="data.jobTitle">
       <mat-option *ngFor="let title of jobTitles" [value]="title">
         {{title.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <br>
   <mat-form-field>
-    <mat-select placeholder="Region" [(ngModel)]="data.region">
+    <mat-select placeholder="{{'editProfile.regionPlaceholder' | translate}}" [(ngModel)]="data.region">
       <mat-option *ngFor="let region of regions" [value]="region">
         {{region.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <br>
   <div id="chosen_image" width="100px" style="float:right">
 
   </div>

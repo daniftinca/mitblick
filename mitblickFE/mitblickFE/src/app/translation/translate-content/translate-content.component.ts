@@ -30,7 +30,8 @@ export class TranslateContentComponent implements OnInit {
 
     this.allLanguages = [
       new Language('en', 'English'),
-      new Language('ro', 'Romana')
+      new Language('ro', 'Romana'),
+      new Language('de', 'Deutsch')
     ];
 
   }

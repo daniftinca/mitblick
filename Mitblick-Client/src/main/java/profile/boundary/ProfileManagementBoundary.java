@@ -329,22 +329,6 @@ public class ProfileManagementBoundary {
     }
 
 
-//    /**
-//     * Sends email. Needs recieverEmail, subject and message as parameters.
-//     * @return
-//     */
-//    @POST
-//    @Path("/send-email")
-//    public Response sendEmail(){
-//        try{
-//            profileManagementService.sendMailUsingSSL(/*add Parameters*/);
-//            return Response.ok().build();
-//        }
-//        catch (Exception e) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-//        }
-//    }
-
     @GET
     @Path("/filter-by-supervisor")
     @Produces(MediaType.APPLICATION_JSON)

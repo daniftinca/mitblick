@@ -12,7 +12,7 @@
     "profile": "Profil",
     "manageAllUsers": "Gestionare Utilizatori",
     "manageSkills": "Gestionare Competente",
-    "superiorProfileView": "Gestionare Profile",
+    "superiorProfileView": "Gestionare Profiluri",
     "supervisorProfileView": "Gestionare Subalterni",
     "logout": "Delogare",
     "language": "Limba"
@@ -22,13 +22,29 @@
     "skills": "Competente",
     "addSkills": "Adaugare Competente",
     "projects": "Proiecte",
-    "addProject": "Adaugare Proiecte"
+    "addProject": "Adaugare Proiecte",
+    "profileIsVerified": "Profilul este verificat",
+    "profileIsNotVerified": "Profilul nu este verificat"
+  },
+  "addProjectDialog": {
+    "projectData": "Date Proiect",
+    "namePlaceholder": "Nume",
+    "clientPlaceholder": "Client",
+    "branchPlaceholder": "Departament",
+    "descriptionPlaceholder": "Descriere",
+    "startDatePlaceholder": "Alege data de inceput",
+    "endDatePlaceholder": "Alege data de finalizare",
+    "dateMessage": "Data de finalizare nu poate sa fie inainte de data de incepere",
+    "submit": "Trimite",
+    "cancel": "Anuleaza"
   },
   "editProfile": {
     "projectData": "Date Proiect",
     "firstNamePlaceholder": "Prenume",
     "lastNamePlaceholder": "Nume",
     "addPhoto": "Adauga o fotografie",
+    "jobTitlePlaceholder": "Titlu Job",
+    "regionPlaceholder": "Regiune",
     "submit": "Trimite",
     "cancel": "Anuleaza"
   },
@@ -77,6 +93,47 @@
     "add": "Adaugare Competenta",
     "skillNamePlaceholder": "Nume Competenta",
     "submit": "Trimite"
-  }
+  },
+  "notifications": {
+    "notificationsMessage": "Nu aveti notificari noi! :)",
+    "unread": "Necitit",
+    "read": "Citit",
+    "email": "Email: ",
+    "review": "Revizuire",
+    "accept": "Accepta",
+    "decline": "Refuza"
+  },
+  "profileDialog": {
+    "profileIsVerified": "Profilul este verificat",
+    "profileIsNotVerified": "Profilul nu este verificat",
+    "editProfile": "Editare Profil",
+    "skills": "Competente",
+    "addSkill": "Adaugare Competente",
+    "projects": "Proiecte",
+    "addProject": "Adaugare Proiecte",
+    "activate": "Activare",
+    "deactivate": "Dezactivare"
+  },
+  "profileManagementComponent": {
+    "filter": "Filtrare",
+    "firstnamePlaceholder": "Prenume",
+    "lastnamePlaceholder": "Nume",
+    "emailPlaceholder": "Email",
+    "jobTitlePlaceholder": "Titlu Job",
+    "regionPlaceholder": "Regiune",
+    "exportAllFiltered": "Exporta Profiluri Filtrate",
+    "viewProfile": "Vizualizare Profil",
+    "exportProfileToPDF": "Exporta Profil ca PDF"
+  },
+  "supervisorView": {
+    "fullName": "Nume Complet",
+    "profile": "Profil",
+    "status": "Status",
+    "action": "Actiune",
+    "export": "Exportare",
+    "viewProfile": "Vizualizare Profil",
+    "exportProfileAsPDF": "Exporta Profil ca PDF"
 
+
+  }
 }

@@ -3,8 +3,9 @@ package skills.dto;
 import skills.entities.SkillArea;
 
 public class SkillAreaDTOHelper {
-    public SkillAreaDTOHelper() {
-        //this must be empty
+
+    private SkillAreaDTOHelper() {
+        //empty private constructor to hide the public implicit one
     }
 
     public static SkillAreaDTO fromEntity(SkillArea skillArea) {

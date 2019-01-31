@@ -1,0 +1,140 @@
+{
+  "loginPage": {
+    "login": "Login",
+    "email": "Email",
+    "emailPlaceholder": "Schreibe deinen Email hier",
+    "password": "Passwort",
+    "passwordPlaceholder": "Schreibe deinen Passwort hier",
+    "submit": "Login"
+  },
+  "navbar": {
+    "login": "Login",
+    "profile": "Profil",
+    "manageAllUsers": "Alle Benutzer Verwalten",
+    "manageSkills": "Skills Verwalten",
+    "superiorProfileView": "Profile Verwalten",
+    "supervisorProfileView": "Deine Mitarbeiter Verwalten",
+    "logout": "Log Out",
+    "language": "Sprache"
+  },
+  "profile": {
+    "edit": "Profil bearbeiten",
+    "skills": "Skills",
+    "addSkills": "Skills hinzufugen",
+    "projects": "Projekte",
+    "addProject": "Projekt hinzufugen",
+    "profileIsVerified": "Profil ist akkzeptiert",
+    "profileIsNotVerified": "Profil ist nicht akkzeptiert"
+  },
+  "addProjectDialog": {
+    "projectData": "Projektdaten",
+    "namePlaceholder": "Name",
+    "clientPlaceholder": "Kunde",
+    "branchPlaceholder": "Branch",
+    "descriptionPlaceholder": "Beschreibung",
+    "startDatePlaceholder": "Wahle einen Startdatum aus",
+    "endDatePlaceholder": "Wahle einen Enddatum aus",
+    "dateMessage": "Enddatum muss spater als Startdatum sein.",
+    "submit": "Absenden",
+    "cancel": "Abbrechen"
+  },
+  "editProfile": {
+    "projectData": "Projektdaten",
+    "firstNamePlaceholder": "Vorname",
+    "lastNamePlaceholder": "Nachname",
+    "addPhoto": "Photo hinzufugen",
+    "jobTitlePlaceholder": "Job Titel",
+    "regionPlaceholder": "Region",
+    "submit": "Absenden",
+    "cancel": "Abbrechen"
+  },
+  "addSkillDialog": {
+    "addSkills": "Skills hinzufugen",
+    "skillAreaPlaceholder": "Skill Area hinzufugen",
+    "skillPlaceholder": "Skill",
+    "ratingPlaceholder": "Rating",
+    "submit": "Absenden",
+    "cancel": "Abbrechen"
+  },
+  "manageAllUsers": {
+    "addUser": "Benutzer hinzufugen",
+    "email": "Email",
+    "activation": "Ist aktiv",
+    "edit": "Bearbeiten",
+    "editUser": "Benutzer bearbeiten"
+  },
+  "registerUser": {
+    "register": "Benutzer erstellen",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Passwort",
+    "submit": "Absenden"
+  },
+  "updateUser": {
+    "update": "Aktualisieren",
+    "updateUserInfo": "Benutzerinformationen aktualisieren",
+    "submit": "Absenden",
+    "password": "Passwort",
+    "editRoles": "Rollen aktualisieren",
+    "addRole": "Rolle hinzufugen",
+    "revokeRole": "Rolle wiederrufen"
+  },
+  "skillManagementView": {
+    "addSkillArea": "Skill Area hinzufugen",
+    "addSkill": "Skill hinzufugen",
+    "deleteSkillArea": "Skill Area loschen"
+  },
+  "skillAreaComponent": {
+    "addSkillArea": "Skill Area hinzufugen",
+    "skillAreaNamePlaceholder": "Skill Area Name",
+    "descriptionPlaceholder": "Beschreibung",
+    "submit": "Absenden"
+  },
+  "addSkill": {
+    "add": "Skill hinzufugen",
+    "skillNamePlaceholder": "Skillname",
+    "submit": "Absenden"
+  },
+  "notifications": {
+    "notificationsMessage": "You have no new notifications! :)",
+    "unread": "Nicht gelesen",
+    "read": "Gelesen",
+    "email": "Email: ",
+    "review": "Uberprufen",
+    "accept": "Akzeptieren",
+    "decline": "Ablehenen"
+  },
+  "profileDialog": {
+    "profileIsVerified": "Profil ist verifiziert",
+    "profileIsNotVerified": "Profil ist nicht verifiziert",
+    "editProfile": "Profil bearbeiten",
+    "skills": "Skills",
+    "addSkill": "Skill hinzufugen",
+    "projects": "Projekte",
+    "addProject": "Projekt hinzufugen",
+    "activate": "Aktivieren",
+    "deactivate": "Deaktivieren"
+  },
+  "profileManagementComponent": {
+    "filter": "Filtern",
+    "firstnamePlaceholder": "Vorname",
+    "lastnamePlaceholder": "Nachname",
+    "emailPlaceholder": "Email",
+    "jobTitlePlaceholder": "Job Titel",
+    "regionPlaceholder": "Region",
+    "exportAllFiltered": "Export alle gefiltert",
+    "viewProfile": "Profil sehen",
+    "exportProfileToPDF": "Export Profil als PDF"
+  },
+  "supervisorView": {
+    "fullName": "Volles Name",
+    "profile": "Profil",
+    "status": "Status",
+    "action": "Aktion",
+    "export": "Export",
+    "viewProfile": "Profil sehen",
+    "exportProfileAsPDF": "Export Profil als PDF",
+    "accept": "Akzeptieren",
+    "decline": "Ablehenen"
+  }
+}
+

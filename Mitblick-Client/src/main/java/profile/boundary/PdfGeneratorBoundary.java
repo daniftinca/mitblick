@@ -21,6 +21,9 @@ import java.util.List;
 @Path("/pdf")
 public class PdfGeneratorBoundary {
 
+    public static final String PROFILES_PDF_LOCATION = "\\ProfilesPdf.pdf";
+    public static final String CONTENT_DISPOSITION = "Content-Disposition";
+    private static final String USER_DIR = "user.dir";
     @EJB
     private PdfExportService pdfExportService;
 
@@ -39,7 +42,7 @@ public class PdfGeneratorBoundary {
     public Response getFile() {
         File file;
         FileOutputStream fileOutputStream;
-        String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
+        String localDir = System.getProperty(USER_DIR) + PROFILES_PDF_LOCATION;
         try {
 
             file = new File(localDir);
@@ -49,7 +52,7 @@ public class PdfGeneratorBoundary {
             pdfExportService.createPdf(profileManagementService.getAll(), document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=allProfiles.pdf");
+            response.header(CONTENT_DISPOSITION, "attachment; filename=allProfiles.pdf");
             file.deleteOnExit();
             return response.entity(file).build();
 
@@ -71,7 +74,7 @@ public class PdfGeneratorBoundary {
     public Response getFileById(@PathParam("email") String email) {
         File file;
         FileOutputStream fileOutputStream;
-        String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
+        String localDir = System.getProperty(USER_DIR) + PROFILES_PDF_LOCATION;
         try {
 
             file = new File(localDir);
@@ -81,7 +84,7 @@ public class PdfGeneratorBoundary {
             pdfExportService.createSinglePdf(profileManagementService.getByEmail(email), document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=profile_" + email.split("@")[0] + ".pdf");
+            response.header(CONTENT_DISPOSITION, "attachment; filename=profile_" + email.split("@")[0] + ".pdf");
             file.deleteOnExit();
             return response.entity(file).build();
 
@@ -103,7 +106,7 @@ public class PdfGeneratorBoundary {
     public Response getFileByEmailList(@QueryParam("emailList") List<String> emailList) {
         File file;
         FileOutputStream fileOutputStream;
-        String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
+        String localDir = System.getProperty(USER_DIR) + PROFILES_PDF_LOCATION;
         try {
 
             file = new File(localDir);
@@ -119,7 +122,7 @@ public class PdfGeneratorBoundary {
             pdfExportService.createPdf(profileDTOList, document);
 
             Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=profileList.pdf");
+            response.header(CONTENT_DISPOSITION, "attachment; filename=profileList.pdf");
             file.deleteOnExit();
             return response.entity(file).build();
 

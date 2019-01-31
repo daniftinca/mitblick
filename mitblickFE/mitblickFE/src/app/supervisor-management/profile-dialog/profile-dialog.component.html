@@ -15,25 +15,20 @@
     </mat-card-subtitle>
     <div class="isAccepted">
       <i *ngIf="profile.isAccepted" class="material-icons" style="color: green">done</i>
-      <h5 *ngIf="profile.isAccepted" mat-card>Profile is verified</h5>
+      <h5 *ngIf="profile.isAccepted" mat-card>{{'profileDialog.prefileISVerified' | translate}}</h5>
       <i *ngIf="!profile.isAccepted" class="material-icons" style="color: red">clear</i>
-      <h5 *ngIf="!profile.isAccepted" mat-card>Profile is not verified</h5>
+      <h5 *ngIf="!profile.isAccepted" mat-card>{{'profileDialog.profileIsNotVerified' | translate}}</h5>
     </div>
   </mat-card-header>
   <button (click)="editProfileDialog()" color="primary" mat-raised-button>
-    <i class="material-icons">edit</i> Edit Profile
+    <i class="material-icons">edit</i> {{'profileDialog.editProfile' | translate}}
   </button>
   <!--<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" width="400px"-->
   <!--alt="Photo of a Shiba Inu">-->
   <mat-card-content>
-    <p>
 
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
     <mat-list>
-      <h2 mat-subheader>Skills</h2>
+      <h2 mat-subheader>{{'profileDialog.skills' | translate}}</h2>
       <mat-accordion>
         <mat-expansion-panel *ngFor="let key of keys()">
           <mat-expansion-panel-header>
@@ -65,12 +60,12 @@
       </mat-accordion>
       <mat-list-item>
         <button (click)="addSkillDialog()" color="primary" mat-raised-button>
-          <i class="material-icons">add</i> Add skill
+          <i class="material-icons">add</i> {{'profileDialog.addSkill' | translate}}
         </button>
       </mat-list-item>
 
       <mat-divider></mat-divider>
-      <h2 mat-subheader>Projects</h2>
+      <h2 mat-subheader>{{'profileDialog.projects' | translate}}</h2>
       <mat-list-item *ngFor="let project of projekts()">
         <mat-icon mat-list-icon>show_chart</mat-icon>
         <h3 mat-line><b>{{project.name}} </b></h3>
@@ -89,14 +84,14 @@
       </mat-list-item>
       <mat-list-item>
         <button (click)="addProjectDialog()" color="primary" mat-raised-button>
-          <i class="material-icons">add</i> Add project
+          <i class="material-icons">add</i> {{'profileDialog.addProject' | translate}}
         </button>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
   <mat-card-actions>
-    <button (click)="activate()" color="primary" mat-raised-button>Activate</button>
-    <button (click)="deactivate()" color="warn" mat-raised-button>Deactivate</button>
+    <button (click)="activate()" color="primary" mat-raised-button>{{'profileDialog.activate' | translate}}</button>
+    <button (click)="deactivate()" color="warn" mat-raised-button>{{'profileDialog.deactivate' | translate}}</button>
   </mat-card-actions>
 
 </mat-card>

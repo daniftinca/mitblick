@@ -22,13 +22,30 @@
     "skills": "Skills",
     "addSkills": "Add Skills",
     "projects": "Projects",
-    "addProject": "Add Project"
+    "addProject": "Add Project",
+    "profileIsVerified": "Profile is verified",
+    "profileIsNotVerified": "Profile is not verified"
   },
+  "addProjectDialog": {
+    "projectData": "Project data",
+    "namePlaceholder": "Name",
+    "clientPlaceholder": "Client",
+    "branchPlaceholder": "Branch",
+    "descriptionPlaceholder": "Description",
+    "startDatePlaceholder": "Choose a start date",
+    "endDatePlaceholder": "Choose an end date",
+    "dateMessage": "End date can not be before start date",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+
   "editProfile": {
     "projectData": "Profile Data",
     "firstNamePlaceholder": "First Name",
     "lastNamePlaceholder": "Last Name",
     "addPhoto": "Add a photo",
+    "jobTitlePlaceholder": "Job Title",
+    "regionPlaceholder": "Region",
     "submit": "Submit",
     "cancel": "Cancel"
   },
@@ -77,6 +94,50 @@
     "add": "Add Skill",
     "skillNamePlaceholder": "Skill Name",
     "submit": "Submit"
+  },
+  "notifications": {
+    "notificationsMessage": "You have no new notifications! :)",
+    "unread": "Unread",
+    "read": "Read",
+    "email": "Email: ",
+    "review": "Review",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
+  "profileDialog": {
+    "profileIsVerified": "Profile is verified",
+    "profileIsNotVerified": "Profile is not verified",
+    "editProfile": "Edit Profile",
+    "skills": "Skills",
+    "addSkill": "Add Skill",
+    "projects": "Projects",
+    "addProject": "Add Project",
+    "activate": "Activate",
+    "deactivate": "Deactivate"
+  },
+  "profileManagementComponent": {
+    "filter": "Filter",
+    "firstnamePlaceholder": "First  Name",
+    "lastnamePlaceholder": "Last Name",
+    "emailPlaceholder": "Email",
+    "jobTitlePlaceholder": "Job Title",
+    "regionPlaceholder": "Region",
+    "exportAllFiltered": "Export All Filtered",
+    "viewProfile": "View Profile",
+    "exportProfileToPDF": "Export Profile as PDF"
+  },
+  "supervisorView": {
+    "fullName": "Full Name",
+    "profile": "Profile",
+    "status": "Status",
+    "action": "Action",
+    "export": "Export",
+    "viewProfile": "View Profile",
+    "exportProfileAsPDF": "Export Profile as PDF",
+    "accept": "Accept",
+    "decline": "Decline"
+
+
   }
 
 

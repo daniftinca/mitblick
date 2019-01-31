@@ -12,7 +12,6 @@ public class ProfileDTOHelper {
     private ProfileDTOHelper() {
         //empty private constructor to hide the public implicit one
     }
-
     public static ProfileDTO fromEntity(Profile profile) {
 
         ProfileDTO profileDTO = new ProfileDTO();

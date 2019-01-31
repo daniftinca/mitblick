@@ -5,6 +5,7 @@ import {ProfileDialogComponent} from "../../supervisor-management/profile-dialog
 import {MatDialog} from "@angular/material";
 import {ProfileService} from "../profile.service";
 import {SupervisorViewService} from "../../supervisor-management/supervisor-view.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-notifications',
@@ -31,7 +32,8 @@ export class NotificationsComponent implements OnInit {
   }];
   userProfiles = [{}];
 
-  constructor(private notifService: NotificationsService, public dialog: MatDialog,
+  constructor(private translate: TranslateService,
+              private notifService: NotificationsService, public dialog: MatDialog,
               private profileService: ProfileService, private supervisorService: SupervisorViewService) {
   }
 

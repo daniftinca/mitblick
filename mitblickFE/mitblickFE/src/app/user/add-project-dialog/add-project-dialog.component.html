@@ -1,35 +1,40 @@
-<h1 mat-dialog-title>Project data</h1>
+<h1 mat-dialog-title>{{'addProjectDialog.projectData' | translate}}</h1>
 <div mat-dialog-content>
   <form (ngSubmit)="sendResponse()" [formGroup]="form">
     <mat-form-field>
-      <input matInput name="name" [(ngModel)]="data.name" [formControl]="name" placeholder="Name" required>
+      <input matInput name="name" [(ngModel)]="data.name" [formControl]="name"
+             placeholder="{{'addProjectDialog.namePlaceholder' | translate}}" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="client" [(ngModel)]="data.client" [formControl]="client" placeholder="Client" required>
+      <input matInput name="client" [(ngModel)]="data.client" [formControl]="client"
+             placeholder="{{'addProjectDialog.clientPlaceholder' | translate}}" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput name="branch" [(ngModel)]="data.branch" [formControl]="branch" placeholder="Branch" required>
+      <input matInput name="branch" [(ngModel)]="data.branch" [formControl]="branch"
+             placeholder="{{'addProjectDialog.branchPlaceholder' | translate}}" required>
     </mat-form-field>
     <mat-form-field>
       <input matInput name="description" [(ngModel)]="data.description" [formControl]="description"
-             placeholder="Description" required>
+             placeholder="{{'addProjectDialog.descriptionPlaceholder' | translate}}" required>
     </mat-form-field>
     <mat-form-field>
       <input [matDatepicker]="picker" matInput name="startDate" [(ngModel)]="data.startDate" [formControl]="startDate"
-             placeholder="Choose a start date" required>
+             placeholder="{{'addProjectDialog.startDatePlaceholder' | translate}}" required>
       <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
       <input [matDatepicker]="picker2" matInput name="endDate" [(ngModel)]="data.endDate" [formControl]="endDate"
-             placeholder="Choose an end date" required>
+             placeholder="{{'addProjectDialog.endDatePlaceholder' | translate}}" required>
       <mat-datepicker-toggle [for]="picker2" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-    <mat-error class="mat-body" *ngIf="datesValidation()">End date can not be before start date</mat-error>
+    <mat-error class="mat-body" *ngIf="datesValidation()">{{'addProjectDialog.dateMessage' | translate}}</mat-error>
     <br>
-    <button type="submit" [disabled]="form.invalid || datesValidation()" mat-button>Submit</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button type="submit" [disabled]="form.invalid || datesValidation()" mat-button>{{'addProjectDialog.submit' |
+      translate}}
+    </button>
+    <button mat-button (click)="onNoClick()">{{'addProjectDialog.cancel' | translate}}</button>
   </form>
 
 </div>
