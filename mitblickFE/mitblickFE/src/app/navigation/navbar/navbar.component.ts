@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem("email") && this.authService.isLoggedIn()) {
+      console.log("I am logged in.");
       this.amountOfUnread();
       var service = this.notifService;
       if (this.hasPermission("PROFILE_REVIEW") && this.authService.isLoggedIn()) {

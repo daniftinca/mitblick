@@ -43,8 +43,8 @@ export class TokenInterceptorService {
   private handleError(err: HttpErrorResponse) {
     this.errorString = 'exceptionCodes.' + err.error.value;
     console.log(err);
-    //this.translate.get(this.errorString).subscribe((res: string) => this.errorMsg = res);
-    this.openSnackBar(err.error);
-
+    if(err.error.length<150) {
+      this.openSnackBar(err.error);
+    }
   }
 }

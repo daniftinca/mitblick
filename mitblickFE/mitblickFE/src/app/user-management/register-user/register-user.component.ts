@@ -47,7 +47,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   validateEmail(control: FormControl) {
-    const regex = new RegExp('^[A-Za-z0-9._%+-]+@mitblick.com$');
+    const regex = new RegExp('^[A-Za-z0-9._%+-]+@[a-zA-z]+.com$');
     if (regex.test(control.value)) {
       return null;
     }
