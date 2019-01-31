@@ -24,6 +24,19 @@
     "projects": "Projects",
     "addProject": "Add Project"
   },
+  "addProjectDialog": {
+    "projectData": "Project data",
+    "namePlaceholder": "Name",
+    "clientPlaceholder": "Client",
+    "branchPlaceholder": "Branch",
+    "descriptionPlaceholder": "Description",
+    "startDatePlaceholder": "Choose a start date",
+    "endDatePlaceholder": "Choose an end date",
+    "dateMessage": "End date can not be before start date",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+
   "editProfile": {
     "projectData": "Project Data",
     "firstNamePlaceholder": "First Name",

@@ -24,6 +24,18 @@
     "projects": "Proiecte",
     "addProject": "Adaugare Proiecte"
   },
+  "addProjectDialog": {
+    "projectData": "Date Proiect",
+    "namePlaceholder": "Nume",
+    "clientPlaceholder": "Client",
+    "branchPlaceholder": "Departament",
+    "descriptionPlaceholder": "Descriere",
+    "startDatePlaceholder": "Alege data de inceput",
+    "endDatePlaceholder": "Alege data de finalizare",
+    "dateMessage": "Data de finalizare nu poate sa fie inainte de data de incepere",
+    "submit": "Trimite",
+    "cancel": "Anuleaza"
+  },
   "editProfile": {
     "projectData": "Date Proiect",
     "firstNamePlaceholder": "Prenume",

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {ProfileComponent} from "../profile/profile.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {TranslateService} from "@ngx-translate/core";
 
 export interface ProjectDialogData {
   name: string;
@@ -31,6 +32,7 @@ export class AddProjectDialogComponent implements OnInit {
   });
 
   constructor(
+    private translate: TranslateService,
     public dialogRef: MatDialogRef<ProfileComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectDialogData) {
   }
