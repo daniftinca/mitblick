@@ -41,7 +41,11 @@ export class ProfileManagementService {
       params = params.append('emailList', emailList[i]);
     }
 
-    return this.http.get(this.baseURL + 'pdf/profiles-by-email', {params: params});
+    return this.http.get(this.baseURL + '/pdf/profiles-by-emails', {
+      params: params,
+      observe: 'response',
+      responseType: 'blob' as 'json'
+    });
 
   }
 

@@ -9,10 +9,7 @@ import profile.service.PdfExportService;
 import profile.service.ProfileManagementService;
 
 import javax.ejb.EJB;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -94,48 +91,16 @@ public class PdfGeneratorBoundary {
     }
 
     /**
-     * Export a list of profiles, identified by a list of ids, into a pdf file.
+     * Export a list of profiles, identified by a list of emailss, into a pdf file.
      *
-     * @param idList List of profile ids.
+     * @param emailList List of profile emails.
      * @return Response with a pdf | INTERNAL_SERVER_ERROR
      */
     @GET
-    @Path("/profiles-by-ids/{idList}")
+    @Path("/profiles-by-emails")
     // @Secured(PROFILE_EXPORT_PDF) ?
     @Produces("application/pdf")
-    public Response getFileByIdList(@PathParam("idList") List<Long> idList) {
-        File file;
-        FileOutputStream fileOutputStream;
-        String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
-        try {
-
-            file = new File(localDir);
-            Document document = new Document();
-            fileOutputStream = new FileOutputStream(file);
-            PdfWriter.getInstance(document, fileOutputStream);
-
-            List<ProfileDTO> profileDTOList = new ArrayList<>();
-            for (Long id : idList) {
-                profileDTOList.add(profileManagementService.getById(id));
-            }
-
-            pdfExportService.createPdf(profileDTOList, document);
-
-            Response.ResponseBuilder response = Response.ok(file);
-            response.header("Content-Disposition", "attachment; filename=profileList.pdf");
-            file.deleteOnExit();
-            return response.entity(file).build();
-
-        } catch (DocumentException | BusinessException | IOException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
-        }
-    }
-
-    @GET
-    @Path("/profiles-by-emails/{emailList}")
-    // @Secured(PROFILE_EXPORT_PDF) ?
-    @Produces("application/pdf")
-    public Response getFileByEmailList(@PathParam("emailList") List<String> emailList) {
+    public Response getFileByEmailList(@QueryParam("emailList") List<String> emailList) {
         File file;
         FileOutputStream fileOutputStream;
         String localDir = System.getProperty("user.dir") + "\\ProfilesPdf.pdf";
