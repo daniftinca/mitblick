@@ -22,7 +22,9 @@
     "skills": "Competente",
     "addSkills": "Adaugare Competente",
     "projects": "Proiecte",
-    "addProject": "Adaugare Proiecte"
+    "addProject": "Adaugare Proiecte",
+    "profileIsVerified": "Profilul este verificat",
+    "profileIsNotVerified": "Profilul nu este verificat"
   },
   "addProjectDialog": {
     "projectData": "Date Proiect",
@@ -89,6 +91,15 @@
     "add": "Adaugare Competenta",
     "skillNamePlaceholder": "Nume Competenta",
     "submit": "Trimite"
+  },
+  "notifications": {
+    "notificationsMessage": "Nu aveti notificari noi! :)",
+    "unread": "Necitit",
+    "read": "Citit",
+    "email": "Email: ",
+    "review": "Revizuire",
+    "accept": "Accepta",
+    "decline": "Refuza"
   }
 
 }

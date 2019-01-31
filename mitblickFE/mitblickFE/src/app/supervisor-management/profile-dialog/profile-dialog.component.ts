@@ -7,6 +7,7 @@ import {SkillService} from "../../skill-management/skill.service";
 import {AddSkillDialogComponent} from "../../user/add-skill-dialog/add-skill-dialog.component";
 import {ProfileData} from "../../user/profile/profile.component";
 import {SupervisorViewComponent} from "../supervisor-view/supervisor-view.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile-dialog',
@@ -24,7 +25,8 @@ export class ProfileDialogComponent implements OnInit {
   private new_profile: ProfileDialogData;
 
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog,
+  constructor(private translate: TranslateService,
+              private profileService: ProfileService, public dialog: MatDialog,
               private skillManagement: SkillService,
               @Inject(MAT_DIALOG_DATA) public data: ProfileData,
               public dialogRef: MatDialogRef<SupervisorViewComponent>) {

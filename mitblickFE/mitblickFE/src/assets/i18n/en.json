@@ -22,7 +22,9 @@
     "skills": "Skills",
     "addSkills": "Add Skills",
     "projects": "Projects",
-    "addProject": "Add Project"
+    "addProject": "Add Project",
+    "profileIsVerified": "Profile is verified",
+    "profileIsNotVerified": "Profile is not verified"
   },
   "addProjectDialog": {
     "projectData": "Project data",
@@ -90,6 +92,15 @@
     "add": "Add Skill",
     "skillNamePlaceholder": "Skill Name",
     "submit": "Submit"
+  },
+  "notifications": {
+    "notificationsMessage": "You have no new notifications! :)",
+    "unread": "Unread",
+    "read": "Read",
+    "email": "Email: ",
+    "review": "Review",
+    "accept": "Accept",
+    "decline": "Decline"
   }
 
 

@@ -1,6 +1,6 @@
 <div class="notification-content">
   <div *ngIf="notificationData.length===0" class="no-notif font-apply">
-    You have no new notifications! :)
+    {{'notifications.notificationsMessage' | translate}}
   </div>
 
   <mat-card *ngFor="let notification of notificationData" [class.unread]="!notification.isRead" class="example-card">
@@ -8,20 +8,20 @@
       <!--<div mat-card-avatar class="example-header-image"></div>-->
       <button (click)="markNotification(notification)" mat-button>
         <i *ngIf="!notification.isRead" class="material-icons" style="color:#3f51b5">error</i>
-        <mat-card-content *ngIf="!notification.isRead">Unread</mat-card-content>
+        <mat-card-content *ngIf="!notification.isRead">{{'notifications.unread' | translate}}</mat-card-content>
         <i *ngIf="notification.isRead" class="material-icons" style="color:green">done</i>
-        <mat-card-content *ngIf="notification.isRead">Read</mat-card-content>
+        <mat-card-content *ngIf="notification.isRead">{{'notifications.read' | translate}}</mat-card-content>
       </button>
       <mat-card-title>{{notification.title}}</mat-card-title>
       <mat-card-subtitle>{{notification.message}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>Email: {{notification.userMail}}</p>
+      <p>{{'notifications.email' | translate}}{{notification.userMail}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="showProfile(notification)" mat-button>Review</button>
-      <button (click)="accept(notification)" mat-button>Accept</button>
-      <button (click)="decline(notification)" mat-button>Decline</button>
+      <button (click)="showProfile(notification)" mat-button>{{'notifications.review' | translate}}</button>
+      <button (click)="accept(notification)" mat-button>{{'notifications.accept' | translate}}</button>
+      <button (click)="decline(notification)" mat-button>{{'notifications.decline' | translate}}</button>
     </mat-card-actions>
   </mat-card>
 
