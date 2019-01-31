@@ -11,6 +11,7 @@ export interface ProfileDialogData {
   email: string;
   jobTitle: { name: string };
   region: { name: string };
+  accepted: 0;
 }
 
 @Component({

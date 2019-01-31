@@ -140,6 +140,7 @@ export class ProfileDialogComponent implements OnInit {
         if (this.new_profile.region == undefined || this.new_profile.region.name == undefined) {
           this.new_profile.region = this.profile.region;
         }
+        this.new_profile.accepted = this.profile.isAccepted;
         // @ts-ignore
         this.profileService.updateProfile(this.new_profile).subscribe(res => this.profile = res);
       }
