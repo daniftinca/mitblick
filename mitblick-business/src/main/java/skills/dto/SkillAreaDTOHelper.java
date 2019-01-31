@@ -3,9 +3,7 @@ package skills.dto;
 import skills.entities.SkillArea;
 
 public class SkillAreaDTOHelper {
-    public SkillAreaDTOHelper() {
-        //this must be empty
-    }
+
 
     public static SkillAreaDTO fromEntity(SkillArea skillArea) {
         SkillAreaDTO skillAreaDTO = new SkillAreaDTO();

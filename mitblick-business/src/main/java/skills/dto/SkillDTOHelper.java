@@ -7,9 +7,6 @@ import java.util.List;
 
 public class SkillDTOHelper {
 
-    private SkillDTOHelper() {
-
-    }
 
     public static SkillDTO fromEntity(Skill skill) {
         SkillDTO skillDTO = new SkillDTO();

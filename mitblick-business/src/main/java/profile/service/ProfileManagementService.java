@@ -183,8 +183,7 @@ public class ProfileManagementService {
         List<Profile> profiles = this.profilePersistenceManager.filter(index, amount, filterCriteriaNames, filterCriteriaValues);
         Integer filterAmount = this.profilePersistenceManager.filterAmount(filterCriteriaNames, filterCriteriaValues);
 
-        if (skillIds != null) {
-            if (!skillIds.isEmpty()) {
+        if (skillIds != null && !skillIds.isEmpty()) {
                 int count = 0;
                 boolean skillFlag = true;
                 List<Profile> newProfiles = new LinkedList<>();
@@ -202,7 +201,7 @@ public class ProfileManagementService {
                 }
                 filterAmount = count;
                 profiles = newProfiles;
-            }
+
         }
 
         if (!region.equals("")) {
@@ -598,7 +597,7 @@ public class ProfileManagementService {
 
 
     public void sendMailUsingSSL(String recieverMail, String mailSubject, String mailMessage) {
-        String host = "smtp.gmail.com";
+
         String username = "noreply.mitblick@gmail.com";
         String password = "mitblick123";
         String from = "noreply.mitblick@gmail.com";
