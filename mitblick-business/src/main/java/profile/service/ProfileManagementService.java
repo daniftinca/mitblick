@@ -24,6 +24,8 @@ import javax.ejb.Stateless;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -114,9 +116,10 @@ public class ProfileManagementService {
             notification.setType(type);
             Notification notif = notificationPersistenceManager.create(notification);
             supervisorOptional.get().getNotifications().add(notif);
-            String mailBody = "Notification for employee" + profileAfter.getFirstName() + " " + profileAfter.getLastName() + ". " + message;
-//            sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
-            sendMailUsingSSL("no-reply.mitblick@gmail.com", "Profile review: ", mailBody);
+            String mailBody = "Notification for employee: " + profileAfter.getFirstName() + " " + profileAfter.getLastName() + ". " + message;
+            sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
+
+//            sendMailUsingSSL("no-reply.mitblick@gmail.com", "Profile review", mailBody);
 
         }
 
@@ -595,31 +598,47 @@ public class ProfileManagementService {
         return profilePersistenceManager.getAllRegions();
     }
 
-
+    /**
+     * Sends a mail to a supervisor, from a fixed mail(noreply);
+     *
+     * @param recieverMail
+     * @param mailSubject
+     * @param mailMessage
+     */
     public void sendMailUsingSSL(String recieverMail, String mailSubject, String mailMessage) {
+        try {
+            InputStream input = getClass().getClassLoader().getResourceAsStream("mail.properties");
+            Properties prop = new Properties();
+            prop.load(input);
+            String username = prop.getProperty("from");
+            String password = prop.getProperty("password");
+            String from = prop.getProperty("from");
+            String host = "smtp.gmail.com";
+            String to = recieverMail;
+            String subject = mailSubject;
+            String text = mailMessage;
+            Properties properties = new Properties();
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.socketFactory.port", "465");
+            properties.put("mail.smtp.socketFactory.class",
+                    "javax.net.ssl.SSLSocketFactory");
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.checkserveridentity", true);
+            sendEMail(properties, username, password, from, to,
+                    subject, text);
+            input.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        String username = "noreply.mitblick@gmail.com";
-        String password = "mitblick123";
-        String from = "noreply.mitblick@gmail.com";
-        String to = recieverMail;
-        String subject = mailSubject;
-        String text = mailMessage;
-        Properties properties = new Properties();
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.socketFactory.port", "465");
-        properties.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.checkserveridentity", true);
-        sendEMail(properties, username, password, from, to,
-                subject, text);
+
     }
 
-    public void sendEMail(Properties properties,
+    private void sendEMail(Properties properties,
                           String username, String password,
                           String fromEmailAddress, String toEmailAddress,
-                          String subject, String messageText) {
+                          String subject, String messageText) throws BusinessException {
         Session session = Session.getInstance(properties,
                 new Authenticator() {
                     @Override
@@ -638,7 +657,7 @@ public class ProfileManagementService {
             msg.setText(messageText);
             Transport.send(msg);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new BusinessException(ExceptionCode.SEND_EMAIL_EXCEPTION);
         }
     }
 }
