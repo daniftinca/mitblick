@@ -4,6 +4,9 @@ import skills.entities.SkillArea;
 
 public class SkillAreaDTOHelper {
 
+    private SkillAreaDTOHelper() {
+        //empty private constructor to hide the public implicit one
+    }
 
     public static SkillAreaDTO fromEntity(SkillArea skillArea) {
         SkillAreaDTO skillAreaDTO = new SkillAreaDTO();

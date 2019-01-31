@@ -24,7 +24,6 @@ import javax.ejb.Stateless;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -119,8 +118,6 @@ public class ProfileManagementService {
             String mailBody = "Notification for employee: " + profileAfter.getFirstName() + " " + profileAfter.getLastName() + ". " + message;
             sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
 
-//            sendMailUsingSSL("no-reply.mitblick@gmail.com", "Profile review", mailBody);
-
         }
 
     }
@@ -187,23 +184,23 @@ public class ProfileManagementService {
         Integer filterAmount = this.profilePersistenceManager.filterAmount(filterCriteriaNames, filterCriteriaValues);
 
         if (skillIds != null && !skillIds.isEmpty()) {
-                int count = 0;
-                boolean skillFlag = true;
-                List<Profile> newProfiles = new LinkedList<>();
-                for (Profile profile : profiles) {
-                    for (Long id : skillIds) {
-                        if (!profileHasSkill(profile, id)) {
-                            skillFlag = false;
-                        }
+            int count = 0;
+            boolean skillFlag = true;
+            List<Profile> newProfiles = new LinkedList<>();
+            for (Profile profile : profiles) {
+                for (Long id : skillIds) {
+                    if (!profileHasSkill(profile, id)) {
+                        skillFlag = false;
                     }
-                    if (skillFlag) {
-                        newProfiles.add(profile);
-                        count++;
-                    }
-                    skillFlag = true;
                 }
-                filterAmount = count;
-                profiles = newProfiles;
+                if (skillFlag) {
+                    newProfiles.add(profile);
+                    count++;
+                }
+                skillFlag = true;
+            }
+            filterAmount = count;
+            profiles = newProfiles;
 
         }
 
@@ -628,16 +625,16 @@ public class ProfileManagementService {
                     subject, text);
             input.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            //DO Nothing
         }
 
 
     }
 
     private void sendEMail(Properties properties,
-                          String username, String password,
-                          String fromEmailAddress, String toEmailAddress,
-                          String subject, String messageText) throws BusinessException {
+                           String username, String password,
+                           String fromEmailAddress, String toEmailAddress,
+                           String subject, String messageText) throws BusinessException {
         Session session = Session.getInstance(properties,
                 new Authenticator() {
                     @Override
