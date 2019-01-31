@@ -12,7 +12,7 @@
     "profile": "Profil",
     "manageAllUsers": "Gestionare Utilizatori",
     "manageSkills": "Gestionare Competente",
-    "superiorProfileView": "Gestionare Profile",
+    "superiorProfileView": "Gestionare Profiluri",
     "supervisorProfileView": "Gestionare Subalterni",
     "logout": "Delogare",
     "language": "Limba"
@@ -113,5 +113,16 @@
     "addProject": "Adaugare Proiecte",
     "activate": "Activare",
     "deactivate": "Dezactivare"
+  },
+  "profileManagementComponent": {
+    "filter": "Filtrare",
+    "firstnamePlaceholder": "Prenume",
+    "lastnamePlaceholder": "Nume",
+    "emailPlaceholder": "Email",
+    "jobTitlePlaceholder": "Titlu Job",
+    "regionPlaceholder": "Regiune",
+    "exportAllFiltered": "Exporta Profiluri Filtrate",
+    "viewProfile": "Vizualizare Profil",
+    "exportProfileToPDF": "Exporta Profil ca PDF"
   }
 }

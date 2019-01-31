@@ -114,8 +114,17 @@
     "addProject": "Add Project",
     "activate": "Acrivate",
     "deactivate": "Deactivate"
-
-
+  },
+  "profileManagementComponent": {
+    "filter": "Filter",
+    "firstnamePlaceholder": "First  Name",
+    "lastnamePlaceholder": "Last Name",
+    "emailPlaceholder": "Email",
+    "jobTitlePlaceholder": "Job Title",
+    "regionPlaceholder": "Region",
+    "exportAllFiltered": "Export All Filtered",
+    "viewProfile": "View Profile",
+    "exportProfileToPDF": "Export Profile to PDF"
   }
 
 
