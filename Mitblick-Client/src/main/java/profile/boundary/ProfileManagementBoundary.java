@@ -337,7 +337,7 @@ public class ProfileManagementBoundary {
 //    @Path("/send-email")
 //    public Response sendEmail(){
 //        try{
-//            profileManagementService.sendMailUsingSSL(/*add Parameters*/);
+//            profileManagementService.sendMailUsingSSL("noreply.mitlick@gmail.com", "Test", "Test the test");
 //            return Response.ok().build();
 //        }
 //        catch (Exception e) {
