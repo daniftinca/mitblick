@@ -15,7 +15,7 @@
     </mat-card-subtitle>
     <div class="isAccepted">
       <i *ngIf="profile.isAccepted" class="material-icons" style="color: green">done</i>
-      <h5 *ngIf="profile.isAccepted" mat-card>{{'profileDialog.prefileISVerified' | translate}}</h5>
+      <h5 *ngIf="profile.isAccepted" mat-card>{{'profileDialog.profileIsVerified' | translate}}</h5>
       <i *ngIf="!profile.isAccepted" class="material-icons" style="color: red">clear</i>
       <h5 *ngIf="!profile.isAccepted" mat-card>{{'profileDialog.profileIsNotVerified' | translate}}</h5>
     </div>
