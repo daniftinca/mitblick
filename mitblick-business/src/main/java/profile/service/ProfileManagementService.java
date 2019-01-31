@@ -613,7 +613,6 @@ public class ProfileManagementService {
             String username = prop.getProperty("from");
             String password = prop.getProperty("password");
             String from = prop.getProperty("from");
-            String host = "smtp.gmail.com";
             String to = recieverMail;
             String subject = mailSubject;
             String text = mailMessage;
