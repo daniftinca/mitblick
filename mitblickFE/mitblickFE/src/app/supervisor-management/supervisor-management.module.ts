@@ -21,7 +21,9 @@ import {
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ProfileDialogComponent} from './profile-dialog/profile-dialog.component';
 import {HttpModule} from "@angular/http";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpLoaderFactory} from "../app.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [SupervisorViewComponent, ProfileDialogComponent],
@@ -51,7 +53,19 @@ import {HttpClientModule} from "@angular/common/http";
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild({
+
+      loader: {
+
+        provide: TranslateLoader,
+
+        useFactory: HttpLoaderFactory,
+
+        deps: [HttpClient]
+
+      }
+    })
   ],
   entryComponents: [ProfileDialogComponent]
 })

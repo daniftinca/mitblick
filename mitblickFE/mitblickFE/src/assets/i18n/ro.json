@@ -43,6 +43,8 @@
     "firstNamePlaceholder": "Prenume",
     "lastNamePlaceholder": "Nume",
     "addPhoto": "Adauga o fotografie",
+    "jobTitlePlaceholder": "Titlu Job",
+    "regionPlaceholder": "Regiune",
     "submit": "Trimite",
     "cancel": "Anuleaza"
   },
@@ -100,6 +102,16 @@
     "review": "Revizuire",
     "accept": "Accepta",
     "decline": "Refuza"
+  },
+  "profileDialog": {
+    "profileIsVerified": "Profilul este verificat",
+    "profileIsNotVerified": "Profilul nu este verificat",
+    "editProfile": "Editare Profil",
+    "skills": "Competente",
+    "addSkill": "Adaugare Competente",
+    "projects": "Proiecte",
+    "addProject": "Adaugare Proiecte",
+    "activate": "Activare",
+    "deactivate": "Dezactivare"
   }
-
 }

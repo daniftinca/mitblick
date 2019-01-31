@@ -14,7 +14,7 @@
   <input hidden type="file" #imgFileInput (change)="previewImage($event)"/>
   <br>
   <mat-form-field>
-    <mat-select placeholder="Job Title" [(ngModel)]="data.jobTitle">
+    <mat-select placeholder="{{'editProfile.jobTitlePlaceholder' | translate}}" [(ngModel)]="data.jobTitle">
       <mat-option *ngFor="let title of jobTitles" [value]="title">
         {{title.name}}
       </mat-option>
@@ -22,7 +22,7 @@
   </mat-form-field>
   <br>
   <mat-form-field>
-    <mat-select placeholder="Region" [(ngModel)]="data.region">
+    <mat-select placeholder="{{'editProfile.regionPlaceholder' | translate}}" [(ngModel)]="data.region">
       <mat-option *ngFor="let region of regions" [value]="region">
         {{region.name}}
       </mat-option>

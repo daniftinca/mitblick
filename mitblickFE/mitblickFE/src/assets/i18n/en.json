@@ -44,6 +44,8 @@
     "firstNamePlaceholder": "First Name",
     "lastNamePlaceholder": "Last Name",
     "addPhoto": "Add a photo",
+    "jobTitlePlaceholder": "Job Title",
+    "regionPlaceholder": "Region",
     "submit": "Submit",
     "cancel": "Cancel"
   },
@@ -101,6 +103,19 @@
     "review": "Review",
     "accept": "Accept",
     "decline": "Decline"
+  },
+  "profileDialog": {
+    "profileIsVerified": "Profile is verified",
+    "profileIsNotVerified": "Profile is not verified",
+    "editProfile": "Edit Profile",
+    "skills": "Skills",
+    "addSkill": "Add Skill",
+    "projects": "Projects",
+    "addProject": "Add Project",
+    "activate": "Acrivate",
+    "deactivate": "Deactivate"
+
+
   }
 
 
