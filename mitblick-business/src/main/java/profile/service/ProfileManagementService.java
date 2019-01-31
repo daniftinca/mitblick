@@ -116,7 +116,7 @@ public class ProfileManagementService {
             supervisorOptional.get().getNotifications().add(notif);
             String mailBody = "Notification for employee" + profileAfter.getFirstName() + " " + profileAfter.getLastName() + ". " + message;
 //            sendMailUsingSSL(supervisorOptional.get().getEmail(), "Profile review", mailBody);
-//            sendMailUsingSSL("no-reply.mitblick@gmail.com", "Profile review", mailBody);
+            sendMailUsingSSL("no-reply.mitblick@gmail.com", "Profile review: ", mailBody);
 
         }
 
