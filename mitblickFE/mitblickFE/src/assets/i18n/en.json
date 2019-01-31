@@ -124,7 +124,20 @@
     "regionPlaceholder": "Region",
     "exportAllFiltered": "Export All Filtered",
     "viewProfile": "View Profile",
-    "exportProfileToPDF": "Export Profile to PDF"
+    "exportProfileToPDF": "Export Profile as PDF"
+  },
+  "supervisorView": {
+    "fullName": "Full Name",
+    "profile": "Profile",
+    "status": "Status",
+    "action": "Action",
+    "export": "Export",
+    "viewProfile": "View Profile",
+    "exportProfileAsPDF": "Export Profile as PDF",
+    "accept": "Accept",
+    "decline": "Decline"
+
+
   }
 
 

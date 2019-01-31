@@ -124,5 +124,16 @@
     "exportAllFiltered": "Exporta Profiluri Filtrate",
     "viewProfile": "Vizualizare Profil",
     "exportProfileToPDF": "Exporta Profil ca PDF"
+  },
+  "supervisorView": {
+    "fullName": "Nume Complet",
+    "profile": "Profil",
+    "status": "Status",
+    "action": "Actiune",
+    "export": "Exportare",
+    "viewProfile": "Vizualizare Profil",
+    "exportProfileAsPDF": "Exporta Profil ca PDF"
+
+
   }
 }

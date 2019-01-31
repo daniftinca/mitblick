@@ -3,7 +3,7 @@
   <table [dataSource]="this.profiles" class="mat-elevation-z8" mat-table>
 
     <ng-container matColumnDef="name">
-      <th *matHeaderCellDef mat-header-cell>Full name</th>
+      <th *matHeaderCellDef mat-header-cell>{{'supervisorView.fullName' | translate}}</th>
       <td *matCellDef="let element" mat-cell>
         <div *ngIf='element.photo!=undefined && element.photo!=""' class="example-header-image" mat-card-avatar>
           <img class="image-profile" mat-card-avatar src={{element.photo}}>
@@ -18,19 +18,19 @@
 
 
     <ng-container matColumnDef="view">
-      <th *matHeaderCellDef mat-header-cell> Profile</th>
+      <th *matHeaderCellDef mat-header-cell> {{'supervisorView.profile' | translate}}</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="showProfile(element)"
                 color="primary"
                 id="viewProfile"
-                mat-raised-button>View Profile
+                mat-raised-button>{{'supervisorView.viewProfile' | translate}}
         </button>
       </td>
     </ng-container>
 
 
     <ng-container matColumnDef="status">
-      <th *matHeaderCellDef mat-header-cell>Status</th>
+      <th *matHeaderCellDef mat-header-cell>{{'supervisorView.status' | translate}}</th>
       <td *matCellDef="let element" mat-cell>
         <i *ngIf="element.isAccepted" class="material-icons" style="color: green">done</i>
         <i *ngIf="!element.isAccepted" class="material-icons" style="color: red">clear</i>
@@ -39,7 +39,7 @@
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th *matHeaderCellDef mat-header-cell> Action</th>
+      <th *matHeaderCellDef mat-header-cell> {{'supervisorView.action' | translate}}</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="toggleActivation(element)"
                 color="primary"
@@ -52,12 +52,12 @@
     </ng-container>
 
     <ng-container matColumnDef="export">
-      <th *matHeaderCellDef mat-header-cell>Export</th>
+      <th *matHeaderCellDef mat-header-cell>{{'supervisorView.export' | translate}}</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="exportPdf(element.email)"
 
                 color="primary"
-                mat-raised-button>Export Profile as PDF
+                mat-raised-button>{{'supervisorView.exportProfileAsPDF' | translate}}
         </button>
       </td>
     </ng-container>

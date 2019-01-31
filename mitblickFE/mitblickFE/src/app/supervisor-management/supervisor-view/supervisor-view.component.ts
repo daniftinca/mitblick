@@ -3,6 +3,7 @@ import {SupervisorViewService} from "../supervisor-view.service";
 import {MatDialog} from "@angular/material";
 import {ProfileDialogComponent} from "../profile-dialog/profile-dialog.component";
 import * as FileSaver from "file-saver";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-supervisor-view',
@@ -21,7 +22,9 @@ export class SupervisorViewComponent implements OnInit {
   private profiles: any;
   private dataSource: any;
 
-  constructor(private supervisorService: SupervisorViewService, public dialog: MatDialog) {
+  constructor(private translate: TranslateService,
+              private supervisorService: SupervisorViewService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
